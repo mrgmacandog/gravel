@@ -3,7 +3,7 @@ import Jumbotron from "./components/Jumbotron";
 import Nav from "./components/Nav";
 import Input from "./components/Input";
 import Button from "./components/Button";
-import ButtonDriver from "./components/postWays";
+import ChoiceButton from "./components/choiceButton";
 import API from "./utils/API";
 import { PostList, PostListItem } from "./components/PostList";
 import { Container, Row, Col } from "./components/Grid";
@@ -93,26 +93,26 @@ class App extends Component {
             </Col>
           </Row>
           <Row>
-             <Col size="xs-6 sm-6">
-                <ButtonDriver
+             <Col size="sm-6">
+                <ChoiceButton
                   onClick={this}
                   type="success"
-                  className="input-lg"
+                  className="driver-input-lg"
+                  text="Driver"
                 >
-                 Driver
-                </ButtonDriver>
+                </ChoiceButton>
             </Col>
-            <Col size="xs-6 sm-6">
-                <ButtonDriver
+            <Col size="sm-6">
+                <ChoiceButton
                   onClick={this}
                   type="success"
-                  className="input-lg"
+                  className="rider-input-lg"
+                  text="Rider"
+                 
                 >
-                 Rider
-                </ButtonDriver>
+                </ChoiceButton>
             </Col>
-         
-          </Row>
+           </Row>
         </Container>
         
       </div>

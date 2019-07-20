@@ -1,0 +1,17 @@
+
+.driver-input-lg{
+    background-color: green;
+    display:block; 
+    line-height: 50px; 
+    width:50%; 
+    text-align:center; 
+    margin:0 auto;
+}
+.rider-input-lg{
+    background-color: green;
+    /* display:block;  */
+    line-height: 50px; 
+    width:50%; 
+    text-align:center; 
+    margin:0 auto;
+}
