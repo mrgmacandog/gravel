@@ -24,7 +24,7 @@ var UserSchema = new Schema({
         required: true
     },
     email:{
-        type: mongoose.SchemaTypes.Email,
+        type: String,
         required: true
     }
 });

@@ -8,7 +8,7 @@ import Nav from "./components/Nav";
 import Driver from "./pages/Driver";
 import DriverPost from "./pages/DriverPost";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Signin from "./pages/Signin";
 import Rider from "./pages/Rider";
 import RiderPost from "./pages/RiderPost";
 import Signup from "./pages/Signup";
@@ -27,7 +27,7 @@ class App extends Component {
           <Link to="/driver-post">/driver-post</Link>
           <Link to="/rider">/rider</Link>
           <Link to="/rider-post">/rider-post</Link>
-          <Link to="/login">/login</Link>
+          <Link to="/signin">/signin</Link>
           <Link to="/signup">/signup</Link>
         </div>
         <Nav />
@@ -43,7 +43,7 @@ class App extends Component {
           <Route exact path="/driver-post" component={DriverPost} />
           <Route exact path="/rider" component={Rider} />
           <Route exact path="/rider-post" component={RiderPost} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/signin" component={Signin} />
           <Route exact path="/signup" component={Signup} />
         </div>
       </Router>
