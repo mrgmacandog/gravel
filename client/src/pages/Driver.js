@@ -1,9 +1,14 @@
 import React from "react";
+import TripContainer from "../components/TripContainer";
 
 // Can change to stateful component if need be
 function Driver() {
     return (
-        <p>Inside Driver Component</p>
+        <React.Fragment>
+            <p>Inside Driver Component</p>
+            {/* TODO: Send TripContainer the data from Riders table */}
+            <TripContainer />
+        </React.Fragment>
     );
 }
 
