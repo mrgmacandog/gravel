@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const DriverSchema = new Schema({
     driver_id: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "user"
     },
     start_location: {
         type: String,
@@ -43,13 +43,13 @@ const DriverSchema = new Schema({
     comment: {
         type: String,
         required: false
-    },
-    rider_id: [{
-        type: Schema.type.ObjectId,
-        ref: "User"
-    }]
+    }
+    // rider_id: [{
+    //     type: Schema.type.ObjectId,
+    //     ref: "user"
+    // }]
 });
 
-const Rider = mongoose.model("Driver", DriverSchema);
+const Driver = mongoose.model("Driver", DriverSchema);
 
 module.exports = Driver;
