@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Nav from "./components/Nav";
-// import API from "./utils/API";
+import TripModal from "./components/TripModal";
 
 
 // Pages
@@ -14,10 +14,17 @@ import RiderPost from "./pages/RiderPost";
 import Signup from "./pages/Signup";
 
 class App extends Component {
-  
+  state = {
+    modalShow: false
+  }
+
+  showModal = () => this.setState({ modalShow: true });
+
+  hideModal = () => this.setState({ modalShow: false });
+
   render() {
     return (
-        <Router>
+      <Router>
         {/* Temporary website navigation               */}
         {/* TODO: Delete after all pages are navigable */}
         {/* ****************************************** */}
@@ -33,8 +40,13 @@ class App extends Component {
         <Nav />
         {/* ***************************************** **/}
 
-        
-        
+        {/* Modal Test */}
+        <button className="btn btn-light" onClick={this.showModal} >Modal</button>
+        <TripModal
+          show={this.state.modalShow}
+          onHide={this.hideModal}
+        />
+
         {/* React router. TODO: May need to place everything above into the respective page. */}
         <div>
           <Route exact path="/" component={Home} />
