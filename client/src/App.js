@@ -18,8 +18,9 @@ class App extends Component {
     modalShow: false
   }
 
+  // Shows modal
   showModal = () => this.setState({ modalShow: true });
-
+  // Hides modal
   hideModal = () => this.setState({ modalShow: false });
 
   render() {
@@ -41,6 +42,7 @@ class App extends Component {
         {/* ***************************************** **/}
 
         {/* Modal Test */}
+        {/* TODO: Move this into each TripItem */}
         <button className="btn btn-light" onClick={this.showModal} >Modal</button>
         <TripModal
           show={this.state.modalShow}
