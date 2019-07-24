@@ -19,8 +19,9 @@ import { Container, Row, Col } from "../components/Grid";
 
 export default class Home extends Component {
   state = {
-    posts: [],
-    postSearch: ""
+    // posts: [],
+    // postSearch: ""
+    startLocation: ""
   };
 
   handleInputChange = event => {
@@ -41,9 +42,9 @@ export default class Home extends Component {
     //   .catch(err => console.log(err));
   };
 
-  onClick() {
-    window.location.href = "/driver";
-  }
+  // onClick() {
+  //   window.location.href = "/driver";
+  // }
   render() {
     return (
       <React.Fragment>
@@ -52,17 +53,17 @@ export default class Home extends Component {
           <Row>
             <Col size="md-12">
               <form>
-                <Container>
-                  <Row>
-                    <Col size="xs-9 sm-10">
+                {/* <Container> */}
+                  {/* <Row> */}
+                    {/* <Col size="xs-9 sm-10"> */}
                       <Input
-                        name="postSearch"
+                        name="startLocation"
                         value={this.state.postSearch}
                         onChange={this.handleInputChange}
                         placeholder="Enter the departure city or use current location"
                       />
-                    </Col>
-                    <Col size="xs-3 sm-2">
+                    {/* </Col> */}
+                    {/* <Col size="xs-3 sm-2">
                       <Button
                         onClick={this.handleFormSubmit}
                         type="success"
@@ -70,9 +71,9 @@ export default class Home extends Component {
                       >
                         Search
                       </Button>
-                    </Col>
-                  </Row>
-                </Container>
+                    </Col> */}
+                  {/* </Row> */}
+                {/* </Container> */}
               </form>
             </Col>
           </Row>
@@ -83,6 +84,7 @@ export default class Home extends Component {
                 type="success"
                 className="driver-input-lg"
                 text="Driver"
+                route="/driver"
               >
               </ChoiceButton>
             </Col>
@@ -92,6 +94,7 @@ export default class Home extends Component {
                 type="success"
                 className="rider-input-lg"
                 text="Rider"
+                route={"/rider"}
               >
               </ChoiceButton>
             </Col>
