@@ -15,13 +15,30 @@ import Signup from "./pages/Signup";
 
 class App extends Component {
   state = {
-    modalShow: false
+    modalShow: false,
+    startLocation: "",
+    endLocation: ""
   }
 
   // Shows modal
   showModal = () => this.setState({ modalShow: true });
   // Hides modal
   hideModal = () => this.setState({ modalShow: false });
+
+  // Handle input change
+  handleInputChange = event => {
+    // Destructure the name and value properties off of event.target
+    // Update the appropriate state
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    // When the form is submitted, prevent its default behavior, get posts update the posts state
+    event.preventDefault();
+  };
 
   render() {
     return (
@@ -51,11 +68,11 @@ class App extends Component {
 
         {/* React router. TODO: May need to place everything above into the respective page. */}
         <div>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/driver" component={Driver} />
+          <Route exact path="/" render={(props) => <Home {...props} state={this.state} handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} />} />
+          <Route exact path="/home" render={(props) => <Home {...props} state={this.state} handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} />} />
+          <Route exact path="/driver" render={(props) => <Driver {...props} state={this.state} handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} />} />
           <Route exact path="/driver-post" component={DriverPost} />
-          <Route exact path="/rider" component={Rider} />
+          <Route exact path="/rider" render={(props) => <Rider {...props} state={this.state} handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} />} />
           <Route exact path="/rider-post" component={RiderPost} />
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/signup" component={Signup} />

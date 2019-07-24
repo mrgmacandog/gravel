@@ -17,49 +17,49 @@ import { Container, Row, Col } from "../components/Grid";
 
 // export default Home;
 
-export default class Home extends Component {
-  state = {
-    // posts: [],
-    // postSearch: ""
-    startLocation: ""
-  };
+export default function Home(props) {
+  // state = {
+  //   // posts: [],
+  //   // postSearch: ""
+  //   startLocation: ""
+  // };
 
-  handleInputChange = event => {
-    // Destructure the name and value properties off of event.target
-    // Update the appropriate state
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+  // handleInputChange = event => {
+  //   // Destructure the name and value properties off of event.target
+  //   // Update the appropriate state
+  //   const { name, value } = event.target;
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // };
 
-  handleFormSubmit = event => {
-    // When the form is submitted, prevent its default behavior, get posts update the posts state
-    event.preventDefault();
+  // handleFormSubmit = event => {
+  //   // When the form is submitted, prevent its default behavior, get posts update the posts state
+  //   event.preventDefault();
 
-    // API.getPosts(this.state.postSearch)
-    //   .then(res => this.setState({ posts: res.data }))
-    //   .catch(err => console.log(err));
-  };
+  //   // API.getPosts(this.state.postSearch)
+  //   //   .then(res => this.setState({ posts: res.data }))
+  //   //   .catch(err => console.log(err));
+  // };
 
   // onClick() {
   //   window.location.href = "/driver";
   // }
-  render() {
+  // render() {
     return (
       <React.Fragment>
         <Jumbotron />
         <Container>
           <Row>
             <Col size="md-12">
-              <form>
+              <form onSubmit={props.handleFormSubmit}>
                 {/* <Container> */}
                   {/* <Row> */}
                     {/* <Col size="xs-9 sm-10"> */}
                       <Input
                         name="startLocation"
-                        value={this.state.postSearch}
-                        onChange={this.handleInputChange}
+                        value={props.state.startLocation}
+                        onChange={props.handleInputChange}
                         placeholder="Enter the departure city or use current location"
                       />
                     {/* </Col> */}
@@ -80,7 +80,7 @@ export default class Home extends Component {
           <Row>
             <Col size="sm-6">
               <ChoiceButton
-                onClick={() => window.location.href = "/driver"}
+                // onClick={() => window.location.href = "/driver"}
                 type="success"
                 className="driver-input-lg"
                 text="Driver"
@@ -90,7 +90,7 @@ export default class Home extends Component {
             </Col>
             <Col size="sm-6">
               <ChoiceButton
-                onClick={() => window.location.href = "/rider"}
+                // onClick={() => window.location.href = "/rider"}
                 type="success"
                 className="rider-input-lg"
                 text="Rider"
@@ -102,5 +102,5 @@ export default class Home extends Component {
         </Container>
       </React.Fragment>
     );
-  }
+  // }
 }

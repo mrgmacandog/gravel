@@ -2,7 +2,9 @@ import React from "react";
 import TripContainer from "../components/TripContainer";
 
 // Can change to stateful component if need be
-function Driver() {
+// Can access state with props.state
+// Can handle input change with props.handleInputChange
+function Driver(props) {
     return (
         <React.Fragment>
             <p>Inside Driver Component</p>
