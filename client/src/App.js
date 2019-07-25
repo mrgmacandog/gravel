@@ -35,10 +35,17 @@ class App extends Component {
     });
   };
 
-  handleFormSubmit = event => {
-    // When the form is submitted, prevent its default behavior, get posts update the posts state
+  // Get all riders for Driver component
+  getRiders = event => {
     event.preventDefault();
+    alert(`Getting riders going from ${this.state.startLocation} to ${this.state.endLocation}`)
   };
+
+  // 
+  getDrivers = event => {
+    event.preventDefault();
+    alert(alert(`Getting drivers going from ${this.state.startLocation} to ${this.state.endLocation}`));
+  }
 
   render() {
     return (
@@ -68,11 +75,11 @@ class App extends Component {
 
         {/* React router. TODO: May need to place everything above into the respective page. */}
         <div>
-          <Route exact path="/" render={(props) => <Home {...props} state={this.state} handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} />} />
-          <Route exact path="/home" render={(props) => <Home {...props} state={this.state} handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} />} />
-          <Route exact path="/driver" render={(props) => <Driver {...props} state={this.state} handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} />} />
+          <Route exact path="/" render={(props) => <Home {...props} state={this.state} handleInputChange={this.handleInputChange} />} />
+          <Route exact path="/home" render={(props) => <Home {...props} state={this.state} handleInputChange={this.handleInputChange} />} />
+          <Route exact path="/driver" render={(props) => <Driver {...props} state={this.state} handleInputChange={this.handleInputChange} getRiders={this.getRiders} />} />
           <Route exact path="/driver-post" component={DriverPost} />
-          <Route exact path="/rider" render={(props) => <Rider {...props} state={this.state} handleInputChange={this.handleInputChange} handleFormSubmit={this.handleFormSubmit} />} />
+          <Route exact path="/rider" render={(props) => <Rider {...props} state={this.state} handleInputChange={this.handleInputChange} getDrivers={this.getDrivers} />} />
           <Route exact path="/rider-post" component={RiderPost} />
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/signup" component={Signup} />

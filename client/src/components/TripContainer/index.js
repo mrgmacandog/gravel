@@ -7,8 +7,6 @@ import TripItem from "../TripItem";
 function TripContainer(props) {
     return (
         <div className="container">
-            <p>Inside TripContainer Component</p>
-
             {/* Show RequestRideButton if the user is on the driver page,
                     otherwise show the OfferRideButton  */}
             {props.page === "Driver" ? <RequestRideButton /> : <OfferRideButton />}

@@ -52,7 +52,7 @@ export default function Home(props) {
         <Container>
           <Row>
             <Col size="md-12">
-              <form onSubmit={props.handleFormSubmit}>
+              <form onSubmit={(event) => event.preventDefault()}>
                 {/* <Container> */}
                   {/* <Row> */}
                     {/* <Col size="xs-9 sm-10"> */}
