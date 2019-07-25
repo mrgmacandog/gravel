@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal"
+import LeafletContainer from "../LeafletContainer";
 
 function TripModal(props) {
     return (
@@ -31,6 +32,9 @@ function TripModal(props) {
                     : <span className="badge badge-pill badge-danger">No Luggage Space</span>}
 
                 <p>{props.trip.comment}</p>
+
+
+                <LeafletContainer />
 
             </Modal.Body>
             <Modal.Footer>
