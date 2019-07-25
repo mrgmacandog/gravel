@@ -1,11 +1,10 @@
 // import React from "react";
 import React, { Component } from "react";
-
 import Jumbotron from "../components/Jumbotron";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import ChoiceButton from "../components/choiceButton";
-import { PostList, PostListItem } from "../components/PostList";
+// import { PostList, PostListItem } from "../components/PostList";
 import { Container, Row, Col } from "../components/Grid";
 import API from "../utils/API";
 
@@ -37,12 +36,24 @@ export default class Home extends Component {
   handleFormSubmit = event => {
     // When the form is submitted, prevent its default behavior, get posts update the posts state
     event.preventDefault();
+<<<<<<< HEAD
     
     // API.getPosts(this.state.postSearch)
     //   .then(res => this.setState({ posts: res.data }))
     //   .catch(err => console.log(err));
     
   };
+=======
+
+    // API.getPosts(this.state.postSearch)
+    //   .then(res => this.setState({ posts: res.data }))
+    //   .catch(err => console.log(err));
+  };
+
+  onClick() {
+    window.location.href = "/driver";
+  }
+>>>>>>> fb24e056823e706c9e996db1b023263c2fe717bb
   render() {
     return (
       <React.Fragment>
@@ -76,6 +87,7 @@ export default class Home extends Component {
             </Col>
           </Row>
           <Row>
+<<<<<<< HEAD
             <Col size="xs-12">
               {!this.state.posts.length ? (
                 <h3 className="text-center">No posts to Display</h3>
@@ -106,6 +118,11 @@ export default class Home extends Component {
             <Col size="sm-6">
               <ChoiceButton
                 onClick={this.handleChangePage}
+=======
+            <Col size="sm-6">
+              <ChoiceButton
+                onClick={() => window.location.href = "/driver"}
+>>>>>>> fb24e056823e706c9e996db1b023263c2fe717bb
                 type="success"
                 className="driver-input-lg"
                 text="Driver"
@@ -114,11 +131,18 @@ export default class Home extends Component {
             </Col>
             <Col size="sm-6">
               <ChoiceButton
+<<<<<<< HEAD
                 //   onClick={this}
                 type="success"
                 className="rider-input-lg"
                 text="Rider"
 
+=======
+                onClick={() => window.location.href = "/rider"}
+                type="success"
+                className="rider-input-lg"
+                text="Rider"
+>>>>>>> fb24e056823e706c9e996db1b023263c2fe717bb
               >
               </ChoiceButton>
             </Col>
