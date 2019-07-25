@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import ChoiceButton from "../components/choiceButton";
 // import { PostList, PostListItem } from "../components/PostList";
 import { Container, Row, Col } from "../components/Grid";
+import API from "../utils/API";
 
 
 // Can change to stateful component if need be
