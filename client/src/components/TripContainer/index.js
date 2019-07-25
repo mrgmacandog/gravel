@@ -11,11 +11,8 @@ function TripContainer(props) {
                     otherwise show the OfferRideButton  */}
             {props.page === "Driver" ? <RequestRideButton /> : <OfferRideButton />}
 
-            {/* TODO: Refactor with Array.map() */}
-            <TripItem />
-            <TripItem />
-            <TripItem />
-            <TripItem />
+            {/* Display each trip from results */}
+            {props.results.map(trip => <TripItem {...props} key={trip._id} trip={trip} />)}
         </div>
     );
 }
