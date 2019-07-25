@@ -29,7 +29,7 @@ function Rider(props) {
                         </div>
                     </div>
 
-                    <button className="btn btn-primary" type="submit" name="action" onClick={props.getRiders}>Search</button>
+                    <button className="btn btn-primary" type="submit" name="action" onClick={props.getDrivers}>Search</button>
                 </form>
             </div>
             {/* TODO: Send TripContainer the data from Drivers table */}

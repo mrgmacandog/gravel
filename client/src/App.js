@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Nav from "./components/Nav";
 import TripModal from "./components/TripModal";
+import axios from "axios"
 
 
 // Pages
@@ -17,7 +18,8 @@ class App extends Component {
   state = {
     modalShow: false,
     startLocation: "",
-    endLocation: ""
+    endLocation: "",
+    results: []
   }
 
   // Shows modal
@@ -38,13 +40,31 @@ class App extends Component {
   // Get all riders for Driver component
   getRiders = event => {
     event.preventDefault();
-    alert(`Getting riders going from ${this.state.startLocation} to ${this.state.endLocation}`)
+    this.getResults("riders");
   };
 
-  // 
+  // Get all drivers for Rider component
   getDrivers = event => {
     event.preventDefault();
-    alert(alert(`Getting drivers going from ${this.state.startLocation} to ${this.state.endLocation}`));
+    this.getResults("drivers");
+  }
+
+  getResults = driversOrRiders => {
+    alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+
+    // TODO: Check if query matches API routes
+
+    let query = `api/${driversOrRiders}/`;
+
+    this.state.endLocation === ""
+      ? query += `${this.state.startLocation.toLowerCase().replace(" ", "%20")}`
+      : query += `${this.state.startLocation.toLowerCase().replace(" ", "%20")}/${this.state.endLocation.toLowerCase().replace(" ", "%20")}`
+
+    alert(query);
+    // Maybe in ./utils/API.js 
+    axios.get(query)
+      .then(results => this.setState({ results: results}))
+      .catch(err => console.log(err));
   }
 
   render() {
