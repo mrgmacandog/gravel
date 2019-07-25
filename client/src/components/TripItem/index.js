@@ -24,8 +24,6 @@ function TripItem(props) {
                     : <span className="badge badge-pill badge-danger">No Luggage Space</span>}
 
                 <p className="card-text">{props.trip.comment}</p>
-
-                {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
             </div>
         </div>
     );

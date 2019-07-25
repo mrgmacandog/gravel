@@ -22,37 +22,37 @@ class App extends Component {
     modalTrip: {},
     startLocation: "",
     endLocation: "",
-    // results: []
+    results: []
 
     // TODO: Remove this. Test results, uncomment this and comment the results above
-    results: [
-      {
-        "_id": "56mjh2cxfd",
-        "driver_id": 1,
-        "start_location": "Seattle",
-        "end_location": "Los Angeles",
-        "leaving_date": "2019-07-25",
-        "flexible_date": false,
-        "cost": 50,
-        "seats_available": 2,
-        "smoking": true,
-        "luggage": true,
-        "comment": "Road trip!!!"
-      },
-      {
-        "_id": "tj4n83ar45",
-        "driver_id": 2,
-        "start_location": "Seattle",
-        "end_location": "Portland",
-        "leaving_date": "2019-07-26",
-        "flexible_date": true,
-        "cost": 20,
-        "seats_available": 2,
-        "smoking": false,
-        "luggage": false,
-        "comment": "Dogs welcome!"
-      }
-    ]
+    // results: [
+    //   {
+    //     "_id": "56mjh2cxfd",
+    //     "driver_id": 1,
+    //     "start_location": "Seattle",
+    //     "end_location": "Los Angeles",
+    //     "leaving_date": "2019-07-25",
+    //     "flexible_date": false,
+    //     "cost": 50,
+    //     "seats_available": 2,
+    //     "smoking": true,
+    //     "luggage": true,
+    //     "comment": "Road trip!!!"
+    //   },
+    //   {
+    //     "_id": "tj4n83ar45",
+    //     "driver_id": 2,
+    //     "start_location": "Seattle",
+    //     "end_location": "Portland",
+    //     "leaving_date": "2019-07-26",
+    //     "flexible_date": true,
+    //     "cost": 20,
+    //     "seats_available": 2,
+    //     "smoking": false,
+    //     "luggage": false,
+    //     "comment": "Dogs welcome!"
+    //   }
+    // ]
   }
 
   // Shows modal
