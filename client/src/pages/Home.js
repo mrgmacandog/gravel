@@ -36,14 +36,6 @@ export default class Home extends Component {
   handleFormSubmit = event => {
     // When the form is submitted, prevent its default behavior, get posts update the posts state
     event.preventDefault();
-<<<<<<< HEAD
-    
-    // API.getPosts(this.state.postSearch)
-    //   .then(res => this.setState({ posts: res.data }))
-    //   .catch(err => console.log(err));
-    
-  };
-=======
 
     // API.getPosts(this.state.postSearch)
     //   .then(res => this.setState({ posts: res.data }))
@@ -53,7 +45,6 @@ export default class Home extends Component {
   onClick() {
     window.location.href = "/driver";
   }
->>>>>>> fb24e056823e706c9e996db1b023263c2fe717bb
   render() {
     return (
       <React.Fragment>
@@ -87,42 +78,9 @@ export default class Home extends Component {
             </Col>
           </Row>
           <Row>
-<<<<<<< HEAD
-            <Col size="xs-12">
-              {!this.state.posts.length ? (
-                <h3 className="text-center">No posts to Display</h3>
-              ) : (
-                  <PostList>
-                    {this.state.posts.map(post => {
-                      return (
-                        <PostListItem
-                          key={post.title}
-                          title={post.title}
-                          start_location={post.start_location}
-                          end_location={post.end_location}
-                          leaving_date={post.leaving_date}
-                          flexible_date={post.flexible_date}
-                          cost={post.cost}
-                          seats_available={post.seats_available}
-                          smoking={post.smoking}
-                          luggage={post.luggage}
-                          comments={post.comments}
-                        />
-                      );
-                    })}
-                  </PostList>
-                )}
-            </Col>
-          </Row>
-          <Row>
-            <Col size="sm-6">
-              <ChoiceButton
-                onClick={this.handleChangePage}
-=======
             <Col size="sm-6">
               <ChoiceButton
                 onClick={() => window.location.href = "/driver"}
->>>>>>> fb24e056823e706c9e996db1b023263c2fe717bb
                 type="success"
                 className="driver-input-lg"
                 text="Driver"
@@ -131,18 +89,10 @@ export default class Home extends Component {
             </Col>
             <Col size="sm-6">
               <ChoiceButton
-<<<<<<< HEAD
-                //   onClick={this}
-                type="success"
-                className="rider-input-lg"
-                text="Rider"
-
-=======
                 onClick={() => window.location.href = "/rider"}
                 type="success"
                 className="rider-input-lg"
                 text="Rider"
->>>>>>> fb24e056823e706c9e996db1b023263c2fe717bb
               >
               </ChoiceButton>
             </Col>
