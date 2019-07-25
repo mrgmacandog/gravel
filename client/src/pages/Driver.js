@@ -1,6 +1,6 @@
 import React from "react";
 import TripContainer from "../components/TripContainer";
-import Input from "../components/Input";
+import LocationInput from "../components/LocationInput";
 
 // Can change to stateful component if need be
 // Can access state with props.state
@@ -12,7 +12,7 @@ function Driver(props) {
                 <form>
                     <div className="row">
                         <div className="col-md-6">
-                            <Input
+                            <LocationInput
                                 name="startLocation"
                                 value={props.state.startLocation}
                                 onChange={props.handleInputChange}
@@ -20,7 +20,7 @@ function Driver(props) {
                             />
                         </div>
                         <div className="col-md-6">
-                            <Input
+                            <LocationInput
                                 name="endLocation"
                                 value={props.state.endLocation}
                                 onChange={props.handleInputChange}

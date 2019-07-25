@@ -1,7 +1,7 @@
 // import React from "react";
 import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron";
-import Input from "../components/Input";
+import LocationInput from "../components/LocationInput";
 import Button from "../components/Button";
 import ChoiceButton from "../components/choiceButton";
 // import { PostList, PostListItem } from "../components/PostList";
@@ -57,7 +57,7 @@ export default function Home(props) {
                 {/* <Container> */}
                   {/* <Row> */}
                     {/* <Col size="xs-9 sm-10"> */}
-                      <Input
+                      <LocationInput
                         name="startLocation"
                         value={props.state.startLocation}
                         onChange={props.handleInputChange}
