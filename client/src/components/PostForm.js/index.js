@@ -9,7 +9,6 @@ function PostForm(props) {
     <form className="post">
       <div className="form-group">
         <Row>
-         
             <label htmlFor="startLocaton">Start location:</label>
             <input
               value={props.start_location}

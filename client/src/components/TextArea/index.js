@@ -1,13 +1,14 @@
 import React from "react";
 
-const Input = (props) => {
+const TextArea = (props) => {
   return (  
 <div className="form-group">
   <label htmlFor={props.name} className="form-label">{props.title}</label>
   <input
     className="form-control"
-    id={props.name}
     name={props.name}
+    rows={props.rows}
+    cols={props.cols}
     type={props.type}
     value={props.value}
     onChange={props.handleChange}
@@ -17,4 +18,4 @@ const Input = (props) => {
 )
 }
 
-export default Input;
+export default TextArea;
