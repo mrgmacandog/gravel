@@ -19,7 +19,7 @@ class App extends Component {
     modalShow: false,
     startLocation: "",
     endLocation: "",
-    // results: []
+    results: []
 
     // Test results, uncomment this and comment the results above
     // results: [
