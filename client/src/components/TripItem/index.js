@@ -4,7 +4,7 @@ import React from "react";
 function TripItem(props) {
     return (
         // TODO: Implement for /rider. Only works for /driver currently
-        <div className="card">
+        <div className="card" onClick={props.showModal}>
             <h5 className="card-header">{props.trip.end_location}</h5>
             <div className="card-body">
                 <h5 

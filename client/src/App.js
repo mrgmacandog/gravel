@@ -21,37 +21,37 @@ class App extends Component {
     modalShow: false,
     startLocation: "",
     endLocation: "",
-    results: []
+    // results: []
 
-    // Test results, uncomment this and comment the results above
-    // results: [
-    //   {
-    //     "_id": "56mjh2cxfd",
-    //     "driver_id": 1,
-    //     "start_location": "Seattle",
-    //     "end_location": "Los Angeles",
-    //     "leaving_date" : "2019-07-25",
-    //     "flexible_date": false,
-    //     "cost": 50,
-    //     "seats_available": 2,
-    //     "smoking": true,
-    //     "luggage": true,
-    //     "comment": "Road trip!!!"
-    //   },
-    //   {
-    //     "_id": "tj4n83ar45",
-    //     "driver_id": 2,
-    //     "start_location": "Seattle",
-    //     "end_location": "Portland",
-    //     "leaving_date" : "2019-07-26",
-    //     "flexible_date": true,
-    //     "cost": 20,
-    //     "seats_available": 2,
-    //     "smoking": false,
-    //     "luggage": false,
-    //     "comment": "Dogs welcome!"
-    //   }
-    // ]
+    // TODO: Remove this. Test results, uncomment this and comment the results above
+    results: [
+      {
+        "_id": "56mjh2cxfd",
+        "driver_id": 1,
+        "start_location": "Seattle",
+        "end_location": "Los Angeles",
+        "leaving_date" : "2019-07-25",
+        "flexible_date": false,
+        "cost": 50,
+        "seats_available": 2,
+        "smoking": true,
+        "luggage": true,
+        "comment": "Road trip!!!"
+      },
+      {
+        "_id": "tj4n83ar45",
+        "driver_id": 2,
+        "start_location": "Seattle",
+        "end_location": "Portland",
+        "leaving_date" : "2019-07-26",
+        "flexible_date": true,
+        "cost": 20,
+        "seats_available": 2,
+        "smoking": false,
+        "luggage": false,
+        "comment": "Dogs welcome!"
+      }
+    ]
   }
 
   // Shows modal
@@ -177,8 +177,8 @@ class App extends Component {
         {/* ***************************************** **/}
 
         {/* Modal Test */}
-        {/* TODO: Move this into each TripItem */}
-        <button className="btn btn-light" onClick={this.showModal} >Modal</button>
+        {/* TODO: Delete button when everything is working */}
+        {/* <button className="btn btn-light" onClick={this.showModal} >Modal</button> */}
         <TripModal
           show={this.state.modalShow}
           onHide={this.hideModal}
@@ -186,13 +186,43 @@ class App extends Component {
 
         {/* React router. TODO: May need to place everything above into the respective page. */}
         <div>
-          <Route exact path="/" render={(props) => <Home {...props} state={this.state} handleInputChange={this.handleInputChange} />} />
-          <Route exact path="/home" render={(props) => <Home {...props} state={this.state} handleInputChange={this.handleInputChange} />} />
-          <Route exact path="/driver" render={(props) => <Driver {...props} state={this.state} handleInputChange={this.handleInputChange} getRiders={this.getRiders} />} />
+          <Route exact path="/" render={(props) =>
+            <Home
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+            />}
+          />
+          <Route exact path="/home" render={(props) =>
+            <Home
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+            />}
+          />
+          <Route exact path="/driver" render={(props) =>
+            <Driver
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              getRiders={this.getRiders}
+              showModal={this.showModal}
+            />}
+          />
           <Route exact path="/driver-post" component={DriverPost} />
-          <Route exact path="/rider" render={(props) => <Rider {...props} state={this.state} handleInputChange={this.handleInputChange} getDrivers={this.getDrivers} />} />
+          <Route exact path="/rider" render={(props) =>
+            <Rider
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              getDrivers={this.getDrivers}
+              showModal={this.showModal}
+            />}
+          />
           <Route exact path="/rider-post" component={RiderPost} />
-            <Route exact path="/signin" component={() => <Signin login={this._login} />} />
+          <Route exact path="/signin" component={() =>
+            <Signin login={this._login} />}
+          />
           <Route exact path="/signup" component={Signup} />
         </div>
       </Router>

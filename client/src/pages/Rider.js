@@ -33,7 +33,7 @@ function Rider(props) {
                 </form>
             </div>
             {/* TODO: Send TripContainer the data from Drivers table */}
-            <TripContainer page={"Rider"} results={props.state.results}/>
+            <TripContainer page={"Rider"} results={props.state.results} showModal={props.showModal}/>
         </React.Fragment>
     );
 }
