@@ -19,6 +19,7 @@ class App extends Component {
     loggedIn: false,
     user: null,
     modalShow: false,
+    modalTrip: {},
     startLocation: "",
     endLocation: "",
     // results: []
@@ -30,7 +31,7 @@ class App extends Component {
         "driver_id": 1,
         "start_location": "Seattle",
         "end_location": "Los Angeles",
-        "leaving_date" : "2019-07-25",
+        "leaving_date": "2019-07-25",
         "flexible_date": false,
         "cost": 50,
         "seats_available": 2,
@@ -43,7 +44,7 @@ class App extends Component {
         "driver_id": 2,
         "start_location": "Seattle",
         "end_location": "Portland",
-        "leaving_date" : "2019-07-26",
+        "leaving_date": "2019-07-26",
         "flexible_date": true,
         "cost": 20,
         "seats_available": 2,
@@ -55,7 +56,10 @@ class App extends Component {
   }
 
   // Shows modal
-  showModal = () => this.setState({ modalShow: true });
+  showModal = (trip) => {
+    // console.log(trip, this.state.modalTrip);
+    this.setState({ modalShow: true, modalTrip: trip });
+  };
   // Hides modal
   hideModal = () => this.setState({ modalShow: false });
 
@@ -95,69 +99,69 @@ class App extends Component {
     alert(query);
     // Maybe in ./utils/API.js 
     axios.get(query)
-      .then(results => this.setState({ results: results}))
+      .then(results => this.setState({ results: results }))
       .catch(err => console.log(err));
   }
 
 
-    // constructor(props) {
-    //   super(props)
-    //   this.state = {
-    //     loggedIn: false,
-    //     user: null
-    //   }
-    //   this._logout = this._logout.bind(this)
-    //   this._login = this._login.bind(this)
-    // }
-    componentDidMount() {
-      axios.get('/auth/user').then(response => {
-        console.log(response.data)
-        if (!!response.data.user) {
-          console.log('THERE IS A USER')
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     loggedIn: false,
+  //     user: null
+  //   }
+  //   this._logout = this._logout.bind(this)
+  //   this._login = this._login.bind(this)
+  // }
+  componentDidMount() {
+    axios.get('/auth/user').then(response => {
+      console.log(response.data)
+      if (!!response.data.user) {
+        console.log('THERE IS A USER')
+        this.setState({
+          loggedIn: true,
+          user: response.data.user
+        })
+      } else {
+        this.setState({
+          loggedIn: false,
+          user: null
+        })
+      }
+    })
+  }
+
+  _logout(event) {
+    event.preventDefault()
+    console.log('logging out')
+    axios.post('/auth/logout').then(response => {
+      console.log(response.data)
+      if (response.status === 200) {
+        this.setState({
+          loggedIn: false,
+          user: null
+        })
+      }
+    })
+  }
+
+  _login(username, password) {
+    axios
+      .post('/auth/login', {
+        username,
+        password
+      })
+      .then(response => {
+        console.log(response)
+        if (response.status === 200) {
+          // update the state
           this.setState({
             loggedIn: true,
             user: response.data.user
           })
-        } else {
-          this.setState({
-            loggedIn: false,
-            user: null
-          })
         }
       })
-    }
-  
-    _logout(event) {
-      event.preventDefault()
-      console.log('logging out')
-      axios.post('/auth/logout').then(response => {
-        console.log(response.data)
-        if (response.status === 200) {
-          this.setState({
-            loggedIn: false,
-            user: null
-          })
-        }
-      })
-    }
-  
-    _login(username, password) {
-      axios
-        .post('/auth/login', {
-          username,
-          password
-        })
-        .then(response => {
-          console.log(response)
-          if (response.status === 200) {
-            // update the state
-            this.setState({
-              loggedIn: true,
-              user: response.data.user
-            })
-          }
-        })
-    }
+  }
   render() {
     return (
       <Router>
@@ -182,6 +186,7 @@ class App extends Component {
         <TripModal
           show={this.state.modalShow}
           onHide={this.hideModal}
+          trip={this.state.modalTrip}
         />
 
         {/* React router. TODO: May need to place everything above into the respective page. */}
