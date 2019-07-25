@@ -9,10 +9,12 @@ const DriverSchema = new Schema({
     },
     start_location: {
         type: String,
+        lowercase: true,
         required: true
     },
     end_location: {
         type: String,
+        lowercase: true,
         required: false
     },
     leaving_date:{
