@@ -27,8 +27,7 @@ export function PostListItem({
       <Container>
         <Row>
           <Col size="xs-4 sm-2">
-           
-          </Col>
+                     </Col>
           <Col size="xs-8 sm-9">
             <h3>{title}</h3>
             <p>Start Location: {start_location}</p>
@@ -46,3 +45,5 @@ export function PostListItem({
     </li>
   );
 }
+
+

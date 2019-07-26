@@ -1,6 +1,6 @@
 
 .driver-input-lg{
-    background-color: green;
+    background-color: #444d54;
     display:block; 
     line-height: 50px; 
     width:50%; 
@@ -8,8 +8,8 @@
     margin:0 auto;
 }
 .rider-input-lg{
-    background-color: green;
-    /* display:block;  */
+    background-color: #444d54;
+    display:block; 
     line-height: 50px; 
     width:50%; 
     text-align:center; 

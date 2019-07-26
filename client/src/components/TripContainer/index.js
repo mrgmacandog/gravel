@@ -1,21 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import RequestRideButton from "../RequestRideButton";
+import OfferRideButton from "../OfferRideButton";
 import TripItem from "../TripItem";
 
 // Can change to stateful component if need be
-function TripContainer() {
+function TripContainer(props) {
     return (
         <div className="container">
-            <p>Inside TripContainer Component</p>
+            {/* Show RequestRideButton if the user is on the driver page,
+                    otherwise show the OfferRideButton  */}
+            {props.page === "Driver" ? <RequestRideButton /> : <OfferRideButton />}
 
-            {/* TODO: Depending on state, make this "Request a ride!" for  */}
-            <Link to="/driver-post" className="btn btn-primary">Offer a ride!</Link>
-
-            {/* TODO: Refactor with Array.map() */}
-            <TripItem />
-            <TripItem />
-            <TripItem />
-            <TripItem />
+            {/* Display each trip from results */}
+            {props.results.map(trip => <TripItem {...props} key={trip._id} trip={trip} />)}
         </div>
     );
 }
