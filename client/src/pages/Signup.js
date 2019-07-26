@@ -21,10 +21,10 @@ class Signup extends Component {
 			[event.target.name]: event.target.value
 		})
 	}
-	
+
+
 	handleSubmit(event) {
 		event.preventDefault()
-
 		//TO DO
 		//Add conditional to check if username already exists
 		if(this.state.confirmPassword !== this.state.password) {
@@ -37,7 +37,6 @@ class Signup extends Component {
 				username: this.state.username,
 				password: this.state.password,
 				loggedIn: true
-
 			})
 			.then(response => {
 				if (!response.data.error) {
@@ -48,7 +47,7 @@ class Signup extends Component {
 					})
 				} else {
 					console.log('duplicate')
-					alert(response.data.error)
+					return alert(response.data.error)
 				}
 			})
 		}
