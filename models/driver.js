@@ -36,10 +36,12 @@ const DriverSchema = new Schema({
     },
     smoking:{
         type: Boolean,
+        default: false,
         required: true
     },
     luggage: {
         type: Boolean,
+        default: false,
         required: true
     },
     comment: {

@@ -43,11 +43,11 @@ const RiderSchema = new Schema({
     comment: {
         type: String,
         required: false
+    },
+    driver_id: {
+        type: String,
+        required: false
     }
-    // driver_id: {
-    //     type: Schema.type.ObjectId,
-    //     ref: "User"
-    // }
 });
 
 const Rider = mongoose.model("Rider", RiderSchema);
