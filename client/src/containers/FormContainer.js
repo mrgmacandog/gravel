@@ -207,7 +207,7 @@ class FormContainer extends Component {
           value={this.state.newPost.comments}
           name={"currentPetInfo"}
           handleChange={this.handleTextArea}
-          placeholder={"Describe your past experience and skills"}
+          placeholder={"Additional comments"}
         />
         {/* comments you */}
         <Button
