@@ -22,11 +22,6 @@ class Signup extends Component {
 		})
 	}
 
-	// checkUsername(name) {
-	// 	axios.get('/auth/signup', {
-	// 		name: name
-	// 	})
-	// }
 
 	handleSubmit(event) {
 		event.preventDefault()
@@ -34,18 +29,17 @@ class Signup extends Component {
 		//Add conditional to check if username already exists
 		if(this.state.confirmPassword !== this.state.password) {
 			return alert("Passwords don't match")
+		} else if(this.state.password === '' || this.state.confirmPassword === '') {
+			return alert("Please fillout both password fields")
 		} else {
 		//loggedIn value won't 
 		axios.post('/auth/signup', {
 				username: this.state.username,
 				password: this.state.password,
 				loggedIn: true
-
 			})
 			.then(response => {
-				console.log("Successful Signup dogx		")
-				console.log(response)
-				if (!response.data.errmsg) {
+				if (!response.data.error) {
 					console.log(this.state)
 					console.log('Registration succesful')
 					this.setState({
@@ -53,6 +47,7 @@ class Signup extends Component {
 					})
 				} else {
 					console.log('duplicate')
+					return alert(response.data.error)
 				}
 			})
 		}

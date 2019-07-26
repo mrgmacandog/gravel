@@ -78,16 +78,6 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Define API routes here
 
-//TO DO make route which checks username in sign up with database
-//Don't allow two user names to be created
-// app.get('/auth/signup', function (req, res) {
-//   db.User.findOne({ username: req.body.username })
-//     .then(function (user) {
-//       if(user) {
-//         return }
-//     })
-//   })
-
 // Getting all the trip posted by rider, filter by start_location
 app.get("/api/riders/:start_location", function (req, res) {
   // req.body.placeholder placeholder will be whatever id we called for text enter id
@@ -124,10 +114,12 @@ app.post("/api/riders", function (req, res) {
 })
 
 app.post('/auth/signup', function(req,res) {
+  console.log("posting signup");
   db.User.create(req.body)
   .then(function(user) {
     console.log("***SERVER.JS*****\n======USER NAME=======")
     console.log(user)
+    res.send(user)
   })
   .catch(function(err) {
     console.log("error" + err)
