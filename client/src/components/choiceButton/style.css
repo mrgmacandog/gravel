@@ -9,7 +9,7 @@
 }
 .rider-input-lg{
     background-color: #444d54;
-    /* display:block;  */
+    display:block; 
     line-height: 50px; 
     width:50%; 
     text-align:center; 
