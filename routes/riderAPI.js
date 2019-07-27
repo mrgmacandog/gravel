@@ -73,8 +73,8 @@ app.post("/api/drivers/:_id", function (req, res) {
     })
   })
   
-  // updating the rider into a trip
-  app.post("/api/drivers/:id", function(req,res){
+  // updating the driver into a trip
+  app.post("/api/drivers/:_id", function(req,res){
   
     let userID;
     db.User.find({loggedIn: true})
@@ -91,7 +91,7 @@ app.post("/api/drivers/:_id", function (req, res) {
       {_id: req.params._id},
       {
         // the id will need to be user id
-        rider_id: userID
+        driver_id: userID
       }
     )
     .then(function(dbRider){
@@ -103,7 +103,7 @@ app.post("/api/drivers/:_id", function (req, res) {
   })
   
   // Deleting an existing trip
-  app.delete("/api/drivers/:id", function (req, res) {
+  app.delete("/api/drivers/:_id", function (req, res) {
     db.Rider.remove({ _id: req.params.id })
     .then(function(dbRider){
       res.json(dbRider)
