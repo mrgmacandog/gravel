@@ -45,7 +45,7 @@ const RiderSchema = new Schema({
         required: false
     },
     driver_id: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: false
     }
 });
