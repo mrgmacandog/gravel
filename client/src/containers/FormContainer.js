@@ -139,6 +139,7 @@ class FormContainer extends Component {
 
       });
     }
+    this.props.history.push("/driver");
   }
 
   render() {
@@ -234,6 +235,7 @@ class FormContainer extends Component {
           title={"Submit"}
           style={buttonStyle}
           text={"Post"}
+                    
         />{" "}
         {/*Submit */}
       </form>

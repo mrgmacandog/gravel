@@ -13,6 +13,7 @@ import Signin from "./pages/Signin";
 import Rider from "./pages/Rider";
 import RiderPost from "./pages/RiderPost";
 import Signup from "./pages/Signup";
+import Dashboard from "./pages/dashboard";
 
 class App extends Component {
   state = {
@@ -176,6 +177,7 @@ class App extends Component {
           <Link to="/rider-post">/rider-post</Link>
           <Link to="/signin">/signin</Link>
           <Link to="/signup">/signup</Link>
+          <Link to="/dashboard">/dashboard</Link>
         </div>
         <Nav />
         {/* ***************************************** **/}
@@ -229,6 +231,7 @@ class App extends Component {
             <Signin login={this._login} />}
           />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/dashboard" component={Dashboard} />
         </div>
       </Router>
 
