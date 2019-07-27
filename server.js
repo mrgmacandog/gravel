@@ -69,17 +69,6 @@ app.use(function(err, req, res, next) {
 	res.status(500)
 })
 
-app.post('/auth/signup', function(req,res) {
-  db.User.create(req.body)
-  .then(function(user) {
-    console.log("***SERVER.JS*****\n======USER NAME=======")
-    console.log(user)
-  })
-  .catch(function(err) {
-    console.log("error" + err)
-  })
-})
-
 // Establish mongo connection
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/gravel";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
@@ -142,6 +131,19 @@ app.post("/api/riders", function (req, res) {
     .catch(function (err) {
       console.log("error: ", err);
     })
+})
+
+app.post('/auth/signup', function(req,res) {
+  console.log("posting signup");
+  db.User.create(req.body)
+  .then(function(user) {
+    console.log("***SERVER.JS*****\n======USER NAME=======")
+    console.log(user)
+    res.send(user)
+  })
+  .catch(function(err) {
+    console.log("error" + err)
+  })
 })
 
 // Updating an existing trip (driver)
