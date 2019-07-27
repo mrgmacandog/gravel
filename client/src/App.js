@@ -85,6 +85,7 @@ class App extends Component {
     this.getResults("drivers");
   }
 
+
   getResults = driversOrRiders => {
     alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
@@ -115,23 +116,28 @@ class App extends Component {
   // }
   componentDidMount() {
     axios.get('/auth/user').then(response => {
-      console.log(response.data)
-      if (!!response.data.user) {
-        console.log('THERE IS A USER')
-        this.setState({
-          loggedIn: true,
-          user: response.data.user
-        })
-      } else {
-        this.setState({
-          loggedIn: false,
-          user: null
-        })
-      }
-    })
+    console.log('RESPONSE DATA FOR COMPONENTDIDMOUNT:')
+    console.log(response.data.user)
+    if (response.data.user) {
+      console.log('THERE IS A USER')
+      this.setState({
+        loggedIn: true,
+        user: response.data.user
+      })
+      console.log(this.state.loggedIn)
+    } else {
+      console.log('THERE IS NO USER LOGGED IN')
+      this.setState({
+        loggedIn: false,
+        user: null
+      })
+      console.log(this.state.loggedIn)
+
+    }
+  })
   }
 
-  _logout(event) {
+  _logout = (event) => {
     event.preventDefault()
     console.log('logging out')
     axios.post('/auth/logout').then(response => {
@@ -141,24 +147,36 @@ class App extends Component {
           loggedIn: false,
           user: null
         })
+        console.log(this.state.loggedIn)
+        alert('Logged out!')
       }
     })
   }
 
-  _login(username, password) {
-    axios
-      .post('/auth/login', {
-        username,
-        password
-      })
+  _login = (username, password, obj) => {
+    axios.post('/auth/login', {
+      username,
+      password
+    })
       .then(response => {
-        console.log(response)
+        console.log('RESPONSE FROM PASSPORT')
+        console.log(response);
         if (response.status === 200) {
           // update the state
           this.setState({
             loggedIn: true,
-            user: response.data.user
+            user: response.data.user,
           })
+
+          // obj.success();
+        }
+      }).catch(err => {
+        if (err) {
+          console.log(err)
+          alert(err);
+        } else {
+          console.log("Successful sign in")
+          console.log(this.state)
         }
       })
   }
@@ -176,6 +194,7 @@ class App extends Component {
           <Link to="/rider-post">/rider-post</Link>
           <Link to="/signin">/signin</Link>
           <Link to="/signup">/signup</Link>
+          <h1>You are currently {this.state.loggedin ? "logged in" : "not logged in"}</h1>
         </div>
         <Nav />
         {/* ***************************************** **/}
@@ -229,6 +248,7 @@ class App extends Component {
             <Signin login={this._login} />}
           />
           <Route exact path="/signup" component={Signup} />
+          <button onClick={this._logout}>Logout</button>
         </div>
       </Router>
 

@@ -43,6 +43,7 @@ class Signup extends Component {
 					console.log(this.state)
 					console.log('Registration succesful')
 					this.setState({
+						loggedIn: true,
 						redirectTo: '/'
 					})
 				} else {

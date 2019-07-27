@@ -99,6 +99,12 @@ app.get("/api/riders/:start_location/:end_location", function (req, res) {
     })
 })
 
+app.get("/api/test", function(req, res) {
+  console.log('=======================USER ID=====================')
+  console.log(req.session.passport.user._id)
+  res.send("testing")
+})
+
 // Adding a trip(driver)
 app.post("/api/riders", function (req, res) {
   console.log("req.body: ", req.body);
