@@ -17,7 +17,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const dbConnection = require('./server/db') // loads our connection to the mongo database
 const passport = require('./server/passport')
-const axios = require('axios')
+
 
 
 // Define middleware here
@@ -73,51 +73,19 @@ app.use(function(err, req, res, next) {
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/gravel";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-
-
-
 // Define API routes here
+require("./routes/driverAPI")(app);
+require("./routes/riderAPI")(app);
 
-// Getting all the trip posted by rider, filter by start_location
-app.get("/api/riders/:start_location", function (req, res) {
-  // req.body.placeholder placeholder will be whatever id we called for text enter id
-  db.Driver.find({ start_location: req.params.start_location })
-    .then(function (dbDriver) {
-
-      res.json(dbDriver);
-
-    })
-    .catch(function (err) {
-      res.json(err);
-    })
-});
-
-app.get("/api/riders/:start_location/:end_location", function (req, res) {
-  db.Driver.find({ start_location: req.params.start_location, end_location: req.params.end_location })
-    .then(function (dbDriver) {
-      res.json(dbDriver);
-    })
-})
-
-app.get("/api/test", function(req, res) {
-  console.log('=======================USER ID=====================')
-  console.log(req.session.passport.user._id)
-  res.send("testing")
-})
-
-// Adding a trip(driver)
-app.post("/api/riders", function (req, res) {
-  console.log("req.body: ", req.body);
-  //req.body should be the information Driver entered when posting
-  db.Driver.update()
-  db.Driver.create(req.body)
-    .then(function (dbDriver) {
-      console.log(dbDriver)
-    })
-    .catch(function (err) {
-      console.log("error: ", err);
-    })
-})
+//TO DO make route which checks username in sign up with database
+//Don't allow two user names to be created
+// app.get('/auth/signup', function (req, res) {
+//   db.User.findOne({ username: req.body.username })
+//     .then(function (user) {
+//       if(user) {
+//         return }
+//     })
+//   })
 
 app.post('/auth/signup', function(req,res) {
   console.log("posting signup");
@@ -132,24 +100,13 @@ app.post('/auth/signup', function(req,res) {
   })
 })
 
-// Updating an existing trip (driver)
-app.post("/rider/:id", function (req, res) {
-  db.Driver.updateOne(
-    { _id: req.params.id },
-
-    // The field you want to update about
-    {
-      start_location: req.params.start_location,
-      end_location: req.params.end_location
-    }
-  )
+// Getting All signed up user information
+app.get("/api/user", function(req,res){
+  db.User.find({})
+  .then(function(dbUser){
+    res.json(dbUser)
+  })
 })
-
-// Deleting an existing trip
-app.delete("/rider/:id", function (req, res) {
-  db.Driver.remove({ _id: req.params.id })
-})
-
 
 // Send every other request to the React app
 // Define any API routes before this runs
