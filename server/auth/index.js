@@ -35,6 +35,7 @@ router.post(
 			console.log(`Deleting ${cleanUser.local.password}`)
 			delete cleanUser.local.password
 		}
+		console.log(cleanUser)
 		res.json({ user: cleanUser })
 	}
 )
