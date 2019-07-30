@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Nav from "./components/Nav";
 import TripModal from "./components/TripModal";
-import axios from "axios"
+import axios from "axios";
+import API from "./utils/API";
 
 
 // Pages
@@ -23,37 +24,38 @@ class App extends Component {
     modalTrip: {},
     startLocation: "",
     endLocation: "",
-    // results: []
+    currentCity: "",
+    results: []
 
     // TODO: Remove this. Test results, uncomment this and comment the results above
-    results: [
-      {
-        "_id": "56mjh2cxfd",
-        "driver_id": 1,
-        "start_location": "Seattle",
-        "end_location": "Los Angeles",
-        "leaving_date": "2019-07-25",
-        "flexible_date": false,
-        "cost": 50,
-        "seats_available": 2,
-        "smoking": true,
-        "luggage": true,
-        "comment": "Road trip!!!"
-      },
-      {
-        "_id": "tj4n83ar45",
-        "driver_id": 2,
-        "start_location": "Seattle",
-        "end_location": "Portland",
-        "leaving_date": "2019-07-26",
-        "flexible_date": true,
-        "cost": 20,
-        "seats_available": 2,
-        "smoking": false,
-        "luggage": false,
-        "comment": "Dogs welcome!"
-      }
-    ]
+    // results: [
+    //   {
+    //     "_id": "56mjh2cxfd",
+    //     "driver_id": 1,
+    //     "start_location": "Seattle",
+    //     "end_location": "Los Angeles",
+    //     "leaving_date": "2019-07-25",
+    //     "flexible_date": false,
+    //     "cost": 50,
+    //     "seats_available": 2,
+    //     "smoking": true,
+    //     "luggage": true,
+    //     "comment": "Road trip!!!"
+    //   },
+    //   {
+    //     "_id": "tj4n83ar45",
+    //     "driver_id": 2,
+    //     "start_location": "Seattle",
+    //     "end_location": "Portland",
+    //     "leaving_date": "2019-07-26",
+    //     "flexible_date": true,
+    //     "cost": 20,
+    //     "seats_available": 2,
+    //     "smoking": false,
+    //     "luggage": false,
+    //     "comment": "Dogs welcome!"
+    //   }
+    // ]
   }
 
   // Shows modal
@@ -105,6 +107,10 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
+  // Takes in the location input name and sets that state to the currentCity state
+  useCurrentLocation = name => {
+    this.setState({ [name]: this.state.currentCity });
+  }
 
   // constructor(props) {
   //   super(props)
@@ -115,7 +121,13 @@ class App extends Component {
   //   this._logout = this._logout.bind(this)
   //   this._login = this._login.bind(this)
   // }
-  // componentDidMount() {
+  componentDidMount() {
+    // Get the current city from coordinates and save it as currentCity in state
+    navigator.geolocation.getCurrentPosition(location => {
+      API.getCurrentCity(`${location.coords.latitude},${location.coords.longitude}`)
+        .then(response => this.setState({ currentCity: response.data.components.locality }))
+        .catch(err => console.log(err));
+    });
   //   axios.get('/auth/user').then(response => {
   //   console.log('RESPONSE DATA FOR COMPONENTDIDMOUNT:')
   //   console.log(response.data.user)
@@ -136,7 +148,7 @@ class App extends Component {
 
   //   }
   // })
-  // }
+  }
 
   _logout = (event) => {
     event.preventDefault()
@@ -225,6 +237,7 @@ class App extends Component {
               {...props}
               state={this.state}
               handleInputChange={this.handleInputChange}
+              useCurrentLocation={this.useCurrentLocation}
             />}
           />
           <Route exact path="/home" render={(props) =>
@@ -232,6 +245,7 @@ class App extends Component {
               {...props}
               state={this.state}
               handleInputChange={this.handleInputChange}
+              useCurrentLocation={this.useCurrentLocation}
             />}
           />
           <Route exact path="/driver" render={(props) =>
@@ -241,6 +255,7 @@ class App extends Component {
               handleInputChange={this.handleInputChange}
               getRiders={this.getRiders}
               showModal={this.showModal}
+              useCurrentLocation={this.useCurrentLocation}
             />}
           />
           <Route exact path="/driver-post" component={DriverPost} />
@@ -251,6 +266,7 @@ class App extends Component {
               handleInputChange={this.handleInputChange}
               getDrivers={this.getDrivers}
               showModal={this.showModal}
+              useCurrentLocation={this.useCurrentLocation}
             />}
           />
           <Route exact path="/rider-post" component={RiderPost} />

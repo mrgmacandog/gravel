@@ -17,6 +17,7 @@ function Rider(props) {
                                 value={props.state.startLocation}
                                 onChange={props.handleInputChange}
                                 placeholder="Enter the departure city or use current location"
+                                useCurrentLocation={props.useCurrentLocation}
                             />
                         </div>
                         <div className="col-md-6">
@@ -25,6 +26,7 @@ function Rider(props) {
                                 value={props.state.endLocation}
                                 onChange={props.handleInputChange}
                                 placeholder="Enter the destination (optional)"
+                                useCurrentLocation={props.useCurrentLocation}
                             />
                         </div>
                     </div>

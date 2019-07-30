@@ -59,6 +59,7 @@ export default function Home(props) {
                   value={props.state.startLocation}
                   onChange={props.handleInputChange}
                   placeholder="Enter the departure city or use current location"
+                  useCurrentLocation={props.useCurrentLocation}
                 />
               </form>
             </Col>
