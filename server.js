@@ -106,7 +106,19 @@ app.get("/api/user", function(req,res){
   .then(function(dbUser){
     res.json(dbUser)
   })
-})
+});
+
+// Getting specific user information (dashboard)
+app.get("/api/user/:_id", function(req, res){
+  db.User.find({_id: req.params._id})
+  .then(function(dbUser){
+    res.json(dbUser)
+  })
+  .catch(function(err){
+    res.json(err);
+  })
+});
+
 
 // Send every other request to the React app
 // Define any API routes before this runs
