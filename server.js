@@ -76,6 +76,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // Define API routes here
 require("./routes/driverAPI")(app);
 require("./routes/riderAPI")(app);
+require("./routes/opencageAPI")(app);
 
 //TO DO make route which checks username in sign up with database
 //Don't allow two user names to be created
