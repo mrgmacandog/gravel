@@ -203,11 +203,8 @@ class App extends Component {
           <Link to="/rider-post">/rider-post</Link>
           <Link to="/signin">/signin</Link>
           <Link to="/signup">/signup</Link>
-<<<<<<< HEAD
           <Link to="/dashboard">/dashboard</Link>
-=======
           <h1>{(this.state.loggedIn ? `Weclome, ${this.state.user}` : "Not logged in")}</h1>
->>>>>>> master
         </div>
         <Nav />
         {/* ***************************************** **/}
@@ -261,11 +258,8 @@ class App extends Component {
             <Signin onLogin={this.loginState} />}
           />
           <Route exact path="/signup" component={Signup} />
-<<<<<<< HEAD
           <Route exact path="/dashboard" component={Dashboard} />
-=======
           <button onClick={this._logout}>Logout</button>
->>>>>>> master
         </div>
       </Router>
 
