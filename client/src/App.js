@@ -86,6 +86,7 @@ class App extends Component {
     this.getResults("drivers");
   }
 
+
   getResults = driversOrRiders => {
     alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
@@ -114,25 +115,30 @@ class App extends Component {
   //   this._logout = this._logout.bind(this)
   //   this._login = this._login.bind(this)
   // }
-  componentDidMount() {
-    axios.get('/auth/user').then(response => {
-      console.log(response.data)
-      if (!!response.data.user) {
-        console.log('THERE IS A USER')
-        this.setState({
-          loggedIn: true,
-          user: response.data.user
-        })
-      } else {
-        this.setState({
-          loggedIn: false,
-          user: null
-        })
-      }
-    })
-  }
+  // componentDidMount() {
+  //   axios.get('/auth/user').then(response => {
+  //   console.log('RESPONSE DATA FOR COMPONENTDIDMOUNT:')
+  //   console.log(response.data.user)
+  //   if (response.data.user) {
+  //     console.log('THERE IS A USER')
+  //     this.setState({
+  //       loggedIn: true,
+  //       user: response.data.user
+  //     })
+  //     console.log(this.state.loggedIn)
+  //   } else {
+  //     console.log('THERE IS NO USER LOGGED IN')
+  //     this.setState({
+  //       loggedIn: false,
+  //       user: null
+  //     })
+  //     console.log(this.state.loggedIn)
 
-  _logout(event) {
+  //   }
+  // })
+  // }
+
+  _logout = (event) => {
     event.preventDefault()
     console.log('logging out')
     axios.post('/auth/logout').then(response => {
@@ -140,29 +146,49 @@ class App extends Component {
       if (response.status === 200) {
         this.setState({
           loggedIn: false,
-          user: null
+          user: null,
+          id: null
         })
+        console.log(this.state.loggedIn)
+        alert('Logged out!')
       }
     })
   }
 
-  _login(username, password) {
-    axios
-      .post('/auth/login', {
-        username,
-        password
+  loginState = (user, id) =>  this.setState({
+    	loggedIn: true,
+    	user: user,
+    	id: id
       })
-      .then(response => {
-        console.log(response)
-        if (response.status === 200) {
-          // update the state
-          this.setState({
-            loggedIn: true,
-            user: response.data.user
-          })
-        }
-      })
-  }
+
+  // _login = (username, password, obj) => {
+  //   axios.post('/auth/login', {
+  //     username,
+  //     password
+  //   })
+  //     .then(response => {
+  //       console.log('RESPONSE FROM PASSPORT')
+  //       console.log(response.data)
+  //       if (response.status === 200) {
+  //         // update the state
+  //         this.setState({
+  //           loggedIn: true,
+  //           user: response.data.user.local.username,
+  //           id: response.data.user._id
+  //         })
+
+  //         // obj.success();
+  //       }
+  //     }).catch(err => {
+  //       if (err) {
+  //         console.log(err)
+  //         alert(err);
+  //       } else {
+  //         console.log("Successful sign in")
+  //         console.log(this.state)
+  //       }
+  //     })
+  // }
   render() {
     return (
       <Router>
@@ -177,7 +203,11 @@ class App extends Component {
           <Link to="/rider-post">/rider-post</Link>
           <Link to="/signin">/signin</Link>
           <Link to="/signup">/signup</Link>
+<<<<<<< HEAD
           <Link to="/dashboard">/dashboard</Link>
+=======
+          <h1>{(this.state.loggedIn ? `Weclome, ${this.state.user}` : "Not logged in")}</h1>
+>>>>>>> master
         </div>
         <Nav />
         {/* ***************************************** **/}
@@ -228,10 +258,14 @@ class App extends Component {
           />
           <Route exact path="/rider-post" component={RiderPost} />
           <Route exact path="/signin" component={() =>
-            <Signin login={this._login} />}
+            <Signin onLogin={this.loginState} />}
           />
           <Route exact path="/signup" component={Signup} />
+<<<<<<< HEAD
           <Route exact path="/dashboard" component={Dashboard} />
+=======
+          <button onClick={this._logout}>Logout</button>
+>>>>>>> master
         </div>
       </Router>
 
