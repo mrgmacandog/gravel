@@ -66,24 +66,23 @@ export default function Home(props) {
           </Row>
           <Row>
             <Col size="sm-6">
+              
               <ChoiceButton
                 // onClick={() => window.location.href = "/driver"}
-                type="success"
-                className="driver-input-lg"
-                text="Driver"
+                className="fa fa-car"
                 route="/driver"
               >
               </ChoiceButton>
+              <h4 className="driver">Driver</h4>
             </Col>
             <Col size="sm-6">
               <ChoiceButton
                 // onClick={() => window.location.href = "/rider"}
-                type="success"
-                className="rider-input-lg"
-                text="Rider"
+                className="fa fa-user"
                 route={"/rider"}
               >
               </ChoiceButton>
+              <h4 className="rider">Rider</h4>
             </Col>
           </Row>
         </Container>
