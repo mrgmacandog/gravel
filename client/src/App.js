@@ -113,7 +113,7 @@ class App extends Component {
   //   }
   //   this._logout = this._logout.bind(this)
   //   this._login = this._login.bind(this)
-  // }
+  // // }
   // componentDidMount() {
   //   axios.get('/auth/user').then(response => {
   //   console.log('RESPONSE DATA FOR COMPONENTDIDMOUNT:')
@@ -157,7 +157,8 @@ class App extends Component {
   loginState = (user, id) =>  this.setState({
     	loggedIn: true,
     	user: user,
-    	id: id
+      id: id,
+      redirect: '/'
       })
 
   // _login = (username, password, obj) => {
@@ -197,11 +198,19 @@ class App extends Component {
         <div style={{ backgroundColor: "black", display: "flex", justifyContent: "space-around" }}>
           <Link to="/home">/home</Link>
           <Link to="/driver">/driver</Link>
+          {( this.state.loggedIn ? 
           <Link to="/driver-post">/driver-post</Link>
+          : null )}
           <Link to="/rider">/rider</Link>
+          {( this.state.loggedIn ?
           <Link to="/rider-post">/rider-post</Link>
+          : null )}
+          {( !this.state.loggedIn ?
           <Link to="/signin">/signin</Link>
+          : null )}
+          {( !this.state.loggedIn ?
           <Link to="/signup">/signup</Link>
+          : null )}
           <h1>{(this.state.loggedIn ? `Weclome, ${this.state.user}` : "Not logged in")}</h1>
         </div>
         <Nav />
@@ -256,7 +265,11 @@ class App extends Component {
             <Signin onLogin={this.loginState} />}
           />
           <Route exact path="/signup" component={Signup} />
+          <h1> {(this.state.loggedIn ? 
           <button onClick={this._logout}>Logout</button>
+          : null
+          )}
+          </h1>
         </div>
       </Router>
 
