@@ -81,33 +81,75 @@ class App extends Component {
   // Get all riders for Driver component
   getRiders = event => {
     event.preventDefault();
-    this.getResults("riders");
+
+    alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+
+    if (this.state.startLocation === "") {
+      API.getDriver()
+        .then(results => this.setState({ results: results.data }))
+        .catch(err => console.log(err));
+    } else {  // this.state.startLocation !== ""
+      if (this.state.endLocation === "") {
+        API.getDriverStart(this.state.startLocation)
+          .then(results => {
+            console.log(results);
+            this.setState({ results: results.data });
+          })
+          .catch(err => console.log(err));
+      } else {  // this.state.endLocation !== ""
+        API.getDriverStartEnd(this.state.startLocation, this.state.endLocation)
+          .then(results => this.setState({ results: results.data }))
+          .catch(err => console.log(err));
+      }
+    }
+
+
+    // this.getResults("riders");
   };
 
   // Get all drivers for Rider component
   getDrivers = event => {
     event.preventDefault();
-    this.getResults("drivers");
+
+    alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+
+    if (this.state.startLocation === "") {
+      API.getDriver()
+        .then(results => this.setState({ results: results.data }))
+        .catch(err => console.log(err));
+    } else {  // this.state.startLocation !== ""
+      if (this.state.endLocation === "") {
+        API.getRiderStart(this.state.startLocation)
+          .then(results => this.setState({ results: results.data }))
+          .catch(err => console.log(err));
+      } else {  // this.state.endLocation !== ""
+        API.getRiderStartEnd(this.state.startLocation, this.state.endLocation)
+          .then(results => this.setState({ results: results.data }))
+          .catch(err => console.log(err));
+      }
+    }
+
+    // this.getResults("drivers");
   }
 
 
-  getResults = driversOrRiders => {
-    alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+  // getResults = driversOrRiders => {
+  //   alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
-    // TODO: Check if query matches API routes
+  //   // TODO: Check if query matches API routes
 
-    let query = `api/${driversOrRiders}/`;
+  //   let query = `api/${driversOrRiders}/`;
 
-    this.state.endLocation === ""
-      ? query += `${this.state.startLocation.toLowerCase().replace(" ", "%20")}`
-      : query += `${this.state.startLocation.toLowerCase().replace(" ", "%20")}/${this.state.endLocation.toLowerCase().replace(" ", "%20")}`
+  //   this.state.endLocation === ""
+  //     ? query += `${this.state.startLocation.toLowerCase().replace(" ", "%20")}`
+  //     : query += `${this.state.startLocation.toLowerCase().replace(" ", "%20")}/${this.state.endLocation.toLowerCase().replace(" ", "%20")}`
 
-    alert(query);
-    // Maybe in ./utils/API.js 
-    axios.get(query)
-      .then(results => this.setState({ results: results }))
-      .catch(err => console.log(err));
-  }
+  //   alert(query);
+  //   // Maybe in ./utils/API.js 
+  //   axios.get(query)
+  //     .then(results => this.setState({ results: results }))
+  //     .catch(err => console.log(err));
+  // }
 
   // Takes in the location input name and sets that state to the currentCity state
   useCurrentLocation = name => {
@@ -118,7 +160,7 @@ class App extends Component {
     // Get the current city from coordinates and save it as currentCity in state
     navigator.geolocation.getCurrentPosition(location => {
       API.getCurrentCity(`${location.coords.latitude},${location.coords.longitude}`)
-        .then(response => this.setState({ currentCity: response.data.components.locality }))
+        .then(response => this.setState({ currentCity: response.data.components.city || response.data.components.locality }))
         .catch(err => console.log(err));
     });
   }
@@ -135,121 +177,129 @@ class App extends Component {
           id: null,
           redirect: null
         })
-        let redirectPage = <Redirect to={{ pathname: '/' }} /> 
+        let redirectPage = <Redirect to={{ pathname: '/' }} />
         alert('Logged out!')
         return redirectPage;
-        
+
       }
     })
   }
 
-  loginState = (user, id) =>  this.setState({
-    	loggedIn: true,
-    	user: user,
-      id: id,
-      redirect: '/'
-      });
+  loginState = (user, id) => this.setState({
+    loggedIn: true,
+    user: user,
+    id: id,
+    redirect: '/'
+  });
 
   render() {
     let redirect = "";
     if (this.state.redirect) {
-      redirect = <Redirect to={{ pathname: this.state.redirect }} /> 
-    } 
+      redirect = <Redirect to={{ pathname: this.state.redirect }} />
+    }
     return (
-        <Router>
-          {redirect}
+      <Router>
+        {redirect}
 
-          {/* Temporary website navigation               */}
-          {/* TODO: Delete after all pages are navigable */}
-          {/* ****************************************** */}
-          <div style={{ backgroundColor: "black", display: "flex", justifyContent: "space-around" }}>
-            <Link to="/home">/home</Link>
-            <Link to="/driver">/driver</Link>
-            {( this.state.loggedIn ? 
+        {/* Temporary website navigation               */}
+        {/* TODO: Delete after all pages are navigable */}
+        {/* ****************************************** */}
+        <div style={{ backgroundColor: "black", display: "flex", justifyContent: "space-around" }}>
+          <Link to="/home">/home</Link>
+          <Link to="/driver">/driver</Link>
+          {(this.state.loggedIn ?
             <Link to="/driver-post">/driver-post</Link>
-            : null )}
-            <Link to="/rider">/rider</Link>
-            {( this.state.loggedIn ?
+            : null)}
+          <Link to="/rider">/rider</Link>
+          {(this.state.loggedIn ?
             <Link to="/rider-post">/rider-post</Link>
-            : null )}
-            {( !this.state.loggedIn ?
+            : null)}
+          {(!this.state.loggedIn ?
             <Link to="/signin">/signin</Link>
-            : null )}
-            {( !this.state.loggedIn ?
+            : null)}
+          {(!this.state.loggedIn ?
             <Link to="/signup">/signup</Link>
 
-            : null )}
+            : null)}
 
-            <Link to="/dashboard">/dashboard</Link>
+          <Link to="/dashboard">/dashboard</Link>
 
-            <h1>{(this.state.loggedIn ? `Weclome, ${this.state.user}` : "Not logged in")}</h1>
-          </div>
-          <Nav />
-          {/* ***************************************** **/}
+          <h1>{(this.state.loggedIn ? `Weclome, ${this.state.user}` : "Not logged in")}</h1>
+        </div>
+        <Nav />
+        {/* ***************************************** **/}
 
-          {/* Modal Test */}
-          {/* TODO: Delete button when everything is working */}
-          {/* <button className="btn btn-light" onClick={this.showModal} >Modal</button> */}
-          <TripModal
-            show={this.state.modalShow}
-            onHide={this.hideModal}
-            trip={this.state.modalTrip}
+        {/* Modal Test */}
+        {/* TODO: Delete button when everything is working */}
+        {/* <button className="btn btn-light" onClick={this.showModal} >Modal</button> */}
+        <TripModal
+          show={this.state.modalShow}
+          onHide={this.hideModal}
+          trip={this.state.modalTrip}
+        />
+
+        {/* React router. TODO: May need to place everything above into the respective page. */}
+        <div>
+          <Route exact path="/" render={(props) =>
+            <Home
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              useCurrentLocation={this.useCurrentLocation}
+            />}
           />
+          <Route exact path="/home" render={(props) =>
+            <Home
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              useCurrentLocation={this.useCurrentLocation}
+            />}
+          />
+          <Route exact path="/driver" render={(props) =>
+            <Driver
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              getRiders={this.getRiders}
+              showModal={this.showModal}
+              useCurrentLocation={this.useCurrentLocation}
+            />}
+          />
+          <Route exact path="/driver-post" component={DriverPost} />
+          <Route exact path="/rider" render={(props) =>
+            <Rider
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              getDrivers={this.getDrivers}
+              showModal={this.showModal}
+              useCurrentLocation={this.useCurrentLocation}
+            />}
+          />
+          <Route exact path="/rider-post" component={RiderPost} />
+          <Route exact path="/signin" component={() =>
+            <Signin onLogin={this.loginState} />}
+          />
+          <Route exact path="/signup" component={() => <Signup onLogin={this.loginState} />} />
 
-          {/* React router. TODO: May need to place everything above into the respective page. */}
-          <div>
-            <Route exact path="/" render={(props) =>
-              <Home
-                {...props}
-                state={this.state}
-                handleInputChange={this.handleInputChange}
-                useCurrentLocation={this.useCurrentLocation}
-              />}
-            />
-            <Route exact path="/home" render={(props) =>
-              <Home
-                {...props}
-                state={this.state}
-                handleInputChange={this.handleInputChange}
-                useCurrentLocation={this.useCurrentLocation}
-              />}
-            />
-            <Route exact path="/driver" render={(props) =>
-              <Driver
-                {...props}
-                state={this.state}
-                handleInputChange={this.handleInputChange}
-                getRiders={this.getRiders}
-                showModal={this.showModal}
-                useCurrentLocation={this.useCurrentLocation}
-              />}
-            />
-            <Route exact path="/driver-post" component={DriverPost} />
-            <Route exact path="/rider" render={(props) =>
-              <Rider
-                {...props}
-                state={this.state}
-                handleInputChange={this.handleInputChange}
-                getDrivers={this.getDrivers}
-                showModal={this.showModal}
-                useCurrentLocation={this.useCurrentLocation}
-              />}
-            />
-            <Route exact path="/rider-post" component={RiderPost} />
-            <Route exact path="/signin" component={() =>
-              <Signin onLogin={this.loginState} />}
-            />
-            <Route exact path="/signup" component={() => <Signup onLogin={this.loginState} />} />
-
-            <h1> {(this.state.loggedIn ? 
+          <h1> {(this.state.loggedIn ?
             <button onClick={this._logout}>Logout</button>
-            : null )}
-            </h1>
-
-            
-            <Route exact path="/dashboard" component={Dashboard} />
-          </div>
-        </Router>
+            : null)}
+          </h1>
+{/* 
+          <Signin onLogin={this.loginState} />}
+        />
+          <Route exact path="/signup" component={Signup} />
+          
+          <h1> {(this.state.loggedIn ?
+            <button onClick={this._logout}>Logout</button>
+            : null
+          )}
+          </h1> */}
+          <Route exact path="/dashboard" component={Dashboard} />
+        </div>
+      </Router>
 
     );
   }
