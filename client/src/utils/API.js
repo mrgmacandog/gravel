@@ -7,24 +7,24 @@ export default {
         return axios.get("/api/riders");
     },
     // Getting the trip filter by start location
-    getRiderStart: function () {
-        return axios.get("/api/riders/:start_location")
+    getRiderStart: function (start_location) {
+        return axios.get(`/api/riders/${start_location}`)
     },
     //Getting the trip filter by start and end location
-    getRiderStartEnd: function (){
-        return axios.get("/api/riders/:start_location/:end_location")
+    getRiderStartEnd: function (start_location, end_location){
+        return axios.get(`/api/riders/${start_location}/${end_location}`)
     },
     // Driver post a trip to riders database
     postRider: function () {
         return axios.post("/api/riders");
     },
     // Updating a trip posted by a driver in rider database
-    updateRider: function () {
-        return axios.post("/api/riders/:_id");
+    updateRider: function (_id) {
+        return axios.post(`/api/riders/${_id}`);
     },
     // Deleting a trip posted by a driver in rider database
-    deleteRider: function () {
-        return axios.delete("/api/riders/:_id");
+    deleteRider: function (_id) {
+        return axios.delete(`/api/riders${_id}`);
     },
 
     // Routes for Rider pages
@@ -33,24 +33,29 @@ export default {
         return axios.get("/api/drivers/");
     },
     // trip filter by start location
-    getDriverStart: function(){
-        return axios.get("/api/drivers/:start_location")
+    getDriverStart: function(start_location){
+        return axios.get(`/api/drivers/${start_location}`)
     },
     // trip filter by start and end location
-    getDriverStartEnd: function(){
-        return axios.get("/api/drivers/:start_location/:end_location")
+    getDriverStartEnd: function(start_location, end_location){
+        return axios.get(`/api/drivers/${start_location}/${end_location}`)
     },
     // adding a trip
     postDriver: function(){
         return axios.get("/api/drivers")
     },
     // updating a trip
-    updateDriver: function(){
-        return axios.get("/api/drivers/:_id")
+    updateDriver: function(_id){
+        return axios.get(`/api/drivers/${_id}`)
     },
     // deleting an existing trip
-    deleteDriver: function(){
-        return axios.delete("/api/drivers/:_id")
-    }
+    deleteDriver: function(_id){
+        return axios.delete(`/api/drivers/${_id}`)
+    },
 
+    // OpenCage API
+    // Get current city from current coordinates
+    getCurrentCity: function(coords) {
+        return axios.get(`/api/get-city/${coords}`);
+    }
 };
