@@ -54,27 +54,13 @@ export default function Home(props) {
           <Row>
             <Col size="md-12">
               <form onSubmit={(event) => event.preventDefault()}>
-                {/* <Container> */}
-                  {/* <Row> */}
-                    {/* <Col size="xs-9 sm-10"> */}
-                      <LocationInput
-                        name="startLocation"
-                        value={props.state.startLocation}
-                        onChange={props.handleInputChange}
-                        placeholder="Enter the departure city or use current location"
-                      />
-                    {/* </Col> */}
-                    {/* <Col size="xs-3 sm-2">
-                      <Button
-                        onClick={this.handleFormSubmit}
-                        type="success"
-                        className="input-lg"
-                      >
-                        Search
-                      </Button>
-                    </Col> */}
-                  {/* </Row> */}
-                {/* </Container> */}
+                <LocationInput
+                  name="startLocation"
+                  value={props.state.startLocation}
+                  onChange={props.handleInputChange}
+                  placeholder="Enter the departure city or use current location"
+                  useCurrentLocation={props.useCurrentLocation}
+                />
               </form>
             </Col>
           </Row>
