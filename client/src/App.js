@@ -114,19 +114,6 @@ class App extends Component {
     this.setState({ [name]: this.state.currentCity });
   }
 
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     loggedIn: false,
-  //     user: null
-  //   }
-  //   this._logout = this._logout.bind(this)
-  //   this._login = this._login.bind(this)
-
-  // // }
-  // componentDidMount() {
-
-  // }
   componentDidMount() {
     // Get the current city from coordinates and save it as currentCity in state
     navigator.geolocation.getCurrentPosition(location => {
@@ -134,26 +121,6 @@ class App extends Component {
         .then(response => this.setState({ currentCity: response.data.components.locality }))
         .catch(err => console.log(err));
     });
-  //   axios.get('/auth/user').then(response => {
-  //   console.log('RESPONSE DATA FOR COMPONENTDIDMOUNT:')
-  //   console.log(response.data.user)
-  //   if (response.data.user) {
-  //     console.log('THERE IS A USER')
-  //     this.setState({
-  //       loggedIn: true,
-  //       user: response.data.user
-  //     })
-  //     console.log(this.state.loggedIn)
-  //   } else {
-  //     console.log('THERE IS NO USER LOGGED IN')
-  //     this.setState({
-  //       loggedIn: false,
-  //       user: null
-  //     })
-  //     console.log(this.state.loggedIn)
-
-  //   }
-  // })
   }
 
   _logout = (event) => {
@@ -165,10 +132,13 @@ class App extends Component {
         this.setState({
           loggedIn: false,
           user: null,
-          id: null
+          id: null,
+          redirect: null
         })
-        console.log(this.state.loggedIn)
+        let redirectPage = <Redirect to={{ pathname: '/' }} /> 
         alert('Logged out!')
+        return redirectPage;
+        
       }
     })
   }
@@ -180,34 +150,6 @@ class App extends Component {
       redirect: '/'
       });
 
-  // _login = (username, password, obj) => {
-  //   axios.post('/auth/login', {
-  //     username,
-  //     password
-  //   })
-  //     .then(response => {
-  //       console.log('RESPONSE FROM PASSPORT')
-  //       console.log(response.data)
-  //       if (response.status === 200) {
-  //         // update the state
-  //         this.setState({
-  //           loggedIn: true,
-  //           user: response.data.user.local.username,
-  //           id: response.data.user._id
-  //         })
-
-  //         // obj.success();
-  //       }
-  //     }).catch(err => {
-  //       if (err) {
-  //         console.log(err)
-  //         alert(err);
-  //       } else {
-  //         console.log("Successful sign in")
-  //         console.log(this.state)
-  //       }
-  //     })
-  // }
   render() {
     let redirect = "";
     if (this.state.redirect) {
@@ -297,7 +239,7 @@ class App extends Component {
             <Route exact path="/signin" component={() =>
               <Signin onLogin={this.loginState} />}
             />
-            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/signup" component={() => <Signup onLogin={this.loginState} />} />
 
             <h1> {(this.state.loggedIn ? 
             <button onClick={this._logout}>Logout</button>

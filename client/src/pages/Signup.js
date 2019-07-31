@@ -1,6 +1,8 @@
 import React,  { Component } from "react";
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
+import API from '../utils/API';
+
 
 // Can change to stateful component if need be
 class Signup extends Component {
@@ -9,9 +11,7 @@ class Signup extends Component {
 		this.state = {
 			username: '',
 			password: '',
-			confirmPassword: '',
-			loggedIn: false,
-			redirectTo: null
+			confirmPassword: ''
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
@@ -35,17 +35,13 @@ class Signup extends Component {
 		//loggedIn value won't 
 		axios.post('/auth/signup', {
 				username: this.state.username,
-				password: this.state.password,
-				loggedIn: true
+				password: this.state.password
 			})
 			.then(response => {
 				if (!response.data.error) {
 					console.log(this.state)
-					console.log('Registration succesful')
-					this.setState({
-						loggedIn: true,
-						redirectTo: '/'
-					})
+					console.log('Registration succesful');
+					API.login(this.state.username, this.state.password, this.props.onLogin);
 				} else {
 					console.log('duplicate')
 					return alert(response.data.error)
@@ -54,9 +50,6 @@ class Signup extends Component {
 		}
 	}
 	render() {
-		if (this.state.redirectTo) {
-			return <Redirect to={{ pathname: this.state.redirectTo }} />
-		}
 		return (
 			<div className="SignupForm">
 				<h1>Signup form</h1>
