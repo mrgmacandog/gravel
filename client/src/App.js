@@ -335,12 +335,12 @@ class App extends Component {
 
           <h1> {(this.state.loggedIn ? 
 
-          <Route exact path="/dashboard" component={Dashboard} />
 
           <button onClick={this._logout}>Logout</button>
           : null
           )}
           </h1>
+          <Route exact path="/dashboard" component={Dashboard} />
         </div>
       </Router>
 
