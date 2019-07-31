@@ -51,6 +51,11 @@ export default {
     // deleting an existing trip
     deleteDriver: function(_id){
         return axios.delete(`/api/drivers/${_id}`)
-    }
+    },
 
+    // OpenCage API
+    // Get current city from current coordinates
+    getCurrentCity: function(coords) {
+        return axios.get(`/api/get-city/${coords}`);
+    }
 };
