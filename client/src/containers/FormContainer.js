@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import axios from "axios"
 
 /* Import Components */
+
 
 import Input from "../components/Input";
 import TextArea from "../components/TextArea";
@@ -25,15 +27,16 @@ class FormContainer extends Component {
 
         comments: ""
       },
-      flexibleDateOpt: ["Yes", "No"],
-      smokingOpt: ["Yes", "No"],
+
+      luggageOpt: ["yes", "no"],
+      flexibleDateOpt: ["yes", "no"],
+      smokingOpt: ["yes", "no"],
 
     };
     this.handleTextArea = this.handleTextArea.bind(this);
     this.handleStart_location = this.handleStart_location.bind(this);
     this.handletTitle = this.handleTitle.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleClearForm = this.handleClearForm.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
 
@@ -79,10 +82,6 @@ class FormContainer extends Component {
     );
   }
 
-
-
-
-
   handleTextArea(e) {
     console.log("Inside handleTextArea");
     let value = e.target.value;
@@ -99,35 +98,48 @@ class FormContainer extends Component {
 
 
   handleFormSubmit(e) {
-    // e.preventDefault();
-    // let userData = this.state.newPost;
+    let postData = this.state.newPost;
+    e.preventDefault()
+    if (window.location.href === "/rider-post") {
+      axios.post('/api/riders', postData)
+        .then(response => console.log(response.data));
 
-    // fetch("http://example.com", {
-    //   method: "POST",
-    //   body: JSON.stringify(userData),
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   }
-    // }).then(response => {
-    //   response.json().then(data => {
-    //     console.log("Successful" + data);
-    //   });
-    // });
-  }
+      this.setState({
+        newPost: {
+          title: "",
+          start_location: "",
+          end_location: "",
+          leaving_date: "",
+          flexible_date: "",
+          cost: "",
+          seats_available: "",
+          smoking: "",
+          luggage: "",
+          comments: ""
+        }
 
-  handleClearForm(e) {
-    e.preventDefault();
-    this.setState({
-      newPost: {
-        title: "",
-        start_location: "",
-        end_location: "",
-        gender: "",
-        skills: [],
-        comments: ""
-      }
-    });
+      });
+    } else {
+      axios.post('/api/drivers', postData)
+        .then(response => console.log(response.data));
+
+      this.setState({
+        newPost: {
+          title: "",
+          start_location: "",
+          end_location: "",
+          leaving_date: "",
+          flexible_date: "",
+          cost: "",
+          seats_available: "",
+          smoking: "",
+          luggage: "",
+          comments: ""
+        }
+
+      });
+    }
+    this.props.history.push("/driver");
   }
 
   render() {
@@ -184,6 +196,14 @@ class FormContainer extends Component {
           placeholder={"Enter the cost"}
           handleChange={this.handleInput}
         />{" "}
+        <Input
+          inputType={"number"}
+          name={"seats_available"}
+          title={"Seats"}
+          value={this.state.newPost.seats_available}
+          placeholder={"Enter the number of seats"}
+          handleChange={this.handleInput}
+        />{" "}
         <Select
           title={"Smoking"}
           name={"smoking"}
@@ -192,15 +212,14 @@ class FormContainer extends Component {
           placeholder={"Select Option"}
           handleChange={this.handleInput}
         />{" "}
-        <Input
-          inputType={"text"}
+        <Select
           name={"luggage"}
           title={"Luggage"}
-          value={this.state.newPost.cost}
-          placeholder={"Enter how many bags"}
+          value={this.state.newPost.luggage}
+          options={this.state.luggageOpt}
+          placeholder={"Select Option"}
           handleChange={this.handleInput}
         />{" "}
-
         <TextArea
           title={"Comments"}
           rows={10}
@@ -216,18 +235,9 @@ class FormContainer extends Component {
           title={"Submit"}
           style={buttonStyle}
           text={"Post"}
+                    
         />{" "}
         {/*Submit */}
-        <Button
-          action={this.handleClearForm}
-          type={"secondary"}
-          title={"Clear"}
-          style={buttonStyle}
-          text={"Clear Form"}
-        
-        />
-        {""}
-        {/* Clear the form */}
       </form>
     );
   }

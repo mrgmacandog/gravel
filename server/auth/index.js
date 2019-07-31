@@ -17,28 +17,39 @@ router.get('/user', (req, res, next) => {
 router.post(
 	'/login',
 	function(req, res, next) {
+		console.log('AUTH/LOGIN ROUTE')
 		console.log(req.body)
 		console.log('================')
 		next()
 	},
 	passport.authenticate('local'),
 	(req, res) => {
+		console.log('================')
+		console.log('PASSPORT AUTHENTICATE')
 		console.log('POST to /login')
+		console.log(req.body)
+		console.log('================')
 		const user = JSON.parse(JSON.stringify(req.user)) // hack
 		const cleanUser = Object.assign({}, user)
 		if (cleanUser.local) {
 			console.log(`Deleting ${cleanUser.local.password}`)
 			delete cleanUser.local.password
 		}
+		console.log(cleanUser)
 		res.json({ user: cleanUser })
 	}
 )
 
 router.post('/logout', (req, res) => {
-	if (req.user) {
+	console.log("Hitting log out route")
+	// console.log(req.session.passport.user._id)
+	console.log(req.session)
+
+	if (req.session.passport) {
 		req.session.destroy()
 		res.clearCookie('connect.sid') // clean up!
 		return res.json({ msg: 'logging you out' })
+		
 	} else {
 		return res.json({ msg: 'no user to log out!' })
 	}
@@ -56,7 +67,8 @@ router.post('/signup', (req, res) => {
 		}
 		const newUser = new User({
 			'local.username': username,
-			'local.password': password
+			'local.password': password,
+			'local.loggedIn': true
 		})
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err)
