@@ -17,6 +17,7 @@ function Rider(props) {
                                 value={props.state.startLocation}
                                 onChange={props.handleInputChange}
                                 placeholder="Enter the departure city or use current location"
+                                useCurrentLocation={props.useCurrentLocation}
                             />
                         </div>
                         <div className="col-md-6">
@@ -25,6 +26,7 @@ function Rider(props) {
                                 value={props.state.endLocation}
                                 onChange={props.handleInputChange}
                                 placeholder="Enter the destination (optional)"
+                                useCurrentLocation={props.useCurrentLocation}
                             />
                         </div>
                     </div>
@@ -33,7 +35,7 @@ function Rider(props) {
                 </form>
             </div>
             {/* TODO: Send TripContainer the data from Drivers table */}
-            <TripContainer page={"Rider"} results={props.state.results} showModal={props.showModal}/>
+            <TripContainer page={"Rider"} loggedIn={props.state.loggedIn} results={props.state.results} showModal={props.showModal}/>
         </React.Fragment>
     );
 }

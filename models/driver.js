@@ -49,7 +49,7 @@ const DriverSchema = new Schema({
         required: false
     },
     rider_id: [{
-        type: Schema.Types.ObjectId,
+        type: [Schema.Types.ObjectId],
         ref: "User"
     }]
 });

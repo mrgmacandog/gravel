@@ -7,6 +7,15 @@ mongoose.promise = Promise
 const userSchema = new Schema({
 	firstName: { type: String, unique: false, },
 	lastName: { type: String, unique: false },
+	// adding connection to trip and driver id,
+	driveId: {
+		type: Schema.Types.ObjectId,
+		ref: "Driver"
+	},
+	rideId: {
+		type: Schema.Types.ObjectId,
+		ref: "Rider"
+	},
 	local: {
 		username: { type: String, unique: true, required: true },
 		password: { type: String, unique: false, required: true },

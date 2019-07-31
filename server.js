@@ -76,6 +76,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // Define API routes here
 require("./routes/driverAPI")(app);
 require("./routes/riderAPI")(app);
+require("./routes/opencageAPI")(app);
 
 //TO DO make route which checks username in sign up with database
 //Don't allow two user names to be created
@@ -106,7 +107,19 @@ app.get("/api/user", function(req,res){
   .then(function(dbUser){
     res.json(dbUser)
   })
-})
+});
+
+// Getting specific user information (dashboard)
+app.get("/api/user/:_id", function(req, res){
+  db.User.find({_id: req.params._id})
+  .then(function(dbUser){
+    res.json(dbUser)
+  })
+  .catch(function(err){
+    res.json(err);
+  })
+});
+
 
 // Send every other request to the React app
 // Define any API routes before this runs

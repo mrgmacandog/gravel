@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Can change to stateful component if need be
-function RequestRideButton() {
+function RequestRideButton(props) {
     return (
-        <Link to="/driver-post" className="btn btn-primary">Offer a ride!</Link>
+        <Link to={props.loggedIn ? "/rider-post" : "/signin"} className="btn btn-primary">Request a ride!</Link>
     );
 }
 
