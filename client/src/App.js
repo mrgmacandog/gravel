@@ -79,13 +79,55 @@ class App extends Component {
   // Get all riders for Driver component
   getRiders = event => {
     event.preventDefault();
-    this.getResults("riders");
+
+    alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+    
+    if (this.state.startLocation === "") {
+      API.getDriver()
+        .then(results =>this.setState({ results: results.data }))
+        .catch(err => console.log(err));
+    } else {  // this.state.startLocation !== ""
+      if (this.state.endLocation === "") {
+        API.getDriverStart(this.startLocation)
+          .then(results => {
+            console.log(results);
+            this.setState({ results: results.data });
+          })
+          .catch(err => console.log(err));
+      } else {  // this.state.endLocation !== ""
+        API.getDriverStartEnd(this.startLocation, this.endLocation)
+          .then(results => this.setState({ results: results.data }))
+          .catch(err => console.log(err));
+      }
+    }
+
+
+    // this.getResults("riders");
   };
 
   // Get all drivers for Rider component
   getDrivers = event => {
     event.preventDefault();
-    this.getResults("drivers");
+
+    alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+
+    if (this.state.startLocation === "") {
+      API.getDriver()
+        .then(results =>this.setState({ results: results.data }))
+        .catch(err => console.log(err));
+    } else {  // this.state.startLocation !== ""
+      if (this.state.endLocation === "") {
+        API.getRiderStart(this.startLocation)
+        .then(results => this.setState({ results: results.data }))
+        .catch(err => console.log(err));
+      } else {  // this.state.endLocation !== ""
+      API.getRiderStartEnd(this.startLocation, this.endLocation)
+          .then(results => this.setState({ results: results.data }))
+          .catch(err => console.log(err));
+      }
+    }
+
+    // this.getResults("drivers");
   }
 
 
