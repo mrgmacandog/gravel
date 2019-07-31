@@ -125,7 +125,7 @@ class App extends Component {
     // Get the current city from coordinates and save it as currentCity in state
     navigator.geolocation.getCurrentPosition(location => {
       API.getCurrentCity(`${location.coords.latitude},${location.coords.longitude}`)
-        .then(response => this.setState({ currentCity: response.data.components.locality }))
+        .then(response => this.setState({ currentCity: response.data.components.city || response.data.components.locality }))
         .catch(err => console.log(err));
     });
   //   axios.get('/auth/user').then(response => {
