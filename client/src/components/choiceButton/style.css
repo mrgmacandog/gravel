@@ -1,17 +1,31 @@
 
-.driver-input-lg{
-    background-color: #444d54;
+.fa-car{
+    font-size: 80px;
+    background-color:transparent;
     display:block; 
     line-height: 50px; 
     width:50%; 
     text-align:center; 
     margin:0 auto;
 }
-.rider-input-lg{
-    background-color: #444d54;
-    display:block; 
+.driver {
     line-height: 50px; 
     width:50%; 
     text-align:center; 
     margin:0 auto;
+}
+.rider {
+    line-height: 50px; 
+    width:50%; 
+    text-align:center; 
+ }
+.fa-user{
+    
+    font-size: 80px;
+    background-color:transparent;
+    display:block; 
+    line-height: 50px; 
+    width:50%; 
+    text-align:center; 
+  
 }
