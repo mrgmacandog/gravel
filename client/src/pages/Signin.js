@@ -4,12 +4,11 @@ import axios from 'axios'
 
 
 class LoginForm extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
 			username: '',
-			password: '',
-			redirectTo: null
+			password: ''
 		}
 		// this.googleSignin = this.googleSignin.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -40,24 +39,22 @@ class LoginForm extends Component {
 				console.log('RESPONSE FROM PASSPORT')
 				console.log(response.data)
 				if (response.status === 200) {
-					// update the state
-					//TO DO:
-					// Instead of setting state via this function, pass username, id and loggedin = true as props to 
-					//	the component I've redirected too
-					// TO DO:
-					//Add component did mount to the target page
+					
 					this.props.onLogin(response.data.user.local.username, response.data.user._id)
+					console.log(this.state)
 					//   this.setState({
 					// 	loggedIn: true,
 					// 	user: response.data.user.local.username,
-					// 	id: response.data.user._id
+					// 	id: response.data.user._id,
+					// 	redirectTo: '/'
 					//   })
+					//   console.log(this.state)
 
 					// obj.success();
-					console.log("Succesful signin")
-					this.setState({
-						redirectTo: '/'
-					})
+					// console.log("Succesful signin")
+					// this.setState({
+					// 	redirectTo: '/'
+					// })
 				}
 			}).catch(err => {
 				if (err) {

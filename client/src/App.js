@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Redirect } from 'react-router-dom'
 import Nav from "./components/Nav";
 import TripModal from "./components/TripModal";
 import axios from "axios";
@@ -25,7 +26,8 @@ class App extends Component {
     startLocation: "",
     endLocation: "",
     currentCity: "",
-    results: []
+    results: [],
+    redirect: null
 
     // TODO: Remove this. Test results, uncomment this and comment the results above
     // results: [
@@ -176,7 +178,7 @@ class App extends Component {
     	user: user,
       id: id,
       redirect: '/'
-      })
+      });
 
   // _login = (username, password, obj) => {
   //   axios.post('/auth/login', {
@@ -207,100 +209,105 @@ class App extends Component {
   //     })
   // }
   render() {
+    let redirect = "";
+    if (this.state.redirect) {
+      redirect = <Redirect to={{ pathname: this.state.redirect }} /> 
+    } 
     return (
-      <Router>
-        {/* Temporary website navigation               */}
-        {/* TODO: Delete after all pages are navigable */}
-        {/* ****************************************** */}
-        <div style={{ backgroundColor: "black", display: "flex", justifyContent: "space-around" }}>
-          <Link to="/home">/home</Link>
-          <Link to="/driver">/driver</Link>
-          {( this.state.loggedIn ? 
-          <Link to="/driver-post">/driver-post</Link>
-          : null )}
-          <Link to="/rider">/rider</Link>
-          {( this.state.loggedIn ?
-          <Link to="/rider-post">/rider-post</Link>
-          : null )}
-          {( !this.state.loggedIn ?
-          <Link to="/signin">/signin</Link>
-          : null )}
-          {( !this.state.loggedIn ?
-          <Link to="/signup">/signup</Link>
+        <Router>
+          {redirect}
 
-          : null )}
+          {/* Temporary website navigation               */}
+          {/* TODO: Delete after all pages are navigable */}
+          {/* ****************************************** */}
+          <div style={{ backgroundColor: "black", display: "flex", justifyContent: "space-around" }}>
+            <Link to="/home">/home</Link>
+            <Link to="/driver">/driver</Link>
+            {( this.state.loggedIn ? 
+            <Link to="/driver-post">/driver-post</Link>
+            : null )}
+            <Link to="/rider">/rider</Link>
+            {( this.state.loggedIn ?
+            <Link to="/rider-post">/rider-post</Link>
+            : null )}
+            {( !this.state.loggedIn ?
+            <Link to="/signin">/signin</Link>
+            : null )}
+            {( !this.state.loggedIn ?
+            <Link to="/signup">/signup</Link>
 
-          <Link to="/dashboard">/dashboard</Link>
+            : null )}
 
-          <h1>{(this.state.loggedIn ? `Weclome, ${this.state.user}` : "Not logged in")}</h1>
-        </div>
-        <Nav />
-        {/* ***************************************** **/}
+            <Link to="/dashboard">/dashboard</Link>
 
-        {/* Modal Test */}
-        {/* TODO: Delete button when everything is working */}
-        {/* <button className="btn btn-light" onClick={this.showModal} >Modal</button> */}
-        <TripModal
-          show={this.state.modalShow}
-          onHide={this.hideModal}
-          trip={this.state.modalTrip}
-        />
+            <h1>{(this.state.loggedIn ? `Weclome, ${this.state.user}` : "Not logged in")}</h1>
+          </div>
+          <Nav />
+          {/* ***************************************** **/}
 
-        {/* React router. TODO: May need to place everything above into the respective page. */}
-        <div>
-          <Route exact path="/" render={(props) =>
-            <Home
-              {...props}
-              state={this.state}
-              handleInputChange={this.handleInputChange}
-              useCurrentLocation={this.useCurrentLocation}
-            />}
+          {/* Modal Test */}
+          {/* TODO: Delete button when everything is working */}
+          {/* <button className="btn btn-light" onClick={this.showModal} >Modal</button> */}
+          <TripModal
+            show={this.state.modalShow}
+            onHide={this.hideModal}
+            trip={this.state.modalTrip}
           />
-          <Route exact path="/home" render={(props) =>
-            <Home
-              {...props}
-              state={this.state}
-              handleInputChange={this.handleInputChange}
-              useCurrentLocation={this.useCurrentLocation}
-            />}
-          />
-          <Route exact path="/driver" render={(props) =>
-            <Driver
-              {...props}
-              state={this.state}
-              handleInputChange={this.handleInputChange}
-              getRiders={this.getRiders}
-              showModal={this.showModal}
-              useCurrentLocation={this.useCurrentLocation}
-            />}
-          />
-          <Route exact path="/driver-post" component={DriverPost} />
-          <Route exact path="/rider" render={(props) =>
-            <Rider
-              {...props}
-              state={this.state}
-              handleInputChange={this.handleInputChange}
-              getDrivers={this.getDrivers}
-              showModal={this.showModal}
-              useCurrentLocation={this.useCurrentLocation}
-            />}
-          />
-          <Route exact path="/rider-post" component={RiderPost} />
-          <Route exact path="/signin" component={() =>
-            <Signin onLogin={this.loginState} />}
-          />
-          <Route exact path="/signup" component={Signup} />
 
-          <h1> {(this.state.loggedIn ? 
+          {/* React router. TODO: May need to place everything above into the respective page. */}
+          <div>
+            <Route exact path="/" render={(props) =>
+              <Home
+                {...props}
+                state={this.state}
+                handleInputChange={this.handleInputChange}
+                useCurrentLocation={this.useCurrentLocation}
+              />}
+            />
+            <Route exact path="/home" render={(props) =>
+              <Home
+                {...props}
+                state={this.state}
+                handleInputChange={this.handleInputChange}
+                useCurrentLocation={this.useCurrentLocation}
+              />}
+            />
+            <Route exact path="/driver" render={(props) =>
+              <Driver
+                {...props}
+                state={this.state}
+                handleInputChange={this.handleInputChange}
+                getRiders={this.getRiders}
+                showModal={this.showModal}
+                useCurrentLocation={this.useCurrentLocation}
+              />}
+            />
+            <Route exact path="/driver-post" component={DriverPost} />
+            <Route exact path="/rider" render={(props) =>
+              <Rider
+                {...props}
+                state={this.state}
+                handleInputChange={this.handleInputChange}
+                getDrivers={this.getDrivers}
+                showModal={this.showModal}
+                useCurrentLocation={this.useCurrentLocation}
+              />}
+            />
+            <Route exact path="/rider-post" component={RiderPost} />
+            <Route exact path="/signin" component={() =>
+              <Signin onLogin={this.loginState} />}
+            />
+            <Route exact path="/signup" component={Signup} />
 
-          <Route exact path="/dashboard" component={Dashboard} />
+            <h1> {(this.state.loggedIn ? 
+            <button onClick={this._logout}>Logout</button>
+            : null )}
+            </h1>
 
-          <button onClick={this._logout}>Logout</button>
-          : null
-          )}
-          </h1>
-        </div>
-      </Router>
+            
+            <Route exact path="/dashboard" component={Dashboard} />
+          </div>
+        </Router>
 
     );
   }
