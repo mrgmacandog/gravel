@@ -5,7 +5,9 @@ import LeafletContainer from "../LeafletContainer";
 function TripModal(props) {
     return (
         <Modal
-            {...props}
+            id="modal"
+            show={props.show}
+            onHide={props.onHide}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
