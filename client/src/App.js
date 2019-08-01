@@ -283,6 +283,7 @@ class App extends Component {
         {/* TODO: Delete button when everything is working */}
         {/* <button className="btn btn-light" onClick={this.showModal} >Modal</button> */}
         <TripModal
+          id="modal"
           show={this.state.modalShow}
           onHide={this.hideModal}
           trip={this.state.modalTrip}

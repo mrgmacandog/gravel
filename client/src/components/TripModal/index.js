@@ -34,7 +34,24 @@ function TripModal(props) {
                 <p>{props.trip.comment}</p>
 
 
-                <LeafletContainer />
+                <LeafletContainer
+                    // markerPositionStart={{ lat: 47.6062, lng: -122.3321 }}
+                    // markerPositionEnd={{ lat: 34.0522, lng: -118.2437 }}
+                    markersData={[
+                        {
+                            latLng: {
+                                lat: 47.6062,
+                                lng: -122.3321
+                            }
+                        },
+                        {
+                            latLng: {
+                                lat: 34.0522,
+                                lng: -118.2437
+                            }
+                        }
+                    ]}
+                />
 
             </Modal.Body>
             <Modal.Footer>
