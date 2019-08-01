@@ -32,7 +32,7 @@ class LeafletContainer extends Component {
 import L from "leaflet";
 import "./style.css"
 
-function LeafletContainer({ markerPositionStart, markerPositionEnd, markersData }) {
+function LeafletContainer({ markerPositionStart, markerPositionEnd }) {
   // create map
   const mapRef = useRef(null);
   useEffect(() => {
@@ -48,56 +48,64 @@ function LeafletContainer({ markerPositionStart, markerPositionEnd, markersData 
     });
   }, []);
 
-  // // add start marker
-  // const markerStartRef = useRef(null);
-  // useEffect(
-  //   () => {
-  //     if (markerStartRef.current) {
-  //       markerStartRef.current.setLatLng(markerPositionStart);
-  //     } else {
-  //       markerStartRef.current = L.marker(markerPositionStart).addTo(mapRef.current);
-  //     }
-  //   },
-  //   [markerPositionStart]
-  // );
+  let layerRefBounds = [];
 
-  // // add end marker
-  // const markerEndRef = useRef(null);
-  // useEffect(
-  //   () => {
-  //     if (markerEndRef.current) {
-  //       markerEndRef.current.setLatLng(markerPositionEnd);
-  //     } else {
-  //       markerEndRef.current = L.marker(markerPositionEnd).addTo(mapRef.current);
-  //     }
-  //   },
-  //   [markerPositionEnd]
-  // );
-
-  // add layer
-  const layerRef = useRef(null);
-  useEffect(() => {
-    layerRef.current = L.layerGroup().addTo(mapRef.current);
-  }, []);
-
-  // update markers
+  // add start marker
+  const markerStartRef = useRef(null);
   useEffect(
     () => {
-      let layerRefBounds = [];
-      layerRef.current.clearLayers();
-      markersData.forEach(marker => {
-        layerRefBounds.push([marker.latLng.lat, marker.latLng.lng]);
-        L.marker(marker.latLng, { title: marker.title }).addTo(
-          layerRef.current
-        );
-      });
+      if (markerStartRef.current) {
+        markerStartRef.current.setLatLng(markerPositionStart);
+      } else {
+        markerStartRef.current = L.marker(markerPositionStart).addTo(mapRef.current);
+      }
+
+      layerRefBounds.push([markerPositionStart.lat, markerPositionStart.lng]);
+    },
+    [markerPositionStart]
+  );
+
+  // add end marker
+  const markerEndRef = useRef(null);
+  useEffect(
+    () => {
+      if (markerEndRef.current) {
+        markerEndRef.current.setLatLng(markerPositionEnd);
+      } else {
+        markerEndRef.current = L.marker(markerPositionEnd).addTo(mapRef.current);
+      }
+
+      layerRefBounds.push([markerPositionEnd.lat, markerPositionEnd.lng]);
 
       mapRef.current.fitBounds(layerRefBounds);
     },
-    [markersData]
+    [markerPositionEnd]
+  );
+
+  // // add layer
+  // const layerRef = useRef(null);
+  // useEffect(() => {
+  //   layerRef.current = L.layerGroup().addTo(mapRef.current);
+  // }, []);
+
+  // // update markers
+  // useEffect(
+  //   () => {
+  //     let layerRefBounds = [];
+  //     layerRef.current.clearLayers();
+  //     markersData.forEach(marker => {
+  //       layerRefBounds.push([marker.latLng.lat, marker.latLng.lng]);
+  //       L.marker(marker.latLng, { title: marker.title }).addTo(
+  //         layerRef.current
+  //       );
+  //     });
+
+  //     mapRef.current.fitBounds(layerRefBounds);
+  //   },
+  //   [markersData]
 
     
-  );
+  // );
 
   
 
