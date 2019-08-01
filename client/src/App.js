@@ -22,6 +22,8 @@ class App extends Component {
     user: null,
     modalShow: false,
     modalTrip: {},
+    modalStartCoords: {},
+    modalEndCoords: {},
     startLocation: "",
     endLocation: "",
     currentCity: "",
@@ -60,8 +62,32 @@ class App extends Component {
 
   // Shows modal
   showModal = (trip) => {
-    // console.log(trip, this.state.modalTrip);
-    this.setState({ modalShow: true, modalTrip: trip });
+    console.log(trip)
+    let tripStartCoords;
+    let tripEndCoords;
+
+    // Get start city's coordinates
+    API.getCityCoords(trip.start_location)
+      .then(results => {
+        console.log(results.data.geometry)
+        tripStartCoords = results.data.geometry;
+
+        // Get end city's coordinates
+        API.getCityCoords(trip.end_location)
+          .then(results => {
+            console.log(results.data.geometry)
+            tripEndCoords = results.data.geometry;
+
+            this.setState({
+              modalShow: true,
+              modalTrip: trip,
+              modalStartCoords: tripStartCoords,
+              modalEndCoords: tripEndCoords
+            });
+        })
+        .catch(error => console.log(error));
+      })
+      .catch(error => console.log(error));
   };
   // Hides modal
   hideModal = () => this.setState({ modalShow: false });
@@ -287,6 +313,8 @@ class App extends Component {
           show={this.state.modalShow}
           onHide={this.hideModal}
           trip={this.state.modalTrip}
+          modalStartCoords={this.state.modalStartCoords}
+          modalEndCoords={this.state.modalEndCoords}
         />
 
         {/* React router. TODO: May need to place everything above into the respective page. */}
