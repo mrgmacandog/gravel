@@ -57,5 +57,9 @@ export default {
     // Get current city from current coordinates
     getCurrentCity: function(coords) {
         return axios.get(`/api/get-city/${coords}`);
+    },
+    
+    getCityCoords: function(city) {
+        return axios.get(`/api/get-coords/${city}`);
     }
 };

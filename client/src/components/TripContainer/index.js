@@ -12,7 +12,9 @@ function TripContainer(props) {
             {props.page === "Driver" ? <OfferRideButton loggedIn={props.loggedIn} /> : <RequestRideButton loggedIn={props.loggedIn} />}
 
             {/* Display each trip from results */}
-            {props.results.map(trip => <TripItem {...props} key={trip._id} trip={trip} />)}
+            {props.results.length > 0
+                ? props.results.map(trip => <TripItem {...props} key={trip._id} trip={trip} />)
+                : <p>No results found</p>}
         </div>
     );
 }
