@@ -2,18 +2,19 @@ import React, { Component } from "react";
 import axios from "axios"
 
 /* Import Components */
-
 import Input from "../components/Input";
 import TextArea from "../components/TextArea";
 import Select from "../components/Select";
 import Button from "../components/Button";
 
+
 class FormContainer extends Component {
   constructor(props) {
     super(props);
-
+    console.log('Your input value is: ' + JSON.stringify(props));
     this.state = {
       newPost: {
+        driver_id: "",
         title: "",
         start_location: "",
         end_location: "",
@@ -23,8 +24,7 @@ class FormContainer extends Component {
         seats_available: "",
         smoking: "",
         luggage: "",
-
-        comments: ""
+        comment: ""
       },
 
       luggageOpt: ["yes", "no"],
@@ -88,7 +88,7 @@ class FormContainer extends Component {
       prevState => ({
         newPost: {
           ...prevState.newPost,
-          comments: value
+          comment: value
         }
       }),
       () => console.log(this.state.newPost)
@@ -99,46 +99,28 @@ class FormContainer extends Component {
   handleFormSubmit(e) {
     let postData = this.state.newPost;
     e.preventDefault()
-    if (window.location.href === "/rider-post") {
-      axios.post('/api/riders', postData)
-        .then(response => console.log(response.data));
+    postData.driver_id = this.props.userId;
 
-      this.setState({
-        newPost: {
-          title: "",
-          start_location: "",
-          end_location: "",
-          leaving_date: "",
-          flexible_date: "",
-          cost: "",
-          seats_available: "",
-          smoking: "",
-          luggage: "",
-          comments: ""
-        }
+    axios.post('/api/drivers', postData)
+      .then(response => console.log(response.data));
 
-      });
-    } else {
-      axios.post('/api/drivers', postData)
-        .then(response => console.log(response.data));
+    this.setState({
+      newPost: {
+        driver_id:"",
+        title: "",
+        start_location: "",
+        end_location: "",
+        leaving_date: "",
+        flexible_date: "",
+        cost: "",
+        seats_available: "",
+        smoking: "",
+        luggage: "",
+        comment: ""
+      }
 
-      this.setState({
-        newPost: {
-          title: "",
-          start_location: "",
-          end_location: "",
-          leaving_date: "",
-          flexible_date: "",
-          cost: "",
-          seats_available: "",
-          smoking: "",
-          luggage: "",
-          comments: ""
-        }
+    });
 
-      });
-    }
-    this.props.history.push("/driver");
   }
 
   render() {
@@ -234,7 +216,7 @@ class FormContainer extends Component {
           title={"Submit"}
           style={buttonStyle}
           text={"Post"}
-                    
+
         />{" "}
         {/*Submit */}
       </form>
