@@ -15,8 +15,8 @@ export default {
         return axios.get(`/api/riders/${start_location}/${end_location}`)
     },
     // Driver post a trip to riders database
-    postRider: function () {
-        return axios.post("/api/riders");
+    postRider: function (newRider) {
+        return axios.post("/api/riders", newRider);
     },
     // Updating a trip posted by a driver in rider database
     updateRider: function (_id) {
@@ -41,8 +41,8 @@ export default {
         return axios.get(`/api/drivers/${start_location}/${end_location}`)
     },
     // adding a trip
-    postDriver: function(){
-        return axios.get("/api/drivers")
+    postDriver: function(newDriver){
+        return axios.post("/api/drivers", newDriver)
     },
     // updating a trip
     updateDriver: function(_id){

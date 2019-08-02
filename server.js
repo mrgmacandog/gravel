@@ -120,6 +120,26 @@ app.get("/api/user/:_id", function(req, res){
   })
 });
 
+// Get Dashboard information
+app.get("/api/user/:driver_id", function(req, res){
+  db.Driver.find({driver_id: req.params._id})
+  .then(function(dbUser){
+    res.json(dbUser)
+  })
+  .catch(function(err){
+    res.json(err)
+  })
+});
+
+app.get("/api/user/:rider_id", function(req, res){
+  db.Rider.find({rider_id: req.params._id})
+  .then(function(dbUser){
+    res.json(dbUser)
+  })
+  .catch(function(err){
+    res.json(err)
+  })
+});
 
 // Send every other request to the React app
 // Define any API routes before this runs
