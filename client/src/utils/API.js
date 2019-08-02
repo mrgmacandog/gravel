@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export default {
-    // Routes for Driver page
     // Getting the list of rider requested trip
     getRider: function () {
         return axios.get("/api/riders");
@@ -14,11 +13,11 @@ export default {
     getRiderStartEnd: function (start_location, end_location){
         return axios.get(`/api/riders/${start_location}/${end_location}`)
     },
-    // Driver post a trip to riders database
+    // Driver post a trip to driver database
     postRider: function (newRider) {
         return axios.post("/api/riders", newRider);
     },
-    // Updating a trip posted by a driver in rider database
+    // Updating a trip posted by a driver in driver database
     updateRider: function (_id) {
         return axios.post(`/api/riders/${_id}`);
     },
