@@ -142,27 +142,6 @@ app.get("/api/user/:rider_id", function (req, res) {
     })
 });
 
-// Post driver to rider's database
-app.post("/api/drivers/:_id", function (req, res) {
-  db.Rider.updateOne({ _id: req.params._id }, {driver_id: req.body.driver_id })
-    .then(function (dbUser) {
-      res.json(dbUser)
-    })
-    .catch(function (err) {
-      res.json(err)
-    })
-})
-
-app.post("/api/riders/:_id", function(req, res){
-  db.Driver.updateOne({_id: req.params._id}, {rider_id: req.body.rider_id})
-  .then(function(dbUser) {
-    res.json(dbUser)
-  })
-  .catch(function(err){
-    res.json(err)
-  })
-})
-
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
