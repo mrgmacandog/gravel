@@ -1,7 +1,7 @@
 // Loading evnironmental variables here
 if (process.env.NODE_ENV !== 'production') {
-	console.log('loading dev environments')
-	require('dotenv').config()
+  console.log('loading dev environments')
+  require('dotenv').config()
 }
 require('dotenv').config()
 
@@ -30,18 +30,18 @@ if (process.env.NODE_ENV === "production") {
 }
 app.use(morgan('dev'))
 app.use(
-	bodyParser.urlencoded({
-		extended: false
-	})
+  bodyParser.urlencoded({
+    extended: false
+  })
 )
 app.use(bodyParser.json())
 app.use(
-	session({
-		secret: process.env.APP_SECRET || 'this is the default passphrase',
-		store: new MongoStore({ mongooseConnection: dbConnection }),
-		resave: false,
-		saveUninitialized: false
-	})
+  session({
+    secret: process.env.APP_SECRET || 'this is the default passphrase',
+    store: new MongoStore({ mongooseConnection: dbConnection }),
+    resave: false,
+    saveUninitialized: false
+  })
 )
 
 // ===== Passport ====
@@ -51,22 +51,22 @@ app.use(passport.session()) // will call the deserializeUser
 
 // ==== if its production environment!
 if (process.env.NODE_ENV === 'production') {
-	const path = require('path')
-	console.log('YOU ARE IN THE PRODUCTION ENV')
-	app.use('/static', express.static(path.join(__dirname, '../build/static')))
-	app.get('/', (req, res) => {
-		res.sendFile(path.join(__dirname, '../build/'))
-	})
+  const path = require('path')
+  console.log('YOU ARE IN THE PRODUCTION ENV')
+  app.use('/static', express.static(path.join(__dirname, '../build/static')))
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/'))
+  })
 }
 
 /* Express app ROUTING */
 app.use('/auth', require('./server/auth'))
 
 // ====== Error handler ====
-app.use(function(err, req, res, next) {
-	console.log('====== ERROR =======')
-	console.error(err.stack)
-	res.status(500)
+app.use(function (err, req, res, next) {
+  console.log('====== ERROR =======')
+  console.error(err.stack)
+  res.status(500)
 })
 
 // Establish mongo connection
@@ -88,58 +88,80 @@ require("./routes/opencageAPI")(app);
 //     })
 //   })
 
-app.post('/auth/signup', function(req,res) {
+app.post('/auth/signup', function (req, res) {
   console.log("posting signup");
   db.User.create(req.body)
-  .then(function(user) {
-    console.log("***SERVER.JS*****\n======USER NAME=======")
-    console.log(user)
-    res.send(user)
-  })
-  .catch(function(err) {
-    console.log("error" + err)
-  })
+    .then(function (user) {
+      console.log("***SERVER.JS*****\n======USER NAME=======")
+      console.log(user)
+      res.send(user)
+    })
+    .catch(function (err) {
+      console.log("error" + err)
+    })
 })
 
 // Getting All signed up user information
-app.get("/api/user", function(req,res){
+app.get("/api/user", function (req, res) {
   db.User.find({})
-  .then(function(dbUser){
-    res.json(dbUser)
-  })
+    .then(function (dbUser) {
+      res.json(dbUser)
+    })
 });
 
 // Getting specific user information (dashboard)
-app.get("/api/user/:_id", function(req, res){
-  db.User.find({_id: req.params._id})
-  .then(function(dbUser){
-    res.json(dbUser)
-  })
-  .catch(function(err){
-    res.json(err);
-  })
+app.get("/api/user/:username", function (req, res) {
+  db.User.find({ "local.username": req.params.username })
+    .then(function (dbUser) {
+      res.json(dbUser)
+      console.log(dbUser)
+    })
+    .catch(function (err) {
+      res.json(err);
+    })
 });
 
 // Get Dashboard information
-app.get("/api/user/:driver_id", function(req, res){
-  db.Driver.find({driver_id: req.params._id})
-  .then(function(dbUser){
-    res.json(dbUser)
-  })
-  .catch(function(err){
-    res.json(err)
-  })
+app.get("/api/user/:driver_id", function (req, res) {
+  db.Driver.find({ driver_id: req.params._id })
+    .then(function (dbUser) {
+      res.json(dbUser)
+    })
+    .catch(function (err) {
+      res.json(err)
+    })
 });
 
-app.get("/api/user/:rider_id", function(req, res){
-  db.Rider.find({rider_id: req.params._id})
-  .then(function(dbUser){
+app.get("/api/user/:rider_id", function (req, res) {
+  db.Rider.find({ rider_id: req.params._id })
+    .then(function (dbUser) {
+      res.json(dbUser)
+    })
+    .catch(function (err) {
+      res.json(err)
+    })
+});
+
+// Post driver to rider's database
+app.post("/api/drivers/:_id", function (req, res) {
+  db.Rider.updateOne({ _id: req.params._id }, {driver_id: req.body.driver_id })
+    .then(function (dbUser) {
+      res.json(dbUser)
+    })
+    .catch(function (err) {
+      res.json(err)
+    })
+})
+
+app.post("/api/riders/:_id", function(req, res){
+  db.Driver.updateOne({_id: req.params._id}, {rider_id: req.body.rider_id})
+  .then(function(dbUser) {
     res.json(dbUser)
   })
   .catch(function(err){
     res.json(err)
   })
-});
+})
 
 // Send every other request to the React app
 // Define any API routes before this runs
