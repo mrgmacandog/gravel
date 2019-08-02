@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export default {
-    // Routes for Driver page
     // Getting the list of rider requested trip
     getRider: function () {
         return axios.get("/api/riders");
@@ -14,11 +13,11 @@ export default {
     getRiderStartEnd: function (start_location, end_location){
         return axios.get(`/api/riders/${start_location}/${end_location}`)
     },
-    // Driver post a trip to riders database
-    postRider: function () {
-        return axios.post("/api/riders");
+    // Driver post a trip to driver database
+    postRider: function (newRider) {
+        return axios.post("/api/riders", newRider);
     },
-    // Updating a trip posted by a driver in rider database
+    // Updating a trip posted by a driver in driver database
     updateRider: function (_id) {
         return axios.post(`/api/riders/${_id}`);
     },
@@ -41,8 +40,8 @@ export default {
         return axios.get(`/api/drivers/${start_location}/${end_location}`)
     },
     // adding a trip
-    postDriver: function(){
-        return axios.get("/api/drivers")
+    postDriver: function(newDriver){
+        return axios.post("/api/drivers", newDriver)
     },
     // updating a trip
     updateDriver: function(_id){
@@ -57,5 +56,9 @@ export default {
     // Get current city from current coordinates
     getCurrentCity: function(coords) {
         return axios.get(`/api/get-city/${coords}`);
+    },
+    
+    getCityCoords: function(city) {
+        return axios.get(`/api/get-coords/${city}`);
     }
 };
