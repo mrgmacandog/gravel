@@ -20,6 +20,7 @@ class App extends Component {
   state = {
     loggedIn: false,
     user: null,
+    id: null,
     modalShow: false,
     modalTrip: {},
     modalStartCoords: {},
@@ -107,7 +108,7 @@ class App extends Component {
     alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
-      API.getRider()
+      API.getDriver()
         .then(results => this.setState({ results: results.data }))
         .catch(err => console.log(err));
     } else {  // this.state.startLocation !== ""
@@ -314,7 +315,14 @@ class App extends Component {
               useCurrentLocation={this.useCurrentLocation}
             />}
           />
-          <Route exact path="/driver-post" component={DriverPost} />
+          <Route exact path="/driver-post" render={(props) =>
+            <DriverPost
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              onLogin={this.loginState}
+            />}
+          />
           <Route exact path="/rider" render={(props) =>
             <Rider
               {...props}
@@ -325,9 +333,16 @@ class App extends Component {
               useCurrentLocation={this.useCurrentLocation}
             />}
           />
-          <Route exact path="/rider-post" component={RiderPost} />
+          <Route exact path="/rider-post" render={(props) =>
+            <RiderPost
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              onLogin={this.loginState}
+            />}
+          />
           <Route exact path="/signin" component={() =>
-            <Signin onLogin={this.loginState} />}
+          <Signin onLogin={this.loginState} />}
           />
           <Route exact path="/signup" component={Signup} />
 
