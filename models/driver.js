@@ -46,10 +46,10 @@ const DriverSchema = new Schema({
         type: String,
         required: false
     },
-    rider_id: [{
+    rider_id: {
         type: [Schema.Types.ObjectId],
         ref: "User"
-    }]
+    }
 });
 
 const Driver = mongoose.model("Driver", DriverSchema);
