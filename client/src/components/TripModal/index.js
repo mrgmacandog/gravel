@@ -5,7 +5,9 @@ import LeafletContainer from "../LeafletContainer";
 function TripModal(props) {
     return (
         <Modal
-            {...props}
+            id="modal"
+            show={props.show}
+            onHide={props.onHide}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -34,7 +36,10 @@ function TripModal(props) {
                 <p>{props.trip.comment}</p>
 
 
-                <LeafletContainer />
+                <LeafletContainer
+                    markerPositionStart={props.modalStartCoords}
+                    markerPositionEnd={props.modalEndCoords}
+                />
 
             </Modal.Body>
             <Modal.Footer>
