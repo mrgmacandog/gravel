@@ -57,7 +57,7 @@ class App extends Component {
     //   }
     // ]
   }
-
+  
   // Shows modal
   showModal = (trip) => {
     // console.log(trip, this.state.modalTrip);
@@ -81,10 +81,10 @@ class App extends Component {
     event.preventDefault();
 
     alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
-    
+
     if (this.state.startLocation === "") {
       API.getDriver()
-        .then(results =>this.setState({ results: results.data }))
+        .then(results => this.setState({ results: results.data }))
         .catch(err => console.log(err));
     } else {  // this.state.startLocation !== ""
       if (this.state.endLocation === "") {
@@ -112,16 +112,16 @@ class App extends Component {
     alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
-      API.getDriver()
-        .then(results =>this.setState({ results: results.data }))
+      API.getRider()
+        .then(results => this.setState({ results: results.data }))
         .catch(err => console.log(err));
     } else {  // this.state.startLocation !== ""
       if (this.state.endLocation === "") {
         API.getRiderStart(this.state.startLocation)
-        .then(results => this.setState({ results: results.data }))
-        .catch(err => console.log(err));
+          .then(results => this.setState({ results: results.data }))
+          .catch(err => console.log(err));
       } else {  // this.state.endLocation !== ""
-      API.getRiderStartEnd(this.state.startLocation, this.state.endLocation)
+        API.getRiderStartEnd(this.state.startLocation, this.state.endLocation)
           .then(results => this.setState({ results: results.data }))
           .catch(err => console.log(err));
       }
@@ -174,26 +174,26 @@ class App extends Component {
         .then(response => this.setState({ currentCity: response.data.components.city || response.data.components.locality }))
         .catch(err => console.log(err));
     });
-  //   axios.get('/auth/user').then(response => {
-  //   console.log('RESPONSE DATA FOR COMPONENTDIDMOUNT:')
-  //   console.log(response.data.user)
-  //   if (response.data.user) {
-  //     console.log('THERE IS A USER')
-  //     this.setState({
-  //       loggedIn: true,
-  //       user: response.data.user
-  //     })
-  //     console.log(this.state.loggedIn)
-  //   } else {
-  //     console.log('THERE IS NO USER LOGGED IN')
-  //     this.setState({
-  //       loggedIn: false,
-  //       user: null
-  //     })
-  //     console.log(this.state.loggedIn)
+    //   axios.get('/auth/user').then(response => {
+    //   console.log('RESPONSE DATA FOR COMPONENTDIDMOUNT:')
+    //   console.log(response.data.user)
+    //   if (response.data.user) {
+    //     console.log('THERE IS A USER')
+    //     this.setState({
+    //       loggedIn: true,
+    //       user: response.data.user
+    //     })
+    //     console.log(this.state.loggedIn)
+    //   } else {
+    //     console.log('THERE IS NO USER LOGGED IN')
+    //     this.setState({
+    //       loggedIn: false,
+    //       user: null
+    //     })
+    //     console.log(this.state.loggedIn)
 
-  //   }
-  // })
+    //   }
+    // })
   }
 
   _logout = (event) => {
@@ -213,12 +213,12 @@ class App extends Component {
     })
   }
 
-  loginState = (user, id) =>  this.setState({
-    	loggedIn: true,
-    	user: user,
-      id: id,
-      redirect: '/'
-      })
+  loginState = (user, id) => this.setState({
+    loggedIn: true,
+    user: user,
+    id: id,
+    redirect: '/'
+  })
 
   // _login = (username, password, obj) => {
   //   axios.post('/auth/login', {
@@ -257,20 +257,20 @@ class App extends Component {
         <div style={{ backgroundColor: "black", display: "flex", justifyContent: "space-around" }}>
           <Link to="/home">/home</Link>
           <Link to="/driver">/driver</Link>
-          {( this.state.loggedIn ? 
-          <Link to="/driver-post">/driver-post</Link>
-          : null )}
+          {(this.state.loggedIn ?
+            <Link to="/driver-post">/driver-post</Link>
+            : null)}
           <Link to="/rider">/rider</Link>
-          {( this.state.loggedIn ?
-          <Link to="/rider-post">/rider-post</Link>
-          : null )}
-          {( !this.state.loggedIn ?
-          <Link to="/signin">/signin</Link>
-          : null )}
-          {( !this.state.loggedIn ?
-          <Link to="/signup">/signup</Link>
+          {(this.state.loggedIn ?
+            <Link to="/rider-post">/rider-post</Link>
+            : null)}
+          {(!this.state.loggedIn ?
+            <Link to="/signin">/signin</Link>
+            : null)}
+          {(!this.state.loggedIn ?
+            <Link to="/signup">/signup</Link>
 
-          : null )}
+            : null)}
 
           <Link to="/dashboard">/dashboard</Link>
 
@@ -333,11 +333,11 @@ class App extends Component {
           />
           <Route exact path="/signup" component={Signup} />
 
-          <h1> {(this.state.loggedIn ? 
+          <h1> {(this.state.loggedIn ?
 
 
-          <button onClick={this._logout}>Logout</button>
-          : null
+            <button onClick={this._logout}>Logout</button>
+            : null
           )}
           </h1>
           <Route exact path="/dashboard" component={Dashboard} />

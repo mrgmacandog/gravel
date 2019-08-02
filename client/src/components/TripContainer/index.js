@@ -10,7 +10,6 @@ function TripContainer(props) {
             {/* Show RequestRideButton if the user is on the driver page,
                     otherwise show the OfferRideButton  */}
             {props.page === "Driver" ? <OfferRideButton loggedIn={props.loggedIn} /> : <RequestRideButton loggedIn={props.loggedIn} />}
-
             {/* Display each trip from results */}
             {props.results.length > 0
                 ? props.results.map(trip => <TripItem {...props} key={trip._id} trip={trip} />)
