@@ -1,10 +1,10 @@
 const db = require("../models");
 
 module.exports = app => {
-    // If you are a rider
+
     // Get all the trip
 app.get("/api/riders/", function (req, res) {
-    db.Driver.find({})
+    db.Rider.find({})
       .then(function (dbRider) {
   
         res.json(dbRider);
@@ -17,7 +17,7 @@ app.get("/api/riders/", function (req, res) {
   
   // Getting all the trip posted by rider, filter by start_location
   app.get("/api/riders/:start_location", function (req, res) {
-    db.Driver.find({ start_location: req.params.start_location })
+    db.Rider.find({ start_location: req.params.start_location })
       .then(function (dbRider) {
   
         res.json(dbRider);
@@ -29,7 +29,7 @@ app.get("/api/riders/", function (req, res) {
   });
   
   app.get("/api/riders/:start_location/:end_location", function (req, res) {
-    db.Driver.find({ start_location: req.params.start_location, end_location: req.params.end_location })
+    db.Rider.find({ start_location: req.params.start_location, end_location: req.params.end_location })
       .then(function (dbRider) {
         res.json(dbRider);
       })
