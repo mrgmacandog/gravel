@@ -6,6 +6,10 @@ import LocationInput from "../components/LocationInput";
 // Can access state with this.props.state
 // Can handle input change with this.props.handleInputChange
 class Driver extends Component {
+    componentDidMount() {
+        this.props.getRiders();
+    }
+
     render() {
         return (
             <React.Fragment>

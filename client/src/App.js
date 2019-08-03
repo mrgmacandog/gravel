@@ -74,7 +74,9 @@ class App extends Component {
 
   // Get all riders for Driver component
   getRiders = event => {
-    event.preventDefault();
+    if (event !== undefined) {
+      event.preventDefault();
+    }
 
     alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
@@ -103,7 +105,9 @@ class App extends Component {
 
   // Get all drivers for Rider component
   getDrivers = event => {
-    event.preventDefault();
+    if (event !== undefined) {
+      event.preventDefault();
+    }
 
     alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
