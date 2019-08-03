@@ -79,19 +79,19 @@ class App extends Component {
     alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
-      API.getDriver()
+      API.getRider()
         .then(results => this.setState({ results: results.data }))
         .catch(err => console.log(err));
     } else {  // this.state.startLocation !== ""
       if (this.state.endLocation === "") {
-        API.getDriverStart(this.state.startLocation)
+        API.getRiderStart(this.state.startLocation)
           .then(results => {
             console.log(results);
             this.setState({ results: results.data });
           })
           .catch(err => console.log(err));
       } else {  // this.state.endLocation !== ""
-        API.getDriverStartEnd(this.state.startLocation, this.state.endLocation)
+        API.getRiderStartEnd(this.state.startLocation, this.state.endLocation)
           .then(results => this.setState({ results: results.data }))
           .catch(err => console.log(err));
       }
@@ -113,11 +113,11 @@ class App extends Component {
         .catch(err => console.log(err));
     } else {  // this.state.startLocation !== ""
       if (this.state.endLocation === "") {
-        API.getRiderStart(this.state.startLocation)
+        API.getDriverStart(this.state.startLocation)
           .then(results => this.setState({ results: results.data }))
           .catch(err => console.log(err));
       } else {  // this.state.endLocation !== ""
-        API.getRiderStartEnd(this.state.startLocation, this.state.endLocation)
+        API.getDriverStartEnd(this.state.startLocation, this.state.endLocation)
           .then(results => this.setState({ results: results.data }))
           .catch(err => console.log(err));
       }
