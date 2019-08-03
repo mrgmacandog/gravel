@@ -3,7 +3,7 @@ const db = require("../models");
 module.exports = app => {
   // Get all the trip
   app.get("/api/drivers/", function (req, res) {
-    db.Driver.find({})
+    db.Driver.find({ seats_available: { $gt : 0} })
       .then(function (dbDriver) {
 
         res.json(dbDriver);
@@ -16,7 +16,7 @@ module.exports = app => {
 
   // Getting all the trip posted by rider, filter by start_location
   app.get("/api/drivers/:start_location", function (req, res) {
-    db.Driver.find({ start_location: req.params.start_location })
+    db.Driver.find({ start_location: req.params.start_location, seats_available: { $gt : 0} })
       .then(function (dbDriver) {
 
         res.json(dbDriver);
@@ -28,7 +28,7 @@ module.exports = app => {
   });
 
   app.get("/api/drivers/:start_location/:end_location", function (req, res) {
-    db.Driver.find({ start_location: req.params.start_location, end_location: req.params.end_location })
+    db.Driver.find({ start_location: req.params.start_location, end_location: req.params.end_location, seats_available: { $gt : 0} })
       .then(function (dbDriver) {
         res.json(dbDriver);
       })
