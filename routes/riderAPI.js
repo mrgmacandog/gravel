@@ -17,7 +17,7 @@ app.get("/api/riders/", function (req, res) {
   
   // Getting all the trip posted by rider, filter by start_location
   app.get("/api/riders/:start_location", function (req, res) {
-    db.Rider.find({ start_location: req.params.start_location, seats_available: { $gt : 1} })
+    db.Rider.find({ start_location: req.params.start_location, seats_available: { $gt : 0} })
       .then(function (dbRider) {
   
         res.json(dbRider);

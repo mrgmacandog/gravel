@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal"
 import LeafletContainer from "../LeafletContainer";
+import { Link } from  "react-router-dom";
 
 function TripModal(props) {
     return (
@@ -43,8 +44,13 @@ function TripModal(props) {
 
             </Modal.Body>
             <Modal.Footer>
-                {/* TODO: Make connect button do something */}
-                <button className="btn btn-success" onClick={() => alert("Connected!")}>Connect</button>
+                {/* TODO: Give confirmation, update seats_available, close modal after connect */}
+                {/* TODO: Close modal when routed to /signin */}
+                {props.loggedIn
+                    ? <button className="btn btn-success" onClick={() => props.modalPath === "/driver" ? props.connectWithRider(props.trip._id) : props.connectWithDriver(props.trip._id)}>Connect</button>
+                    : <Link to="/signin" className="btn btn-success">Connect</Link>
+                }
+
                 <button className="btn btn-danger" onClick={props.onHide}>Close</button>
             </Modal.Footer>
         </Modal>

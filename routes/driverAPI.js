@@ -74,7 +74,7 @@ module.exports = app => {
 
   // updating the rider into a trip
   app.post("/api/drivers/:_id", function (req, res) {
-    db.Driver.updateOne({ _id: req.params._id }, { rider_id: req.body.rider_id })
+    db.Driver.updateOne({ _id: req.params._id }, { $push: { rider_id: req.body.rider_id }})
       .then(function (dbUser) {
         res.json(dbUser)
       })
