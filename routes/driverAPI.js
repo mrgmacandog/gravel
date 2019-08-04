@@ -4,6 +4,7 @@ module.exports = app => {
   // Get all the trip
   app.get("/api/drivers/", function (req, res) {
     db.Driver.find({})
+      // .populate("driver_id")
       .then(function (dbDriver) {
 
         res.json(dbDriver);
