@@ -14,7 +14,7 @@ import Signin from "./pages/Signin";
 import Rider from "./pages/Rider";
 import RiderPost from "./pages/RiderPost";
 import Signup from "./pages/Signup";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/Dashboard";
 
 class App extends Component {
   state = {
@@ -130,6 +130,15 @@ class App extends Component {
     // this.getResults("drivers");
   }
 
+  getDriverPost = event => {
+    // event.preventDefault();
+    API.getDriverPost(this.state.id)
+          .then(results => {
+           console.log(results);
+            this.setState({ results: results.data })})
+          .catch(err => console.log(err));
+         
+  }
 
   // getResults = driversOrRiders => {
   //   alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
@@ -195,6 +204,13 @@ class App extends Component {
     //   }
     // })
   }
+  // componentDidUpdate(previousState){
+  //   console.log(previousState)
+  //   if(this.state.id){
+  //   this.getDriverPost();
+
+  //   }
+  // }
 
   _logout = (event) => {
     event.preventDefault()
@@ -357,7 +373,16 @@ class App extends Component {
             : null
           )}
           </h1>
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/dashboard" render={(props) =>
+            <Dashboard
+              {...props}
+              id={this.state.id}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              getDriverPost={this.getDriverPost}
+              
+            />}
+          />
         </div>
       </Router>
 

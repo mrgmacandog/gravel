@@ -31,6 +31,9 @@ export default {
     getDriver: function(){
         return axios.get("/api/drivers/");
     },
+    getDriverPost: function(driver_id){
+        return axios.get(`/api/drivers/${driver_id}`)
+    },
     // trip filter by start location
     getDriverStart: function(start_location){
         return axios.get(`/api/drivers/${start_location}`)

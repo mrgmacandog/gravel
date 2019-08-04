@@ -1,17 +1,22 @@
 import React from "react";
+import PostContainer from "../components/PostContainer";
 
 // Can change to stateful component if need be
-function Dashboard() {
+class Dashboard extends React.Component {
+  componentDidMount(){
+    const {getDriverPost, id} = this.props
+    getDriverPost(id)
+  }
+  render(){
+    // console.log(props);
   return (
-    <div className="row mt-5">
-      <div className="col-md-6 m-auto">
-        <h3> Dashboard</h3>
-        <div className="card card-body">
 
-        </div>
-      </div>
-    </div>
+    <React.Fragment>
+      {/* TODO: Send TripContainer the data from Riders table */}
+      <PostContainer page={"Dashboard"} loggedIn={this.props.state.loggedIn} results={this.props.state.results} showModal={this.props.showModal} />
+    </React.Fragment>
   );
+  }
 }
 
 export default Dashboard;
