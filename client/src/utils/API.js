@@ -1,6 +1,16 @@
 import axios from "axios";
+// import App from "../App"
 
 export default {
+
+    //Login
+    login: function(username, password) {
+        return axios.post("/auth/login", {
+            username: username,
+            password: password
+        })
+    },
+
     // Getting the list of rider requested trip
     getRider: function () {
         return axios.get("/api/riders");
