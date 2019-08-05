@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
 
     <React.Fragment>
       {/* TODO: Send TripContainer the data from Riders table */}
-      <PostContainer page={"Dashboard"} loggedIn={this.props.state.loggedIn} results={this.props.state.results} showModal={this.props.showModal} />
+      <PostContainer page={"Dashboard"} loggedIn={this.props.state.loggedIn} results={this.props.state.results}/>
     </React.Fragment>
   );
   }
