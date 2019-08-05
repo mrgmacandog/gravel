@@ -163,17 +163,18 @@ class App extends Component {
     axios.post(`api/riders/${tripId}`, {
       driver_id: this.state.id
     })
-      .then(result => { this.setState({ modalShow: false }, () => this.getRiders()) })
+      .then(result => this.setState({ modalShow: false }, () => this.getRiders()))
       .catch(err => console.log(err));
   }
 
   // Rider connects with Driver, reduces driver seats_available
+  // TODO: Redirect to proper page, give option to reduce seats_available by more than 1
   connectWithDriver = (tripId) => {
     alert("In connectWithDriver");
     axios.post(`api/drivers/${tripId}`, {
       rider_id: this.state.id
     })
-      .then(result => console.log(result))
+      .then(result => this.setState({ modalShow: false }, () => this.getDrivers()))
       .catch(err => console.log(err));
   }
 
