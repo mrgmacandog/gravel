@@ -157,17 +157,17 @@ class App extends Component {
   }
 
   // Driver connects with rider, reduces rider seats_available
+  // TODO: Redirect to proper page
   connectWithRider = (tripId) => {
     alert("In connectWithRider");
     axios.post(`api/riders/${tripId}`, {
       driver_id: this.state.id
     })
-      .then(result => console.log(result))
+      .then(result => { this.setState({ modalShow: false }, () => this.getRiders()) })
       .catch(err => console.log(err));
   }
 
   // Rider connects with Driver, reduces driver seats_available
-  // TODO: push rider_id into array
   connectWithDriver = (tripId) => {
     alert("In connectWithDriver");
     axios.post(`api/drivers/${tripId}`, {

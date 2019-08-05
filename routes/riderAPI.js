@@ -75,7 +75,7 @@ app.get("/api/riders/", function (req, res) {
   
   // updating the driver into a trip
   app.post("/api/riders/:_id", function (req, res) {
-    db.Rider.updateOne({ _id: req.params._id }, {driver_id: req.body.driver_id })
+    db.Rider.updateOne({ _id: req.params._id }, { driver_id: req.body.driver_id, seats_available: 0 })
       .then(function (dbUser) {
         res.json(dbUser)
       })
