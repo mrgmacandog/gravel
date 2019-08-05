@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 // import axios from 'axios'
 import API from "../utils/API";
+import Login from "../components/Login"
 
 class LoginForm extends Component {
 	constructor(props) {
@@ -43,8 +44,11 @@ render() {
 		return <Redirect to={{ pathname: this.state.redirectTo }} />
 	} else {
 		return (
+			
 			<div className="LoginForm">
+				
 				<h1>Login form</h1>
+				<Login />
 				<form>
 					<label htmlFor="username">Username: </label>
 					<input

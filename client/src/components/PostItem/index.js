@@ -1,14 +1,15 @@
 import React from "react";
 import moment from "moment";
 
-
-
 // Can change to stateful component if need be
-function TripItem(props) {
+function PostItem(props) {
+
+    console.log(props);
+    
     return (
         
         // TODO: Implement for /rider. Only works for /driver currently
-        <div className="card" onClick={() => props.showModal(props.trip)}>
+        <div className="card">
             <h5 className="card-header"><strong>Destination: </strong>{props.trip.end_location}</h5>
             <div className="card-body">
                 <h5 className="card-title">
@@ -33,4 +34,4 @@ function TripItem(props) {
     );
 }
 
-export default TripItem;
+export default PostItem;

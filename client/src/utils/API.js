@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export default {
-    // Routes for Driver page
     // Getting the list of rider requested trip
     getRider: function () {
         return axios.get("/api/riders");
@@ -14,11 +13,11 @@ export default {
     getRiderStartEnd: function (start_location, end_location) {
         return axios.get(`/api/riders/${start_location}/${end_location}`)
     },
-    // Driver post a trip to riders database
-    postRider: function () {
-        return axios.post("/api/riders");
+    // Driver post a trip to driver database
+    postRider: function (newRider) {
+        return axios.post("/api/riders", newRider);
     },
-    // Updating a trip posted by a driver in rider database
+    // Updating a trip posted by a driver in driver database
     updateRider: function (_id) {
         return axios.post(`/api/riders/${_id}`);
     },
@@ -32,6 +31,9 @@ export default {
     getDriver: function () {
         return axios.get("/api/drivers/");
     },
+    getDriverPost: function(driver_id){
+        return axios.get(`/api/drivers/${driver_id}`)
+    },
     // trip filter by start location
     getDriverStart: function (start_location) {
         return axios.get(`/api/drivers/${start_location}`)
@@ -41,8 +43,13 @@ export default {
         return axios.get(`/api/drivers/${start_location}/${end_location}`)
     },
     // adding a trip
+<<<<<<< HEAD
     postDriver: function () {
         return axios.get("/api/drivers")
+=======
+    postDriver: function(newDriver){
+        return axios.post("/api/drivers", newDriver)
+>>>>>>> 14404a46ed46fcb01823e23e8c469f7687016fc8
     },
     // updating a trip
     updateDriver: function (_id) {
@@ -58,6 +65,7 @@ export default {
     getCurrentCity: function (coords) {
         return axios.get(`/api/get-city/${coords}`);
     },
+<<<<<<< HEAD
 
     //Login for after signup
     login: function (username, password, cb) {
@@ -77,5 +85,10 @@ export default {
                 alert("Please enter a valid username and password");
             }
         });
+=======
+    
+    getCityCoords: function(city) {
+        return axios.get(`/api/get-coords/${city}`);
+>>>>>>> 14404a46ed46fcb01823e23e8c469f7687016fc8
     }
 };
