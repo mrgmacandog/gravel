@@ -80,8 +80,6 @@ class App extends Component {
       event.preventDefault();
     }
 
-    alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
-
     if (this.state.startLocation === "") {
       API.getRider()
         .then(results => this.setState({ results: results.data }))
@@ -110,8 +108,6 @@ class App extends Component {
     if (event !== undefined) {
       event.preventDefault();
     }
-
-    alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
       API.getDriver()
@@ -159,7 +155,6 @@ class App extends Component {
   // Driver connects with rider, reduces rider seats_available
   // TODO: Redirect to proper page
   connectWithRider = (tripId) => {
-    alert("In connectWithRider");
     axios.post(`api/riders/${tripId}`, {
       driver_id: this.state.id
     })
@@ -170,7 +165,6 @@ class App extends Component {
   // Rider connects with Driver, reduces driver seats_available
   // TODO: Redirect to proper page, give option to reduce seats_available by more than 1
   connectWithDriver = (tripId) => {
-    alert("In connectWithDriver");
     axios.post(`api/drivers/${tripId}`, {
       rider_id: this.state.id
     })
