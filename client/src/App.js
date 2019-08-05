@@ -1,6 +1,6 @@
+    
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Redirect } from 'react-router-dom'
 import Nav from "./components/Nav";
 import TripModal from "./components/TripModal";
 import axios from "axios";
@@ -164,6 +164,19 @@ class App extends Component {
     this.setState({ [name]: this.state.currentCity });
   }
 
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     loggedIn: false,
+  //     user: null
+  //   }
+  //   this._logout = this._logout.bind(this)
+  //   this._login = this._login.bind(this)
+
+  // // }
+  // componentDidMount() {
+
+  // }
   componentDidMount() {
     // Get the current city from coordinates and save it as currentCity in state
     navigator.geolocation.getCurrentPosition(location => {
@@ -209,13 +222,10 @@ class App extends Component {
         this.setState({
           loggedIn: false,
           user: null,
-          id: null,
-          redirect: null
+          id: null
         })
-        let redirectPage = <Redirect to={{ pathname: '/' }} /> 
+        console.log(this.state.loggedIn)
         alert('Logged out!')
-        return redirectPage;
-        
       }
     })
   }
@@ -256,10 +266,6 @@ class App extends Component {
   //     })
   // }
   render() {
-    let redirect = "";
-    if (this.state.redirect) {
-      redirect = <Redirect to={{ pathname: this.state.redirect }} /> 
-    } 
     return (
       <Router>
         {/* Temporary website navigation               */}
