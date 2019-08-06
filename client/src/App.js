@@ -1,3 +1,4 @@
+    
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 import Nav from "./components/Nav";
@@ -20,6 +21,7 @@ class App extends Component {
   state = {
     loggedIn: false,
     user: null,
+    id: null,
     modalShow: false,
     modalTrip: {},
     modalStartCoords: {},
@@ -74,24 +76,26 @@ class App extends Component {
 
   // Get all riders for Driver component
   getRiders = event => {
-    event.preventDefault();
+    if (event !== undefined) {
+      event.preventDefault();
+    }
 
     alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
-      API.getDriver()
+      API.getRider()
         .then(results => this.setState({ results: results.data }))
         .catch(err => console.log(err));
     } else {  // this.state.startLocation !== ""
       if (this.state.endLocation === "") {
-        API.getDriverStart(this.state.startLocation)
+        API.getRiderStart(this.state.startLocation)
           .then(results => {
             console.log(results);
             this.setState({ results: results.data });
           })
           .catch(err => console.log(err));
       } else {  // this.state.endLocation !== ""
-        API.getDriverStartEnd(this.state.startLocation, this.state.endLocation)
+        API.getRiderStartEnd(this.state.startLocation, this.state.endLocation)
           .then(results => this.setState({ results: results.data }))
           .catch(err => console.log(err));
       }
@@ -103,26 +107,56 @@ class App extends Component {
 
   // Get all drivers for Rider component
   getDrivers = event => {
-    event.preventDefault();
+    if (event !== undefined) {
+      event.preventDefault();
+    }
 
     alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
-      API.getRider()
+      API.getDriver()
         .then(results => this.setState({ results: results.data }))
         .catch(err => console.log(err));
     } else {  // this.state.startLocation !== ""
       if (this.state.endLocation === "") {
-        API.getRiderStart(this.state.startLocation)
+        API.getDriverStart(this.state.startLocation)
           .then(results => this.setState({ results: results.data }))
           .catch(err => console.log(err));
       } else {  // this.state.endLocation !== ""
-        API.getRiderStartEnd(this.state.startLocation, this.state.endLocation)
+        API.getDriverStartEnd(this.state.startLocation, this.state.endLocation)
           .then(results => this.setState({ results: results.data }))
           .catch(err => console.log(err));
       }
     }
   }
+
+  getDriverPost = event => {
+    // event.preventDefault();
+    API.getDriverPost(this.state.id)
+          .then(results => {
+           console.log(results);
+            this.setState({ results: results.data })})
+          .catch(err => console.log(err));
+         
+  }
+
+  // getResults = driversOrRiders => {
+  //   alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+
+  //   // TODO: Check if query matches API routes
+
+  //   let query = `api/${driversOrRiders}/`;
+
+  //   this.state.endLocation === ""
+  //     ? query += `${this.state.startLocation.toLowerCase().replace(" ", "%20")}`
+  //     : query += `${this.state.startLocation.toLowerCase().replace(" ", "%20")}/${this.state.endLocation.toLowerCase().replace(" ", "%20")}`
+
+  //   alert(query);
+  //   // Maybe in ./utils/API.js 
+  //   axios.get(query)
+  //     .then(results => this.setState({ results: results }))
+  //     .catch(err => console.log(err));
+  // }
 
   // Takes in the location input name and sets that state to the currentCity state
   useCurrentLocation = name => {
@@ -158,6 +192,13 @@ class App extends Component {
   componentWillUnmount() {
     this.unlisten = null;
   }
+  // componentDidUpdate(previousState){
+  //   console.log(previousState)
+  //   if(this.state.id){
+  //   this.getDriverPost();
+
+  //   }
+  // }
 
   _logout = (event) => {
     event.preventDefault()
@@ -258,7 +299,14 @@ class App extends Component {
               useCurrentLocation={this.useCurrentLocation}
             />}
           />
-          <Route exact path="/driver-post" component={DriverPost} />
+          <Route exact path="/driver-post" render={(props) =>
+            <DriverPost
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              onLogin={this.loginState}
+            />}
+          />
           <Route exact path="/rider" render={(props) =>
             <Rider
               {...props}
@@ -269,9 +317,16 @@ class App extends Component {
               useCurrentLocation={this.useCurrentLocation}
             />}
           />
-          <Route exact path="/rider-post" component={RiderPost} />
+          <Route exact path="/rider-post" render={(props) =>
+            <RiderPost
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              onLogin={this.loginState}
+            />}
+          />
           <Route exact path="/signin" component={() =>
-            <Signin onLogin={this.loginState} />}
+          <Signin onLogin={this.loginState} />}
           />
           <Route exact path="/signup" component={Signup} />
 
@@ -282,7 +337,16 @@ class App extends Component {
             : null
           )}
           </h1>
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/dashboard" render={(props) =>
+            <Dashboard
+              {...props}
+              id={this.state.id}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              getDriverPost={this.getDriverPost}
+              
+            />}
+          />
         </div>
       </div>
 
