@@ -34,6 +34,20 @@ app.get("/api/riders/", function (req, res) {
         res.json(dbRider);
       })
   });
+
+  app.get("/api/riders_riderId/:rider_id", function (req, res) {
+    console.log(req.params);
+       
+    db.Rider.find({"rider_id": req.params.rider_id})
+      
+      .then(function (dbRider) {
+        console.log(dbRider);
+        res.json(dbRider);
+      })
+      .catch(function (err) {
+        res.json(err);
+      })
+  });
   
   // Adding a trip
   app.post("/api/riders", function (req, res) {
