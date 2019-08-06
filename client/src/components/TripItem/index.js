@@ -19,7 +19,7 @@ function TripItem(props) {
                     </p>
                     <p className="card-text"><strong>{props.page === "Driver" ? "Price Offered: " : "Price Requested: "}</strong>${props.trip.cost}</p>
                     <p className="card-text"><strong>{props.page === "Driver" ? "Seats Requested: " : "Seats Available: "}</strong>{props.trip.seats_available}</p>
-                    <p className="card-title">
+                    <p className="card-text">
                         {props.trip.smoking
                             ? <span className="badge badge-pill badge-success">Smoking</span>
                             : <span className="badge badge-pill badge-danger">No Smoking</span>}
