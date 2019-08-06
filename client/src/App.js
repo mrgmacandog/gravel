@@ -1,11 +1,11 @@
     
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 import Nav from "./components/Nav";
 import TripModal from "./components/TripModal";
 import axios from "axios";
 import API from "./utils/API";
-
+import Navbar from "./components/Navbar";
 
 // Pages
 import Driver from "./pages/Driver";
@@ -31,7 +31,8 @@ class App extends Component {
     currentCity: "",
     results: []
   }
-  
+
+
   // Shows modal
   showModal = (trip) => {
     // Initialize coord variables
@@ -55,8 +56,8 @@ class App extends Component {
               modalStartCoords: tripStartCoords,
               modalEndCoords: tripEndCoords
             });
-        })
-        .catch(error => console.log(error));
+          })
+          .catch(error => console.log(error));
       })
       .catch(error => console.log(error));
   };
@@ -127,8 +128,6 @@ class App extends Component {
           .catch(err => console.log(err));
       }
     }
-
-    // this.getResults("drivers");
   }
 
   getDriverPost = event => {
@@ -193,26 +192,14 @@ class App extends Component {
         .then(response => this.setState({ currentCity: response.data.components.city || response.data.components.locality }))
         .catch(err => console.log(err));
     });
-    //   axios.get('/auth/user').then(response => {
-    //   console.log('RESPONSE DATA FOR COMPONENTDIDMOUNT:')
-    //   console.log(response.data.user)
-    //   if (response.data.user) {
-    //     console.log('THERE IS A USER')
-    //     this.setState({
-    //       loggedIn: true,
-    //       user: response.data.user
-    //     })
-    //     console.log(this.state.loggedIn)
-    //   } else {
-    //     console.log('THERE IS NO USER LOGGED IN')
-    //     this.setState({
-    //       loggedIn: false,
-    //       user: null
-    //     })
-    //     console.log(this.state.loggedIn)
 
-    //   }
-    // })
+    this.unlisten = this.props.history.listen((listen, action) => {
+      // console.log(this.props.history.location);
+    });
+  }
+
+  componentWillUnmount() {
+    this.unlisten = null;
   }
   // componentDidUpdate(previousState){
   //   console.log(previousState)
@@ -246,37 +233,13 @@ class App extends Component {
     redirect: '/'
   })
 
-  // _login = (username, password, obj) => {
-  //   axios.post('/auth/login', {
-  //     username,
-  //     password
-  //   })
-  //     .then(response => {
-  //       console.log('RESPONSE FROM PASSPORT')
-  //       console.log(response.data)
-  //       if (response.status === 200) {
-  //         // update the state
-  //         this.setState({
-  //           loggedIn: true,
-  //           user: response.data.user.local.username,
-  //           id: response.data.user._id
-  //         })
-
-  //         // obj.success();
-  //       }
-  //     }).catch(err => {
-  //       if (err) {
-  //         console.log(err)
-  //         alert(err);
-  //       } else {
-  //         console.log("Successful sign in")
-  //         console.log(this.state)
-  //       }
-  //     })
-  // }
   render() {
     return (
-      <Router>
+      <div>
+        <Navbar
+          path={this.props.history.location}
+          loggedIn={this.state.loggedIn}
+        />
         {/* Temporary website navigation               */}
         {/* TODO: Delete after all pages are navigable */}
         {/* ****************************************** */}
@@ -394,10 +357,10 @@ class App extends Component {
             />}
           />
         </div>
-      </Router>
+      </div>
 
     );
   }
 }
 
-export default App;
+export default withRouter(App);
