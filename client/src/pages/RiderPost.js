@@ -3,6 +3,8 @@ import FormContainer from "../containers/FormContainer";
 
 // Can change to stateful component if need be
 function RiderPost(props) {
+  console.log(props);
+  
   return (
     <div className="row mt-5">
       <div className="col-md-6 m-auto">
