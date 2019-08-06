@@ -12,7 +12,7 @@ function TripItem(props) {
             <h5 className="card-header"><strong>Destination: </strong>{props.trip.end_location}</h5>
             <div className="card-body">
                 <h5 className="card-title">
-                    <strong>{moment(props.trip.leaving_date).format("MMMM Do YYYY h:mm")}</strong>
+                    <strong>{moment(props.trip.leaving_date).format("MMMM Do YYYY")}</strong>
                     {props.trip.flexible_date
                         ? <span className="badge badge-pill badge-success">Flexible</span>
                         : <span className="badge badge-pill badge-danger">Not Flexible</span>}
