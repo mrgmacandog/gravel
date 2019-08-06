@@ -17,6 +17,8 @@ import RiderPost from "./pages/RiderPost";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/dashboard";
 
+import "./App.css";
+
 class App extends Component {
   state = {
     loggedIn: false,
@@ -26,6 +28,7 @@ class App extends Component {
     modalTrip: {},
     modalStartCoords: {},
     modalEndCoords: {},
+    modalPath: "",
     startLocation: "",
     endLocation: "",
     currentCity: "",
@@ -54,7 +57,8 @@ class App extends Component {
               modalShow: true,
               modalTrip: trip,
               modalStartCoords: tripStartCoords,
-              modalEndCoords: tripEndCoords
+              modalEndCoords: tripEndCoords,
+              modalPath: window.location.pathname
             });
           })
           .catch(error => console.log(error));
@@ -79,8 +83,6 @@ class App extends Component {
     if (event !== undefined) {
       event.preventDefault();
     }
-
-    alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
       API.getRider()
@@ -110,8 +112,6 @@ class App extends Component {
     if (event !== undefined) {
       event.preventDefault();
     }
-
-    alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
       API.getDriver()
@@ -170,6 +170,26 @@ class App extends Component {
   // Takes in the location input name and sets that state to the currentCity state
   useCurrentLocation = name => {
     this.setState({ [name]: this.state.currentCity });
+  }
+
+  // Driver connects with rider, reduces rider seats_available
+  // TODO: Redirect to proper page
+  connectWithRider = (tripId) => {
+    axios.post(`api/riders/${tripId}`, {
+      driver_id: this.state.id
+    })
+      .then(result => this.setState({ modalShow: false }, () => this.getRiders()))
+      .catch(err => console.log(err));
+  }
+
+  // Rider connects with Driver, reduces driver seats_available
+  // TODO: Redirect to proper page, give option to reduce seats_available by more than 1
+  connectWithDriver = (tripId) => {
+    axios.post(`api/drivers/${tripId}`, {
+      rider_id: this.state.id
+    })
+      .then(result => this.setState({ modalShow: false }, () => this.getDrivers()))
+      .catch(err => console.log(err));
   }
 
   // constructor(props) {
@@ -278,6 +298,10 @@ class App extends Component {
           trip={this.state.modalTrip}
           modalStartCoords={this.state.modalStartCoords}
           modalEndCoords={this.state.modalEndCoords}
+          connectWithRider={this.connectWithRider}
+          connectWithDriver={this.connectWithDriver}
+          loggedIn={this.state.loggedIn}
+          modalPath={this.state.modalPath}
         />
 
         {/* React router. TODO: May need to place everything above into the respective page. */}

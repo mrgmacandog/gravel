@@ -4,7 +4,7 @@ module.exports = app => {
 
     // Get all the trip
 app.get("/api/riders/", function (req, res) {
-    db.Rider.find({})
+    db.Rider.find({ seats_available: { $gt : 0} })
       .then(function (dbRider) {
   
         res.json(dbRider);
@@ -17,7 +17,7 @@ app.get("/api/riders/", function (req, res) {
   
   // Getting all the trip posted by rider, filter by start_location
   app.get("/api/riders/:start_location", function (req, res) {
-    db.Rider.find({ start_location: req.params.start_location })
+    db.Rider.find({ start_location: req.params.start_location, seats_available: { $gt : 0} })
       .then(function (dbRider) {
   
         res.json(dbRider);
@@ -29,7 +29,7 @@ app.get("/api/riders/", function (req, res) {
   });
   
   app.get("/api/riders/:start_location/:end_location", function (req, res) {
-    db.Rider.find({ start_location: req.params.start_location, end_location: req.params.end_location })
+    db.Rider.find({ start_location: req.params.start_location, end_location: req.params.end_location, seats_available: { $gt : 0} })
       .then(function (dbRider) {
         res.json(dbRider);
       })
@@ -89,7 +89,7 @@ app.get("/api/riders/", function (req, res) {
   
   // updating the driver into a trip
   app.post("/api/riders/:_id", function (req, res) {
-    db.Rider.updateOne({ _id: req.params._id }, {driver_id: req.body.driver_id })
+    db.Rider.updateOne({ _id: req.params._id }, { driver_id: req.body.driver_id, seats_available: 0 })
       .then(function (dbUser) {
         res.json(dbUser)
       })

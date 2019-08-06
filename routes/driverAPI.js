@@ -5,8 +5,7 @@ const db = require("../models");
 module.exports = app => {
   // Get all the trip
   app.get("/api/drivers/", function (req, res) {
-    db.Driver.find({})
-      // .populate("driver_id")
+    db.Driver.find({ seats_available: { $gt : 0} })
       .then(function (dbDriver) {
 
         res.json(dbDriver);
@@ -19,7 +18,7 @@ module.exports = app => {
 
   // Getting all the trip posted by rider, filter by start_location
   app.get("/api/drivers/:start_location", function (req, res) {
-    db.Driver.find({ start_location: req.params.start_location })
+    db.Driver.find({ start_location: req.params.start_location, seats_available: { $gt : 0} })
       .then(function (dbDriver) {
 
         res.json(dbDriver);
@@ -31,9 +30,7 @@ module.exports = app => {
   });
 
   app.get("/api/drivers/:start_location/:end_location", function (req, res) {
-    console.log(res);
-    
-    db.Driver.find({ start_location: req.params.start_location, end_location: req.params.end_location })
+    db.Driver.find({ start_location: req.params.start_location, end_location: req.params.end_location, seats_available: { $gt : 0} })
       .then(function (dbDriver) {
         res.json(dbDriver);
       })
@@ -94,7 +91,7 @@ module.exports = app => {
 
   // updating the rider into a trip
   app.post("/api/drivers/:_id", function (req, res) {
-    db.Driver.updateOne({ _id: req.params._id }, { rider_id: req.body.rider_id })
+    db.Driver.updateOne({ _id: req.params._id }, { $push: { rider_id: req.body.rider_id }, $inc: { seats_available: -1 } })
       .then(function (dbUser) {
         res.json(dbUser)
       })

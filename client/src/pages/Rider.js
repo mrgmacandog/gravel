@@ -13,33 +13,36 @@ class Rider extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="container">
-                    <form>
-                        <div className="row">
-                            <div className="col-md-6">
-                                <LocationInput
-                                    name="startLocation"
-                                    value={this.props.state.startLocation}
-                                    onChange={this.props.handleInputChange}
-                                    placeholder="Enter the departure city or use current location"
-                                    useCurrentLocation={this.props.useCurrentLocation}
-                                />
+                <div className="rider-background">
+                    <div className="container">
+                        <h1 className="page-title">Rides Offered</h1>
+                        <form>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <LocationInput
+                                        name="startLocation"
+                                        value={this.props.state.startLocation}
+                                        onChange={this.props.handleInputChange}
+                                        placeholder="Enter the departure city or use current location"
+                                        useCurrentLocation={this.props.useCurrentLocation}
+                                    />
+                                </div>
+                                <div className="col-md-6">
+                                    <LocationInput
+                                        name="endLocation"
+                                        value={this.props.state.endLocation}
+                                        onChange={this.props.handleInputChange}
+                                        placeholder="Enter the destination (optional)"
+                                        useCurrentLocation={this.props.useCurrentLocation}
+                                    />
+                                </div>
                             </div>
-                            <div className="col-md-6">
-                                <LocationInput
-                                    name="endLocation"
-                                    value={this.props.state.endLocation}
-                                    onChange={this.props.handleInputChange}
-                                    placeholder="Enter the destination (optional)"
-                                    useCurrentLocation={this.props.useCurrentLocation}
-                                />
-                            </div>
-                        </div>
 
-                        <button className="btn btn-primary" type="submit" name="action" onClick={this.props.getDrivers}>Search</button>
-                    </form>
+                            <button className="btn btn-primary float-right" type="submit" name="action" onClick={this.props.getDrivers}>Search</button>
+                        </form>
+                    </div>
                 </div>
-                {/* TODO: Send TripContainer the data from Drivers table */}
+
                 <TripContainer page={"Rider"} loggedIn={this.props.state.loggedIn} results={this.props.state.results} showModal={this.props.showModal}/>
             </React.Fragment>
         );
