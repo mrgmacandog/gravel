@@ -8,7 +8,7 @@ function RiderPost(props) {
       <div className="col-md-6 m-auto">
         <h3> Make a post </h3>
         <div className="card card-body">
-          <FormContainer loggedIn={props.state.loggedIn} userId={props.state.id} />
+          <FormContainer page={"RiderPost"} loggedIn={props.state.loggedIn} userId={props.state.id} />
         </div>
       </div>
     </div>

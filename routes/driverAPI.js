@@ -1,4 +1,6 @@
 const db = require("../models");
+// const {ObjectId} = require('mongodb');
+// const ObjectId = requied('mongodb').ObjectId
 
 module.exports = app => {
   // Get all the trip
@@ -33,6 +35,21 @@ module.exports = app => {
         res.json(dbDriver);
       })
   });
+
+  app.get("/api/drivers_driverId/:driver_id", function (req, res) {
+    console.log(req.params);
+       
+    db.Driver.find({"driver_id": req.params.driver_id})
+      
+      .then(function (dbDriver) {
+        console.log(dbDriver);
+        res.json(dbDriver);
+      })
+      .catch(function (err) {
+        res.json(err);
+      })
+  });
+
 
   // Adding a trip
   app.post("/api/drivers", function (req, res) {

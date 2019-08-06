@@ -9,7 +9,7 @@ function DriverPost(props) {
         <h3> Make a post </h3>
         <div className="card card-body">
 
-          <FormContainer loggedIn={props.state.loggedIn} userId={props.state.id}/>
+          <FormContainer page={"DriverPost"} loggedIn={props.state.loggedIn} userId={props.state.id}/>
         </div>
       </div>
     </div>

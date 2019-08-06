@@ -1,6 +1,16 @@
 import axios from "axios";
+// import App from "../App"
 
 export default {
+
+    //Login
+    login: function(username, password) {
+        return axios.post("/auth/login", {
+            username: username,
+            password: password
+        })
+    },
+
     // Getting the list of rider requested trip
     getRider: function () {
         return axios.get("/api/riders");
@@ -30,6 +40,9 @@ export default {
     // Getting all trips
     getDriver: function(){
         return axios.get("/api/drivers/");
+    },
+    getDriverPost: function(driver_id){
+        return axios.get(`/api/drivers_driverId/${driver_id}`)
     },
     // trip filter by start location
     getDriverStart: function(start_location){
