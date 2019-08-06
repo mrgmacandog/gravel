@@ -17,6 +17,8 @@ import RiderPost from "./pages/RiderPost";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/dashboard";
 
+import "./App.css";
+
 class App extends Component {
   state = {
     loggedIn: false,
