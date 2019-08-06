@@ -14,6 +14,7 @@ class Driver extends Component {
         return (
             <React.Fragment>
                 <div className="container">
+                    <h1>Rides Requested</h1>
                     <form>
                         <div className="row">
                             <div className="col-md-6">

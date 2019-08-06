@@ -14,6 +14,7 @@ class Rider extends Component {
         return (
             <React.Fragment>
                 <div className="container">
+                    <h1>Rides Offered</h1>
                     <form>
                         <div className="row">
                             <div className="col-md-6">

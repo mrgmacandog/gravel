@@ -1,0 +1,8 @@
+.trip-item {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.trip-item:hover {
+    cursor: pointer;
+}
