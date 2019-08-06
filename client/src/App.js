@@ -141,6 +141,15 @@ class App extends Component {
          
   }
 
+  getRiderPost = event => {
+    // event.preventDefault();
+    API.getRiderPost(this.state.id)
+          .then(results => {
+           console.log(results);
+            this.setState({ results: results.data })})
+          .catch(err => console.log(err));
+         
+  }
   // getResults = driversOrRiders => {
   //   alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
@@ -381,7 +390,7 @@ class App extends Component {
               state={this.state}
               handleInputChange={this.handleInputChange}
               getDriverPost={this.getDriverPost}
-              
+              getRiderPost={this.getRiderPost}
             />}
           />
         </div>
