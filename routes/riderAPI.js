@@ -63,29 +63,30 @@ app.get("/api/riders/", function (req, res) {
   });
 
   // Updating an existing trip
-// app.post("/api/drivers/:_id", function (req, res) {
-//     db.Rider.updateOne(
-//       { _id: req.params._id },
+  app.post("/api/riders/update/:_id", function (req, res) {
+    db.Rider.updateOne(
+      { _id: req.params._id },
   
-//       // The field you want to update about
-//       {
-//         start_location: req.body.start_location,
-//         end_location: req.body.end_location,
-//         leaving_date: req.body.leaving_date,
-//         cost: req.body.cost,
-//         seats_available: req.body.seats_available,
-//         smoking: req.body.smoking,
-//         luggage: req.body.luggage,
-//         comment: req.body.comment
-//       }
-//       .catch(function (err) {
-//         console.log("error: ", err);
-//       })
-//     )
-//     .then(function(dbRider){
-//       res.json(dbRider)
-//     })
-//   })
+      // The field you want to update about
+      {
+        start_location: req.body.start_location,
+        end_location: req.body.end_location,
+        leaving_date: req.body.leaving_date,
+        flexible_date: req.body.flexible_date,
+        cost: req.body.cost,
+        seats_available: req.body.seats_available,
+        smoking: req.body.smoking,
+        luggage: req.body.luggage,
+        comment: req.body.comment
+      }
+    )
+    .then(function(dbRider){
+      res.json(dbRider)
+    })
+    .catch(function (err) {
+      console.log("error: ", err);
+    })
+  })
   
   // updating the driver into a trip
   app.post("/api/riders/:_id", function (req, res) {
