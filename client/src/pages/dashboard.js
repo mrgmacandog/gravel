@@ -1,22 +1,13 @@
 import React from "react";
 import PostContainer from "../components/PostContainer";
 import API from "../utils/API";
+import axios from "axios";
 
 // Can change to stateful component if need be
 class Dashboard extends React.Component {
   state = {
     modifyTripId: "",
-    modifiedPost: {
-      start_location: "",
-      end_location: "",
-      leaving_date: "",
-      flexible_date: "",
-      cost: "",
-      seats_available: "",
-      smoking: "",
-      luggage: "",
-      comment: ""
-    }
+    modifiedPost: {}
   }
 
   // Handle input change
@@ -36,22 +27,61 @@ class Dashboard extends React.Component {
     this.setState({ modifyTripId: trip._id, modifiedPost: trip });
   }
 
+  updateTrip = (db, id) => {
+    alert("Updating trip...");
+
+    // If the trip is from the drivers db
+    if (db === "drivers") {
+      axios.post(`/api/drivers/update/${id}`, {
+        start_location: this.state.modifiedPost.start_location,
+        end_location: this.state.modifiedPost.end_location,
+        leaving_date: this.state.modifiedPost.leaving_date,
+        flexible_date: this.state.modifiedPost.flexible_date,
+        cost: this.state.modifiedPost.cost,
+        seats_available: this.state.modifiedPost.seats_available,
+        smoking: this.state.modifiedPost.smoking,
+        luggage: this.state.modifiedPost.luggage,
+        comment: this.state.modifiedPost.comment
+      })
+        .then(results => {
+          this.props.getDriverPost();
+          this.props.getRiderPost();
+          this.setState({ modifiedPost: {} });
+          console.log(results);
+        })
+        .catch(err => console.log(err));
+    } else {  // If the trip is from the riders db
+      axios.post(`/api/drivers/update/${id}`, {
+        start_location: this.state.modifiedPost.start_location,
+        end_location: this.state.modifiedPost.end_location,
+        leaving_date: this.state.modifiedPost.leaving_date,
+        flexible_date: this.state.modifiedPost.flexible_date,
+        cost: this.state.modifiedPost.cost,
+        seats_available: this.state.modifiedPost.seats_available,
+        smoking: this.state.modifiedPost.smoking,
+        luggage: this.state.modifiedPost.luggage,
+        comment: this.state.modifiedPost.comment
+      })
+        .catch(err => console.log(err));
+    }
+  }
+
   // Removes a trip from database
   deleteTrip = (db, id) => {
     // If the trip is from the drivers db
     if (db === "drivers") {
       API.deleteDriver(id)
         .then(results => {
-          this.props.getDriverPost(id);
-          this.props.getRiderPost(id);
+          this.props.getDriverPost();
+          this.props.getRiderPost();
           console.log(results);
         })
         .catch(err => console.log(err));
     } else {  // If the trip is from the riders db
       API.deleteRider(id)
         .then(results => {
-          this.props.getDriverPost(id);
-          this.props.getRiderPost(id);
+          this.props.getDriverPost();
+          this.props.getRiderPost();
           console.log(results);
         })
         .catch(err => console.log(err));
@@ -80,6 +110,7 @@ class Dashboard extends React.Component {
         toggleModify={this.toggleModify}
         modifyTripId={this.state.modifyTripId}
         modifiedPost={this.state.modifiedPost}
+        updateTrip={this.updateTrip}
       />
       <PostContainer
         page={"Dashboard"}
@@ -91,6 +122,7 @@ class Dashboard extends React.Component {
         toggleModify={this.toggleModify}
         modifyTripId={this.state.modifyTripId}
         modifiedPost={this.state.modifiedPost}
+        updateTrip={this.updateTrip}
       />
     </React.Fragment>
   );

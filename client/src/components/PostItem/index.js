@@ -45,6 +45,7 @@ function PostItem(props) {
                         </div>
                     </React.Fragment>
                 ) : (
+                    // Everything below is rendered when a user clicks the edit button
                     <form>
                         <h5 className="card-header">
                             <input
@@ -66,7 +67,7 @@ function PostItem(props) {
                             />
                             
                             {/* {props.db === "drivers" ? " Driver" : " Rider"} */}
-                            <i class="fas fa-trash" onClick={() => props.deleteTrip(props.db, props.trip._id)}></i>
+                            <i class="fas fa-check" onClick={() => props.updateTrip(props.db, props.trip._id)}></i>
                         </h5>
                         <div className="card-body">
                             <p className="card-title">
@@ -159,6 +160,7 @@ function PostItem(props) {
                                     type="text"
                                     value={props.modifiedPost.comment}
                                     onChange={props.handleInputChange}
+                                    placeholder="Optional comment"
                                 />
                             </p>
                             <p className="card-text"><strong></strong>
