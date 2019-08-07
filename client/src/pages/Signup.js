@@ -57,7 +57,16 @@ class Signup extends Component {
 					if (!response.data.error) {
 						console.log(this.state)
 						console.log('Registration succesful');
-						API.login(this.state.username, this.state.password, this.props.onLogin);
+						API.login(this.state.username, this.state.password)
+							.then(response => {
+								console.log(response)
+								if (response.data.message) {
+									return this.setState({
+										errorMsg: [response.data.message]
+									})
+								}
+								this.props.onLogin(response.data.user.local.username, response.data.user._id);
+							});
 					} else {
 						console.log('duplicate')
 						console.log(response.data.error)

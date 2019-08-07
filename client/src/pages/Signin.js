@@ -24,38 +24,34 @@ class LoginForm extends Component {
 	}
 
 	login() {
-
 		API.login(this.state.username, this.state.password)
 		.then(response => {
+			console.log(response)
+			if(response.data.message) {
+				return this.setState({
+					errorMsg: [response.data.message]
+				})
+			}
 			this.props.onLogin(response.data.user.local.username, response.data.user._id);
 		});
 	}
-
-	
 
 	async handleSubmit(event) {
 		console.log("HANDLE SUBMIT")
 		this.setState({ 
 			errorMsg: []
-		})
-
+		}) 
+		
 		if (!this.state.username && !this.state.password) {
-			console.log("youre in the UN function")
-				// const enterUsername = this.state.errorMsg.concat("Please enter a username")
 				await this.setState({ errorMsg: [["Please enter a username"], ["Please enter a password"] ]}) 
 				console.log("====STATE====")
 
 			} else if (!this.state.username) {
-			console.log("youre in the UN function")
-				// const enterUsername = this.state.errorMsg.concat("Please enter a username")
 				await this.setState({ errorMsg: ["Please enter a username"] }) 
-				console.log("====STATE====")
 
 			} else if (!this.state.password) {
-				console.log("youre in the PASSWORD ufnciton")
-				// const enterPassword = this.state.errorMsg.concat("Please enter a password")
 				this.setState({ errorMsg:["Please enter a password"]}) 
-				}
+			}
 
 		event.preventDefault()
 
