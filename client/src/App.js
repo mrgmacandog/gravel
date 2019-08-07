@@ -1,6 +1,6 @@
     
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import Nav from "./components/Nav";
 import TripModal from "./components/TripModal";
 import axios from "axios";
@@ -22,6 +22,7 @@ class App extends Component {
     loggedIn: false,
     user: null,
     id: null,
+    redirectTo: null,
     modalShow: false,
     modalTrip: {},
     modalStartCoords: {},
@@ -222,10 +223,14 @@ class App extends Component {
         this.setState({
           loggedIn: false,
           user: null,
-          id: null
-        })
+          id: null,
+          redirectTo: null
+        }, () => {
+          window.location.href = '/'
         console.log(this.state.loggedIn)
+        console.log(this.state.redirectTo)
         alert('Logged out!')
+        })
       }
     })
   }
@@ -234,7 +239,7 @@ class App extends Component {
     loggedIn: true,
     user: user,
     id: id,
-    redirect: '/'
+    redirectTo: '/'
   })
 
   // _login = (username, password, obj) => {
@@ -266,8 +271,13 @@ class App extends Component {
   //     })
   // }
   render() {
+       
     return (
       <Router>
+        {(this.state.redirectTo ? 
+        <Redirect to={this.state.redirectTo} />
+        : null
+        )}
         {/* Temporary website navigation               */}
         {/* TODO: Delete after all pages are navigable */}
         {/* ****************************************** */}
@@ -365,7 +375,9 @@ class App extends Component {
           <Route exact path="/signin" component={() =>
           <Signin onLogin={this.loginState} />}
           />
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/signup" component={() => 
+          <Signup onLogin={this.loginState} />}
+          />
 
           <h1> {(this.state.loggedIn ?
 
