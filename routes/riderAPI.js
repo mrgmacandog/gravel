@@ -101,7 +101,7 @@ app.get("/api/riders/", function (req, res) {
   
   // Deleting an existing trip
   app.delete("/api/riders/:_id", function (req, res) {
-    db.Rider.remove({ _id: req.params.id })
+    db.Rider.deleteOne({ _id: req.params._id })
     .then(function(dbRider){
       res.json(dbRider)
     })

@@ -3,11 +3,20 @@
     text-align: center;
 }
 
-.post-item:hover {
+/* .post-item:hover {
     cursor: pointer;
-}
+} */
 
 .post-item:hover .fa-arrow-right {
     transition: 1.5s;
     transform:  rotateY(180deg) rotateY(180deg);    
+}
+
+.fa-trash {
+    position: absolute;
+    right: 14px;
+}
+
+.fa-trash:hover {
+    cursor: pointer;
 }

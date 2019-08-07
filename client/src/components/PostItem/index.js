@@ -13,6 +13,7 @@ function PostItem(props) {
                 <h5 className="card-header">
                     <strong>{props.trip.start_location} <i class="fas fa-arrow-right"></i> {props.trip.end_location}</strong>
                         {/* {props.db === "drivers" ? " Driver" : " Rider"} */}
+                    <i class="fas fa-trash" onClick={() => props.deleteTrip(props.db, props.trip._id)}></i>
                 </h5>
                 <div className="card-body">
                     <p className="card-title">
