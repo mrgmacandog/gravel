@@ -10,7 +10,7 @@ function PostItem(props) {
     return (
         <div className="col-md-6">
             <div className="card post-item">
-                {props.trip._id !== props.modifiedPost._id ? (
+                {props.trip._id !== props.state.modifyTripId ? (
                     <React.Fragment>
                         <h5 className="card-header">
                             <strong>{props.trip.start_location} <i class="fas fa-arrow-right"></i> {props.trip.end_location}</strong>
@@ -53,7 +53,7 @@ function PostItem(props) {
                                 id="start_location"
                                 name="start_location"
                                 type="text"
-                                value={props.modifiedPost.start_location}
+                                value={props.state.start_location}
                                 onChange={props.handleInputChange}
                             />
                             &nbsp;<i class="fas fa-arrow-right"></i>&nbsp;
@@ -62,7 +62,7 @@ function PostItem(props) {
                                 id="end_location"
                                 name="end_location"
                                 type="text"
-                                value={props.modifiedPost.end_location}
+                                value={props.state.end_location}
                                 onChange={props.handleInputChange}
                             />
                             
@@ -76,12 +76,12 @@ function PostItem(props) {
                                     id="leaving_date"
                                     name="leaving_date"
                                     type="date"
-                                    value={props.modifiedPost.leaving_date}
+                                    value={props.state.leaving_date}
                                     onChange={props.handleInputChange}
                                 />
                             </p>
                             <p className="card-text">
-                                {props.modifiedPost.flexible_date ? (
+                                {props.state.flexible_date ? (
                                     <select name="flexible_date" onChange={props.handleInputChange}>
                                         <option value="true" label="Date Flexible"></option>
                                         <option value="false" label="Date Not Flexible"></option>
@@ -99,7 +99,7 @@ function PostItem(props) {
                                     id="cost"
                                     name="cost"
                                     type="number"
-                                    value={props.modifiedPost.cost}
+                                    value={props.state.cost}
                                     onChange={props.handleInputChange}
                                 />
                             </p>
@@ -109,12 +109,12 @@ function PostItem(props) {
                                     id="seats_available"
                                     name="seats_available"
                                     type="number"
-                                    value={props.modifiedPost.seats_available}
+                                    value={props.state.seats_available}
                                     onChange={props.handleInputChange}
                                 />
                             </p>
                             <p className="card-text">
-                                {props.modifiedPost.smoking ? (
+                                {props.state.smoking ? (
                                     <select name="smoking" onChange={props.handleInputChange}>
                                         <option value="true" label="Smoking"></option>
                                         <option value="false" label="No Smoking"></option>
@@ -127,7 +127,7 @@ function PostItem(props) {
                                 )}
 
                                 {props.db === "riders" ? (
-                                    props.modifiedPost.luggage ? (
+                                    props.state.luggage ? (
                                         <select name="luggage" onChange={props.handleInputChange}>
                                             <option value="true" label="Luggage"></option>
                                             <option value="false" label="No Luggage"></option>
@@ -139,7 +139,7 @@ function PostItem(props) {
                                         </select>
                                     )
                                 ) : (
-                                    props.modifiedPost.luggage ? (
+                                    props.state.luggage ? (
                                         <select name="luggage" onChange={props.handleInputChange}>
                                             <option value="true" label="Luggage Space"></option>
                                             <option value="false" label="No Luggage Space"></option>
@@ -158,13 +158,13 @@ function PostItem(props) {
                                     id="comment"
                                     name="comment"
                                     type="text"
-                                    value={props.modifiedPost.comment}
+                                    value={props.state.comment}
                                     onChange={props.handleInputChange}
                                     placeholder="Optional comment"
                                 />
                             </p>
                             <p className="card-text"><strong></strong>
-                                {props.modifiedPost.driver === true ? props.trip.rider_id : props.trip.driver_id}
+                                {props.state.driver === true ? props.trip.rider_id : props.trip.driver_id}
                             </p>
 
                         </div>

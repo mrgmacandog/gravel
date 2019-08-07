@@ -3,7 +3,7 @@ import PostItem from "../PostItem";
 
 // Can change to stateful component if need be
 function PostContainer(props) {
-    console.log(props);
+    // console.log(props);
 
     return (
         <div className="container">

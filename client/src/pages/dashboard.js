@@ -5,9 +5,18 @@ import axios from "axios";
 
 // Can change to stateful component if need be
 class Dashboard extends React.Component {
+  // State is holding values for when the user is editing a trip
   state = {
     modifyTripId: "",
-    modifiedPost: {}
+    start_location: "",
+    end_location: "",
+    leaving_date: "",
+    flexible_date: "",
+    cost: "",
+    seats_available: "",
+    smoking: "",
+    luggage: "",
+    comment: ""
   }
 
   // Handle input change
@@ -16,52 +25,89 @@ class Dashboard extends React.Component {
     // Update the appropriate state
     const { name, value } = event.target;
     this.setState({
-      modifiedPost: {
-        [name]: value
-      }
+      [name]: value
     });
   };
 
   // Toggle which trip to enable modification
   toggleModify = trip => {
-    this.setState({ modifyTripId: trip._id, modifiedPost: trip });
+    this.setState({
+      modifyTripId: trip._id,
+      start_location: trip.start_location,
+      end_location: trip.end_location,
+      leaving_date: trip.leaving_date,
+      flexible_date: trip.flexible_date,
+      cost: trip.cost,
+      seats_available: trip.seats_available,
+      smoking: trip.smoking,
+      luggage: trip.luggage,
+      comment: trip.comment
+    });
   }
 
+  // Updates the trip with the givin id in the given database (db) using values from state
   updateTrip = (db, id) => {
-    alert("Updating trip...");
 
     // If the trip is from the drivers db
     if (db === "drivers") {
       axios.post(`/api/drivers/update/${id}`, {
-        start_location: this.state.modifiedPost.start_location,
-        end_location: this.state.modifiedPost.end_location,
-        leaving_date: this.state.modifiedPost.leaving_date,
-        flexible_date: this.state.modifiedPost.flexible_date,
-        cost: this.state.modifiedPost.cost,
-        seats_available: this.state.modifiedPost.seats_available,
-        smoking: this.state.modifiedPost.smoking,
-        luggage: this.state.modifiedPost.luggage,
-        comment: this.state.modifiedPost.comment
+        start_location: this.state.start_location,
+        end_location: this.state.end_location,
+        leaving_date: this.state.leaving_date,
+        flexible_date: this.state.flexible_date,
+        cost: this.state.cost,
+        seats_available: this.state.seats_available,
+        smoking: this.state.smoking,
+        luggage: this.state.luggage,
+        comment: this.state.comment
       })
         .then(results => {
           this.props.getDriverPost();
           this.props.getRiderPost();
-          this.setState({ modifiedPost: {} });
+          this.setState({
+            modifyTripId: "",
+            start_location: "",
+            end_location: "",
+            leaving_date: "",
+            flexible_date: "",
+            cost: "",
+            seats_available: "",
+            smoking: "",
+            luggage: "",
+            comment: ""
+          });
           console.log(results);
         })
         .catch(err => console.log(err));
     } else {  // If the trip is from the riders db
-      axios.post(`/api/drivers/update/${id}`, {
-        start_location: this.state.modifiedPost.start_location,
-        end_location: this.state.modifiedPost.end_location,
-        leaving_date: this.state.modifiedPost.leaving_date,
-        flexible_date: this.state.modifiedPost.flexible_date,
-        cost: this.state.modifiedPost.cost,
-        seats_available: this.state.modifiedPost.seats_available,
-        smoking: this.state.modifiedPost.smoking,
-        luggage: this.state.modifiedPost.luggage,
-        comment: this.state.modifiedPost.comment
+      axios.post(`/api/riders/update/${id}`, {
+        start_location: this.state.start_location,
+        end_location: this.state.end_location,
+        leaving_date: this.state.leaving_date,
+        flexible_date: this.state.flexible_date,
+        cost: this.state.cost,
+        seats_available: this.state.seats_available,
+        smoking: this.state.smoking,
+        luggage: this.state.luggage,
+        comment: this.state.comment
       })
+        .then(results => {
+          this.props.getDriverPost();
+          this.props.getRiderPost();
+          this.setState({
+            modifyTripId: "",
+            start_location: "",
+            end_location: "",
+            leaving_date: "",
+            flexible_date: "",
+            cost: "",
+            seats_available: "",
+            smoking: "",
+            luggage: "",
+            comment: ""
+          });
+          console.log(results);
+        })
         .catch(err => console.log(err));
     }
   }
@@ -108,9 +154,8 @@ class Dashboard extends React.Component {
         deleteTrip={this.deleteTrip}
         handleInputChange={this.handleInputChange}
         toggleModify={this.toggleModify}
-        modifyTripId={this.state.modifyTripId}
-        modifiedPost={this.state.modifiedPost}
         updateTrip={this.updateTrip}
+        state={this.state}
       />
       <PostContainer
         page={"Dashboard"}
@@ -120,9 +165,8 @@ class Dashboard extends React.Component {
         deleteTrip={this.deleteTrip}
         handleInputChange={this.handleInputChange}
         toggleModify={this.toggleModify}
-        modifyTripId={this.state.modifyTripId}
-        modifiedPost={this.state.modifiedPost}
         updateTrip={this.updateTrip}
+        state={this.state}
       />
     </React.Fragment>
   );
