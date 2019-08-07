@@ -20,24 +20,32 @@ router.post(
 		console.log('AUTH/LOGIN ROUTE')
 		console.log(req.body)
 		console.log("=====================================")
-		next()
-	},
-	passport.authenticate('local'),
-	(req, res) => {
-		console.log("=====================================")
-		console.log('PASSPORT AUTHENTICATE')
-		console.log('POST to /login')
-		console.log(req.body)
-		console.log("=====================================")
-		const user = JSON.parse(JSON.stringify(req.user)) // hack
-		const cleanUser = Object.assign({}, user)
-		if (cleanUser.local) {
-			console.log(`Deleting ${cleanUser.local.password}`)
-			delete cleanUser.local.password
-		}
-		console.log(cleanUser)
-		res.json({ user: cleanUser })
+		passport.authenticate('local', function(err, user, info){
+			console.log("=====================================")
+			console.log('PASSPORT AUTHENTICATE')
+			console.log('POST to /login')
+			console.log(req.body)
+			console.log("=====================================")
+			console.log("Info", info);
+			if(err) {
+				alert(err);
+				return next(err);
+			}
+	
+			if(!user) {
+				return res.json({message: "Incorrect username or password"});
+			}
+			// const u = JSON.parse(JSON.stringify(req.user)) // hack
+			// const cleanUser = Object.assign({}, u)
+			// if (cleanUser.local) {
+			// 	console.log(`Deleting ${cleanUser.local.password}`)
+			// 	delete cleanUser.local.password
+			// }
+			// console.log(cleanUser)
+			res.json({ user: user })
+		})(req, res, next)
 	}
+	
 )
 
 router.post('/logout', (req, res) => {
