@@ -2,3 +2,12 @@
     margin-bottom: 30px;
     text-align: center;
 }
+
+.post-item:hover {
+    cursor: pointer;
+}
+
+.post-item:hover .fa-arrow-right {
+    transition: 1.5s;
+    transform:  rotateY(180deg) rotateY(180deg);    
+}

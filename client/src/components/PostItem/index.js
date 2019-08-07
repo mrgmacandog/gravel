@@ -11,33 +11,29 @@ function PostItem(props) {
         <div className="col-md-6">
             <div className="card post-item">
                 <h5 className="card-header">
-                    <strong>{props.trip.start_location}
-                        <i class="fas fa-arrow-right"></i>
-                        {props.trip.end_location}</strong>
-                        {props.db === "drivers" ? " Driver" : " Rider"}
+                    <strong>{props.trip.start_location} <i class="fas fa-arrow-right"></i> {props.trip.end_location}</strong>
+                        {/* {props.db === "drivers" ? " Driver" : " Rider"} */}
                 </h5>
                 <div className="card-body">
-                    <h5 className="card-title">
-                        <strong>{moment(props.trip.leaving_date).format("MMMM Do YYYY h:mm")}</strong>
+                    <p className="card-title">
+                        <strong>{moment(props.trip.leaving_date).format("MMMM Do YYYY")}</strong>
+                    </p>
+                    <p calssName="card-text">
                         {props.trip.flexible_date
-                            ? <span className="badge badge-pill badge-success">Flexible</span>
-                            : <span className="badge badge-pill badge-danger">Not Flexible</span>}
-                    </h5>
-                    <p className="card-text"><strong>Trip Cost: </strong>${props.trip.cost}</p>
-                    <p className="card-text"><strong>Seats Available: </strong>
-                        {props.trip.seats_available}
+                            ? <span className="badge badge-pill badge-success">Date Flexible</span>
+                            : <span className="badge badge-pill badge-danger">Date Not Flexible</span>}
                     </p>
-
-                    {props.trip.smoking
-                        ? <span className="badge badge-pill badge-success">Smoking</span>
-                        : <span className="badge badge-pill badge-danger">No Smoking</span>}
-                    {props.trip.luggage
-                        ? <span className="badge badge-pill badge-success">Luggage Space</span>
-                        : <span className="badge badge-pill badge-danger">No Luggage Space</span>}
-
-                    <p className="card-text"><strong>Comments</strong>
-                        {props.trip.comment ? props.trip.comment : "No comment"}
+                    <p className="card-text"><strong>{props.db === "riders" ? "Price Offered: " : "Price Requested: "}</strong>${props.trip.cost}</p>
+                    <p className="card-text"><strong>{props.db === "riders" ? "Seats Requested: " : "Seats Available: "}</strong>{props.trip.seats_available}</p>
+                    <p className="card-text">
+                        {props.trip.smoking
+                            ? <span className="badge badge-pill badge-success">Smoking</span>
+                            : <span className="badge badge-pill badge-danger">No Smoking</span>}
+                        {props.trip.luggage
+                            ? <span className="badge badge-pill badge-success">{props.db === "riders" ? "Luggage" : "Luggage Space"}</span>
+                            : <span className="badge badge-pill badge-danger">{props.db === "riders" ? "No Luggage" : "No Luggage Space"}</span>}
                     </p>
+                    <p className="card-text">{props.trip.comment ? props.trip.comment : "No comment"}</p>
                     <p className="card-text"><strong></strong>
                         {props.trip.driver === true ? props.trip.rider_id : props.trip.driver_id}
                     </p>

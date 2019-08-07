@@ -7,6 +7,7 @@ function PostContainer(props) {
 
     return (
         <div className="container">
+            <p>{props.db === "drivers" ? "Trips you posted as a driver" : "Trips you posted as a rider"}</p>
             <div className="row">
                 {props.page === "Dashboard"}
                 {/* Display each trip from results */}
