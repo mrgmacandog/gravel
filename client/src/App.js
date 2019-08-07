@@ -227,9 +227,7 @@ class App extends Component {
           redirectTo: null
         }, () => {
           window.location.href = '/'
-        console.log(this.state.loggedIn)
-        console.log(this.state.redirectTo)
-        alert('Logged out!')
+
         })
       }
     })

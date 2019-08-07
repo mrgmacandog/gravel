@@ -36,21 +36,20 @@ class LoginForm extends Component {
 		});
 	}
 
-	async handleSubmit(event) {
+	handleSubmit(event) {
 		console.log("HANDLE SUBMIT")
 		this.setState({ 
 			errorMsg: []
 		}) 
 		
 		if (!this.state.username && !this.state.password) {
-				await this.setState({ errorMsg: [["Please enter a username"], ["Please enter a password"] ]}) 
-				console.log("====STATE====")
-
+				return this.setState({ errorMsg: [["Please enter a username"], ["Please enter a password"] ]}) 
+				
 			} else if (!this.state.username) {
-				await this.setState({ errorMsg: ["Please enter a username"] }) 
+				return this.setState({ errorMsg: ["Please enter a username"] }) 
 
 			} else if (!this.state.password) {
-				this.setState({ errorMsg:["Please enter a password"]}) 
+				return this.setState({ errorMsg:["Please enter a password"]}) 
 			}
 
 		event.preventDefault()
