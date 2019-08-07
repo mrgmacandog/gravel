@@ -227,7 +227,6 @@ class App extends Component {
           redirectTo: null
         }, () => {
           window.location.href = '/'
-
         })
       }
     })

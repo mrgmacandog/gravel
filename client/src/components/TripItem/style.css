@@ -1,0 +1,13 @@
+.trip-item {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.trip-item:hover {
+    cursor: pointer;
+}
+
+.trip-item:hover .fa-arrow-right {
+    transition: 1.5s;
+    transform:  rotateY(180deg) rotateY(180deg);    
+}

@@ -128,10 +128,28 @@ render() {
 			// 		<button onClick={this.handleSubmit}>Login</button>
 			// 	</form>
 
-			// </div>
-		)
+				// 	<form>
+				// 		<label htmlFor="username">Username: </label>
+				// 		<input
+				// 			type="text"
+				// 			name="username"
+				// 			value={this.state.username}
+				// 			onChange={this.handleChange}
+				// 		/>
+				// 		<label htmlFor="password">Password: </label>
+				// 		<input
+				// 			type="password"
+				// 			name="password"
+				// 			value={this.state.password}
+				// 			onChange={this.handleChange}
+				// 		/>
+				// 		<button onClick={this.handleSubmit}>Login</button>
+				// 	</form>
+
+				// </div>
+			)
+		}
 	}
-}
 }
 
 export default LoginForm

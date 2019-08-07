@@ -1,0 +1,23 @@
+.driver-background {
+    /* https://pxhere.com/en/photo/1525081 */
+    background-image: url("/images/driver-cropped.jpg"); 
+    background-size: cover;
+    background-position: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin-bottom: 30px;
+}
+
+.rider-background {
+    /* https://www.flickr.com/photos/beyonddc/33035757833 */
+    background-image: url("/images/rider-cropped.jpg");
+    background-size: cover;
+    background-position: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin-bottom: 30px;
+}
+
+.page-title {
+    color: #FFF;
+}

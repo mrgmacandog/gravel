@@ -14,7 +14,7 @@ class FormContainer extends Component {
     console.log('Your input value is: ' + JSON.stringify(props));
     this.state = {
       newPost: {
-        driver_id: "",
+      
         title: "",
         start_location: "",
         end_location: "",
@@ -99,28 +99,52 @@ class FormContainer extends Component {
   handleFormSubmit(e) {
     let postData = this.state.newPost;
     e.preventDefault()
-    postData.driver_id = this.props.userId;
 
-    axios.post('/api/drivers', postData)
-      .then(response => console.log(response.data));
 
-    this.setState({
-      newPost: {
-        driver_id:"",
-        title: "",
-        start_location: "",
-        end_location: "",
-        leaving_date: "",
-        flexible_date: "",
-        cost: "",
-        seats_available: "",
-        smoking: "",
-        luggage: "",
-        comment: ""
-      }
+    if (this.props.page === "DriverPost") {
+      postData.driver_id = this.props.userId;
+      axios.post('/api/drivers', postData)
+        .then(response => console.log(response.data));
 
-    });
+      this.setState({
+        newPost: {
+          driver_id: "",
+          title: "",
+          start_location: "",
+          end_location: "",
+          leaving_date: "",
+          flexible_date: "",
+          cost: "",
+          seats_available: "",
+          smoking: "",
+          luggage: "",
+          comment: ""
+        }
 
+      });
+    }
+    else if (this.props.page === "RiderPost") {
+      postData.rider_id = this.props.userId;
+      axios.post('/api/riders', postData)
+        .then(response => console.log(response.data));
+
+      this.setState({
+        newPost: {
+          rider_id: "",
+          title: "",
+          start_location: "",
+          end_location: "",
+          leaving_date: "",
+          flexible_date: "",
+          cost: "",
+          seats_available: "",
+          smoking: "",
+          luggage: "",
+          comment: "",
+        }
+
+      });
+    }
   }
 
   render() {
