@@ -15,7 +15,7 @@ import Signin from "./pages/Signin";
 import Rider from "./pages/Rider";
 import RiderPost from "./pages/RiderPost";
 import Signup from "./pages/Signup";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard";
 
 class App extends Component {
   state = {

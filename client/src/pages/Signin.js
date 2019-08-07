@@ -23,10 +23,12 @@ class LoginForm extends Component {
 		})
 	}
 
-	async login() {
+	login() {
 
-		console.log(this.state.errorMsg)
-		API.login(this.state.username, this.state.password, this.props.onLogin);
+		API.login(this.state.username, this.state.password)
+		.then(response => {
+			this.props.onLogin(response.data.user.local.username, response.data.user._id);
+		});
 	}
 
 	
