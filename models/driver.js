@@ -7,6 +7,11 @@ const DriverSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+    driver: {
+        type: Boolean,
+        default: true,
+
+    },
     start_location: {
         type: String,
         required: true
@@ -15,24 +20,24 @@ const DriverSchema = new Schema({
         type: String,
         required: false
     },
-    leaving_date:{
+    leaving_date: {
         type: Date,
         required: true
     },
-    flexible_date:{
+    flexible_date: {
         type: Boolean,
         default: false,
         required: false
     },
-    cost:{
+    cost: {
         type: Number,
         required: false
     },
-    seats_available:{
+    seats_available: {
         type: Number,
         required: true
     },
-    smoking:{
+    smoking: {
         type: Boolean,
         default: false,
         required: true

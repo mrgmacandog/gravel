@@ -4,8 +4,9 @@ import PostContainer from "../components/PostContainer";
 // Can change to stateful component if need be
 class Dashboard extends React.Component {
   componentDidMount(){
-    const {getDriverPost, id} = this.props
-    getDriverPost(id)
+    const {getDriverPost, id, getRiderPost} = this.props
+    getDriverPost(id);
+    getRiderPost(id);
   }
   render(){
     // console.log(props);
@@ -14,6 +15,7 @@ class Dashboard extends React.Component {
     <React.Fragment>
       {/* TODO: Send TripContainer the data from Riders table */}
       <PostContainer page={"Dashboard"} loggedIn={this.props.state.loggedIn} results={this.props.state.results}/>
+      <PostContainer page={"Dashboard"} loggedIn={this.props.state.loggedIn} results={this.props.state.riderPost}/>
     </React.Fragment>
   );
   }

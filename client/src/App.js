@@ -32,7 +32,8 @@ class App extends Component {
     startLocation: "",
     endLocation: "",
     currentCity: "",
-    results: []
+    results: [],
+    riderPost: []
   }
 
 
@@ -145,7 +146,7 @@ class App extends Component {
     API.getRiderPost(this.state.id)
           .then(results => {
            console.log(results);
-            this.setState({ results: results.data })})
+            this.setState({ riderPost: results.data })})
           .catch(err => console.log(err));
          
   }

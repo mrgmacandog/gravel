@@ -7,6 +7,10 @@ const RiderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+    driver: {
+        type: Boolean,
+        default: false,
+    },
     start_location: {
         type: String,
         required: true
