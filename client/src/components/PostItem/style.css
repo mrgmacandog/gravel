@@ -12,11 +12,16 @@
     transform:  rotateY(180deg) rotateY(180deg);    
 }
 
+.fa-trash:hover, .fa-edit:hover {
+    cursor: pointer;
+}
+
 .fa-trash {
     position: absolute;
     right: 14px;
 }
 
-.fa-trash:hover {
-    cursor: pointer;
+.fa-edit {
+    position: absolute;
+    right: 36px;
 }

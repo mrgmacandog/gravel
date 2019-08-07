@@ -4,6 +4,38 @@ import API from "../utils/API";
 
 // Can change to stateful component if need be
 class Dashboard extends React.Component {
+  state = {
+    modifyTripId: "",
+    modifiedPost: {
+      start_location: "",
+      end_location: "",
+      leaving_date: "",
+      flexible_date: "",
+      cost: "",
+      seats_available: "",
+      smoking: "",
+      luggage: "",
+      comment: ""
+    }
+  }
+
+  // Handle input change
+  handleInputChange = event => {
+    // Destructure the name and value properties off of event.target
+    // Update the appropriate state
+    const { name, value } = event.target;
+    this.setState({
+      modifiedPost: {
+        [name]: value
+      }
+    });
+  };
+
+  // Toggle which trip to enable modification
+  toggleModify = trip => {
+    this.setState({ modifyTripId: trip._id, modifiedPost: trip });
+  }
+
   // Removes a trip from database
   deleteTrip = (db, id) => {
     // If the trip is from the drivers db
@@ -44,6 +76,10 @@ class Dashboard extends React.Component {
         results={this.props.state.results}
         db="drivers"
         deleteTrip={this.deleteTrip}
+        handleInputChange={this.handleInputChange}
+        toggleModify={this.toggleModify}
+        modifyTripId={this.state.modifyTripId}
+        modifiedPost={this.state.modifiedPost}
       />
       <PostContainer
         page={"Dashboard"}
@@ -51,6 +87,10 @@ class Dashboard extends React.Component {
         results={this.props.state.riderPost}
         db="riders"
         deleteTrip={this.deleteTrip}
+        handleInputChange={this.handleInputChange}
+        toggleModify={this.toggleModify}
+        modifyTripId={this.state.modifyTripId}
+        modifiedPost={this.state.modifiedPost}
       />
     </React.Fragment>
   );
