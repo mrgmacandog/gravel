@@ -1,7 +1,20 @@
-/* #navbarOutline{
+.navbar-fixed{
     overflow: hidden;
     top: 0;
     width: 100%;
     position: fixed;
-    margin-top: 10px;
-} */
+    z-index: 1;
+    margin-bottom: 0px;
+}
+
+.btn-primary{
+    margin: 0px 15px 0px 15px;
+    border-radius: 12px;
+    padding: 14px 40px;
+    font-size: 20px;
+}
+
+.navbar-brand{
+    margin: 0px 15px 0px 15px;
+    font-weight: bolder;
+}
