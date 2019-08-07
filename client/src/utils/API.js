@@ -8,7 +8,7 @@ export default {
         return axios.post("/auth/login", {
             username: username,
             password: password
-        })
+        }) 
     },
 
     // Getting the list of rider requested trip
