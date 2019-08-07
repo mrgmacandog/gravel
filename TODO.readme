@@ -1,0 +1,18 @@
+**THIS ISSUE IS WORKING FOR NOW ** //Make errorMsg appear (line 62) when they are generated (lines 26 - 32)
+**THIS ISSUE IS WORKING FOR NOW ** //Find out why errorMsgs wont register until after one click later when you console log
+    this.state (line 40). Asynchronous?
+**THIS ISSUE IS WORKING FOR NOW ** //Don't make same errorMsg appear twice (lines 26 - 32)
+**THIS ISSUE IS WORKING FOR NOW ** //Make 'No user match' and 'Wrong password' error message display in errorMsg (lines 31 & 37 localstrategy.js)
+**THIS ISSUE IS WORKING FOR NOW ** //If multiple errors exist, make them all display (lines 26 - 32) in alertContainer (line 63)
+**THIS ISSUE IS WORKING FOR NOW ** //Clear the array upon handling submit to not duplicate errorMsgs (line 42)
+**THIS ISSUE IS WORKING FOR NOW ** //Make errorMsg display in Signup.js when called (lines 40 - 65)
+
+
+//Login method is called (line 48) and calls an API (line 35), passing this.state.username and this.state.password
+as well as onLogin (a component that sets state via line 233 App.js). 
+//The API uses passport to authenticate the login information via passport (lines 14 - 38 localstrategy.js) to verify if the username and password are legit. 
+//Passport then sends back the relevant user information to the route (line 26) and sends out the information via json after cleaning up the information
+//From here, the user information is sent back to the front end through the API's callback (line 11 API.js)
+
+//HOW DO I MAKE THE STATE UPDATE TO LOGGEDIN OF TRUE USING RELEVANT USER INFORMATION TO RENDER INFORMATION?
+;
