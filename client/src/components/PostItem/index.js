@@ -5,7 +5,7 @@ import "./style.css";
 // Can change to stateful component if need be
 function PostItem(props) {
 
-    console.log(props.trip);
+    // console.log(props.trip);
 
     return (
         <div className="col-md-6">
@@ -14,7 +14,7 @@ function PostItem(props) {
                     <strong>{props.trip.start_location}
                         <i class="fas fa-arrow-right"></i>
                         {props.trip.end_location}</strong>
-                        {props.trip.driver === true ? " Driver" : " Rider"}
+                        {props.db === "drivers" ? " Driver" : " Rider"}
                 </h5>
                 <div className="card-body">
                     <h5 className="card-title">
