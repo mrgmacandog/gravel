@@ -5,9 +5,14 @@ export default {
 
     //Login
     login: function(username, password) {
-        return axios.post("/auth/login", {
+        axios.post("/auth/login", {
             username: username,
             password: password
+        }).then(response => {
+            console.log("HEY BUDDY BOY!!!")
+            console.log(response.data.user.local)
+            console.log(response.data.user)
+            // res.json(response.data.user.local)
         })
     },
 
