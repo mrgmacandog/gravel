@@ -19,16 +19,16 @@ router.post(
 	function(req, res, next) {
 		console.log('AUTH/LOGIN ROUTE')
 		console.log(req.body)
-		console.log('================')
+		console.log("=====================================")
 		next()
 	},
 	passport.authenticate('local'),
 	(req, res) => {
-		console.log('================')
+		console.log("=====================================")
 		console.log('PASSPORT AUTHENTICATE')
 		console.log('POST to /login')
 		console.log(req.body)
-		console.log('================')
+		console.log("=====================================")
 		const user = JSON.parse(JSON.stringify(req.user)) // hack
 		const cleanUser = Object.assign({}, user)
 		if (cleanUser.local) {
