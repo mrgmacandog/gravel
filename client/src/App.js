@@ -1,11 +1,11 @@
     
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import Nav from "./components/Nav";
 import TripModal from "./components/TripModal";
 import axios from "axios";
 import API from "./utils/API";
-import Navbar from "./components/Navbar";
+
 
 // Pages
 import Driver from "./pages/Driver";
@@ -17,25 +17,22 @@ import RiderPost from "./pages/RiderPost";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/dashboard";
 
-import "./App.css";
-
 class App extends Component {
   state = {
     loggedIn: false,
     user: null,
     id: null,
+    redirectTo: null,
     modalShow: false,
     modalTrip: {},
     modalStartCoords: {},
     modalEndCoords: {},
-    modalPath: "",
     startLocation: "",
     endLocation: "",
     currentCity: "",
     results: []
   }
-
-
+  
   // Shows modal
   showModal = (trip) => {
     // Initialize coord variables
@@ -57,11 +54,10 @@ class App extends Component {
               modalShow: true,
               modalTrip: trip,
               modalStartCoords: tripStartCoords,
-              modalEndCoords: tripEndCoords,
-              modalPath: window.location.pathname
+              modalEndCoords: tripEndCoords
             });
-          })
-          .catch(error => console.log(error));
+        })
+        .catch(error => console.log(error));
       })
       .catch(error => console.log(error));
   };
@@ -83,6 +79,8 @@ class App extends Component {
     if (event !== undefined) {
       event.preventDefault();
     }
+
+    alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
       API.getRider()
@@ -113,6 +111,8 @@ class App extends Component {
       event.preventDefault();
     }
 
+    alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+
     if (this.state.startLocation === "") {
       API.getDriver()
         .then(results => this.setState({ results: results.data }))
@@ -128,6 +128,8 @@ class App extends Component {
           .catch(err => console.log(err));
       }
     }
+
+    // this.getResults("drivers");
   }
 
   getDriverPost = event => {
@@ -140,15 +142,6 @@ class App extends Component {
          
   }
 
-  getRiderPost = event => {
-    // event.preventDefault();
-    API.getRiderPost(this.state.id)
-          .then(results => {
-           console.log(results);
-            this.setState({ results: results.data })})
-          .catch(err => console.log(err));
-         
-  }
   // getResults = driversOrRiders => {
   //   alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
@@ -172,26 +165,6 @@ class App extends Component {
     this.setState({ [name]: this.state.currentCity });
   }
 
-  // Driver connects with rider, reduces rider seats_available
-  // TODO: Redirect to proper page
-  connectWithRider = (tripId) => {
-    axios.post(`api/riders/${tripId}`, {
-      driver_id: this.state.id
-    })
-      .then(result => this.setState({ modalShow: false }, () => this.getRiders()))
-      .catch(err => console.log(err));
-  }
-
-  // Rider connects with Driver, reduces driver seats_available
-  // TODO: Redirect to proper page, give option to reduce seats_available by more than 1
-  connectWithDriver = (tripId) => {
-    axios.post(`api/drivers/${tripId}`, {
-      rider_id: this.state.id
-    })
-      .then(result => this.setState({ modalShow: false }, () => this.getDrivers()))
-      .catch(err => console.log(err));
-  }
-
   // constructor(props) {
   //   super(props)
   //   this.state = {
@@ -212,14 +185,26 @@ class App extends Component {
         .then(response => this.setState({ currentCity: response.data.components.city || response.data.components.locality }))
         .catch(err => console.log(err));
     });
+    //   axios.get('/auth/user').then(response => {
+    //   console.log('RESPONSE DATA FOR COMPONENTDIDMOUNT:')
+    //   console.log(response.data.user)
+    //   if (response.data.user) {
+    //     console.log('THERE IS A USER')
+    //     this.setState({
+    //       loggedIn: true,
+    //       user: response.data.user
+    //     })
+    //     console.log(this.state.loggedIn)
+    //   } else {
+    //     console.log('THERE IS NO USER LOGGED IN')
+    //     this.setState({
+    //       loggedIn: false,
+    //       user: null
+    //     })
+    //     console.log(this.state.loggedIn)
 
-    this.unlisten = this.props.history.listen((listen, action) => {
-      // console.log(this.props.history.location);
-    });
-  }
-
-  componentWillUnmount() {
-    this.unlisten = null;
+    //   }
+    // })
   }
   // componentDidUpdate(previousState){
   //   console.log(previousState)
@@ -238,10 +223,13 @@ class App extends Component {
         this.setState({
           loggedIn: false,
           user: null,
-          id: null
-        })
+          id: null,
+          redirectTo: null
+        }, () => {
+          window.location.href = '/'
         console.log(this.state.loggedIn)
-        alert('Logged out!')
+        console.log(this.state.redirectTo)
+        })
       }
     })
   }
@@ -250,16 +238,45 @@ class App extends Component {
     loggedIn: true,
     user: user,
     id: id,
-    redirect: '/'
+    redirectTo: '/'
   })
 
+  // _login = (username, password, obj) => {
+  //   axios.post('/auth/login', {
+  //     username,
+  //     password
+  //   })
+  //     .then(response => {
+  //       console.log('RESPONSE FROM PASSPORT')
+  //       console.log(response.data)
+  //       if (response.status === 200) {
+  //         // update the state
+  //         this.setState({
+  //           loggedIn: true,
+  //           user: response.data.user.local.username,
+  //           id: response.data.user._id
+  //         })
+
+  //         // obj.success();
+  //       }
+  //     }).catch(err => {
+  //       if (err) {
+  //         console.log(err)
+  //         alert(err);
+  //       } else {
+  //         console.log("Successful sign in")
+  //         console.log(this.state)
+  //       }
+  //     })
+  // }
   render() {
+       
     return (
-      <div>
-        <Navbar
-          path={this.props.history.location}
-          loggedIn={this.state.loggedIn}
-        />
+      <Router>
+        {(this.state.redirectTo ? 
+        <Redirect to={this.state.redirectTo} />
+        : null
+        )}
         {/* Temporary website navigation               */}
         {/* TODO: Delete after all pages are navigable */}
         {/* ****************************************** */}
@@ -298,10 +315,6 @@ class App extends Component {
           trip={this.state.modalTrip}
           modalStartCoords={this.state.modalStartCoords}
           modalEndCoords={this.state.modalEndCoords}
-          connectWithRider={this.connectWithRider}
-          connectWithDriver={this.connectWithDriver}
-          loggedIn={this.state.loggedIn}
-          modalPath={this.state.modalPath}
         />
 
         {/* React router. TODO: May need to place everything above into the respective page. */}
@@ -361,7 +374,9 @@ class App extends Component {
           <Route exact path="/signin" component={() =>
           <Signin onLogin={this.loginState} />}
           />
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/signup" component={() => 
+          <Signup onLogin={this.loginState} />}
+          />
 
           <h1> {(this.state.loggedIn ?
 
@@ -377,14 +392,14 @@ class App extends Component {
               state={this.state}
               handleInputChange={this.handleInputChange}
               getDriverPost={this.getDriverPost}
-              getRiderPost={this.getRiderPost}
+              
             />}
           />
         </div>
-      </div>
+      </Router>
 
     );
   }
 }
 
-export default withRouter(App);
+export default App;
