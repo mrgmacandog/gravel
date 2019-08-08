@@ -260,6 +260,11 @@ class App extends Component {
   render() {
     return (
       <div>
+          <Router>
+        {(this.state.redirectTo ? 
+        <Redirect to={this.state.redirectTo} />
+        : null
+        )}
         <Navbar
           path={this.props.history.location}
           loggedIn={this.state.loggedIn}
@@ -360,6 +365,7 @@ class App extends Component {
             />}
           />
         </div>
+      </Router>
       </div>
 
     );
