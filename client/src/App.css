@@ -29,3 +29,7 @@
 .page-title {
     color: #FFF;
 }
+
+#app-render {
+    margin-top: 100px;
+}

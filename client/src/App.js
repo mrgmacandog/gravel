@@ -1,4 +1,4 @@
-    
+
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link, withRouter, Redirect } from "react-router-dom";
 import Nav from "./components/Nav";
@@ -132,21 +132,23 @@ class App extends Component {
   getDriverPost = event => {
     // event.preventDefault();
     API.getDriverPost(this.state.id)
-          .then(results => {
-           console.log(results);
-            this.setState({ results: results.data })})
-          .catch(err => console.log(err));
-         
+      .then(results => {
+        console.log(results);
+        this.setState({ results: results.data })
+      })
+      .catch(err => console.log(err));
+
   }
 
   getRiderPost = event => {
     // event.preventDefault();
     API.getRiderPost(this.state.id)
-          .then(results => {
-           console.log(results);
-            this.setState({ riderPost: results.data })})
-          .catch(err => console.log(err));
-         
+      .then(results => {
+        console.log(results);
+        this.setState({ riderPost: results.data })
+      })
+      .catch(err => console.log(err));
+
   }
   // getResults = driversOrRiders => {
   //   alert(`Getting ${driversOrRiders} going from ${this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
@@ -261,38 +263,13 @@ class App extends Component {
         <Navbar
           path={this.props.history.location}
           loggedIn={this.state.loggedIn}
-        />
-        <Router>
-        {(this.state.redirectTo ? 
-        <Redirect to={this.state.redirectTo} />
-        : null
-        )}
-        {/* Temporary website navigation               */}
-        {/* TODO: Delete after all pages are navigable */}
-        {/* ****************************************** */}
-        <div style={{ backgroundColor: "black", display: "flex", justifyContent: "space-around" }}>
-          <Link to="/home">/home</Link>
-          <Link to="/driver">/driver</Link>
-          {(this.state.loggedIn ?
-            <Link to="/driver-post">/driver-post</Link>
-            : null)}
-          <Link to="/rider">/rider</Link>
-          {(this.state.loggedIn ?
-            <Link to="/rider-post">/rider-post</Link>
-            : null)}
-          {(!this.state.loggedIn ?
-            <Link to="/signin">/signin</Link>
-            : null)}
-          {(!this.state.loggedIn ?
-            <Link to="/signup">/signup</Link>
+          user={this.state.user}
+          loggedOut={this._logout}
+        >
+        </Navbar>
+        <div id="app-render">
 
-            : null)}
-
-          <Link to="/dashboard">/dashboard</Link>
-
-          <h1>{(this.state.loggedIn ? `Weclome, ${this.state.user}` : "Not logged in")}</h1>
         </div>
-        <Nav />
         {/* ***************************************** **/}
 
         {/* Modal Test */}
@@ -366,18 +343,11 @@ class App extends Component {
             />}
           />
           <Route exact path="/signin" component={() =>
-          <Signin onLogin={this.loginState} />}
+            <Signin onLogin={this.loginState} />}
           />
-          <Route exact path="/signup" component={() => 
+          <Route exact path="/signup" component={() =>
             <Signup onLogin={this.loginState} />}
           />
-          <h1> {(this.state.loggedIn ?
-
-
-            <button onClick={this._logout}>Logout</button>
-            : null
-          )}
-          </h1>
           <Route exact path="/dashboard" render={(props) =>
             <Dashboard
               {...props}
@@ -390,7 +360,6 @@ class App extends Component {
             />}
           />
         </div>
-        </Router>
       </div>
 
     );
