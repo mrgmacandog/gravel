@@ -31,11 +31,14 @@ class Signup extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault()
+		console.log('STATE:')
+		console.log(this.state)
+		console.log('================================================')
 		//TO DO
 		//Add conditional to check if username already exists
-		if (!this.state.password || !this.state.confirmPassword || !this.state.username) {
+		if (!this.state.password || !this.state.confirmPassword || !this.state.username || !this.state.firstName || !this.state.lastName || !this.state.email) {
 			return this.setState({
-				errorMsg: ["Please fill out all fields"]
+				errorMsg: ["Please fill out all the required fields"]
 			})
 
 		} else if (this.state.confirmPassword !== this.state.password) {
@@ -46,15 +49,20 @@ class Signup extends Component {
 		} else {
 
 			axios.post('/auth/signup', {
+				firstName: this.state.firstName,
+				lastName: this.state.lastName,
+				email: this.state.email,
 				username: this.state.username,
 				password: this.state.password
 			}).then(response => {
 					if (!response.data.error) {
-						console.log(this.state)
 						console.log('Registration succesful');
 						API.login(this.state.username, this.state.password)
 						.then(response => {
-							console.log(response)
+							
+							console.log("USER")
+							console.log(response.data.user)
+
 							if (response.data.message) {
 								return this.setState({
 									errorMsg: [response.data.message]
@@ -74,13 +82,13 @@ class Signup extends Component {
 	}
 	render() {
 		return (
-			<div class="row mt-5">
-				<div class="col-md-6 m-auto">
-					<div class="card card-body">
-						<h1 class="text-center mb-3">
-						<i class="fas fa-user-plus"></i> Register
+			<div className="row mt-5">
+				<div className="col-md-6 m-auto">
+					<div className="card card-body">
+						<h1 className="text-center mb-3">
+						<i className="fas fa-user-plus"></i> Register
 						</h1>
-						<div class="form-group">
+						<div className="form-group">
 							{(!this.state.errorMsg.length < 1 ?
 								<AlertContainer errors={this.state.errorMsg} />
 								: null
@@ -90,83 +98,83 @@ class Signup extends Component {
 							{/* {(this.state.errorMsg ? this.state.errorMsg : null )} */}
 							<br />
 
-						<div class="form-group">
-							<label for="firstName">First Name</label>
+						<div className="form-group">
+							<label htmlFor="firstName">First Name</label>
 							<input
 								type="text"
 								id="firstName"
 								name="firstName"
-								class="form-control"
+								className="form-control"
 								placeholder="Enter First Name"
 								value={this.state.firstName}
 								onChange={this.handleChange}
 							/>
 						</div>
 
-						<div class="form-group">
-							<label for="lastName">Surname</label>
+						<div className="form-group">
+							<label htmlFor="lastName">Surname</label>
 							<input
 								type="text"
 								id="lastName"
 								name="lastName"
-								class="form-control"
+								className="form-control"
 								placeholder="Enter Last Name"
 								value={this.state.lastName}
 								onChange={this.handleChange}
 							/>
 						</div>
 
-						<div class="form-group">
-							<label for="email">Email</label>
+						<div className="form-group">
+							<label htmlFor="email">Email</label>
 							<input
 								type="email"
 								id="email"
 								name="email"
-								class="form-control"
+								className="form-control"
 								placeholder="Enter Your Email "
 								value={this.state.email}
 								onChange={this.handleChange}
 							/>
 						</div>
 
-						<label for="name">Username</label>
+						<label htmlFor="name">Username</label>
 							<input
 								type="text"
 								id="name"
 								name="username"
-								class="form-control"
+								className="form-control"
 								placeholder="Enter Username"
 								value={this.state.username}
 								onChange={this.handleChange}
 							/>
 						</div>
 
-						<div class="form-group">
-							<label for="password">Password</label>
+						<div className="form-group">
+							<label htmlFor="password">Password</label>
 							<input
 								type="password"
 								id="password"
 								name="password"
-								class="form-control"
+								className="form-control"
 								placeholder="Create Password"
 								value={this.state.password}
 								onChange={this.handleChange}
 							/>
 						</div>
-						<div class="form-group">
-							<label for="password2">Confirm Password</label>
+						<div className="form-group">
+							<label htmlFor="password2">Confirm Password</label>
 							<input
 								type="password"
 								id="password2"
 								name="confirmPassword"
-								class="form-control"
+								className="form-control"
 								placeholder="Confirm Password"
 								value={this.state.confirmPassword}
 								onChange={this.handleChange}
 							/>
 						</div>
 						<button onClick={this.handleSubmit}>Sign up</button>
-						<p class="lead mt-4">Have An Account? <a href="/signin">Login</a></p>
+						<p className="lead mt-4">Have An Account? <a href="/signin">Login</a></p>
 					</div>
 				</div>
 			</div>
