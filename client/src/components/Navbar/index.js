@@ -2,7 +2,6 @@ import React from "react";
 import RequestRideButton from "../RequestRideButton";
 import OfferRideButton from "../OfferRideButton";
 import { Link } from "react-router-dom";
-import { PromiseProvider } from "mongoose";
 import "./style.css";
 
 
