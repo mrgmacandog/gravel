@@ -14,8 +14,6 @@ class FormContainer extends Component {
     console.log('Your input value is: ' + JSON.stringify(props));
     this.state = {
       newPost: {
-      
-        title: "",
         start_location: "",
         end_location: "",
         leaving_date: "",
@@ -34,25 +32,13 @@ class FormContainer extends Component {
     };
     this.handleTextArea = this.handleTextArea.bind(this);
     this.handleStart_location = this.handleStart_location.bind(this);
-    this.handletTitle = this.handleTitle.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
 
   /* This lifecycle hook gets executed when the component mounts */
 
-  handleTitle(e) {
-    let value = e.target.value;
-    this.setState(
-      prevState => ({
-        newPost: {
-          ...prevState.newPost,
-          title: value
-        }
-      }),
-      () => console.log(this.state.newPost)
-    );
-  }
+  
 
   handleStart_location(e) {
     let value = e.target.value;
@@ -109,7 +95,7 @@ class FormContainer extends Component {
       this.setState({
         newPost: {
           driver_id: "",
-          title: "",
+          driver: true,
           start_location: "",
           end_location: "",
           leaving_date: "",
@@ -131,7 +117,8 @@ class FormContainer extends Component {
       this.setState({
         newPost: {
           rider_id: "",
-          title: "",
+          driver: false,
+      
           start_location: "",
           end_location: "",
           leaving_date: "",
@@ -150,15 +137,7 @@ class FormContainer extends Component {
   render() {
     return (
       <form className="container-fluid" onSubmit={this.handleFormSubmit}>
-        <Input
-          inputType={"text"}
-          title={"Title"}
-          name={"title"}
-          value={this.state.newPost.title}
-          placeholder={"Title of your Post"}
-          handleChange={this.handleInput}
-        />{" "}
-        {/* Title of the post*/}
+    
         <Input
           inputType={"text"}
           name={"start_location"}

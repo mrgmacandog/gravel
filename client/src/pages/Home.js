@@ -48,7 +48,7 @@ export default function Home(props) {
   // }
   // render() {
     return (
-      <React.Fragment>
+      <div id="home-container">
         <Jumbotron />
         <Container>
           <Row>
@@ -63,6 +63,9 @@ export default function Home(props) {
                 />
               </form>
             </Col>
+          </Row>
+          <Row>
+            <p>I am a</p>
           </Row>
           <Row>
             <Col size="sm-6">
@@ -86,7 +89,7 @@ export default function Home(props) {
             </Col>
           </Row>
         </Container>
-      </React.Fragment>
+      </div>
     );
   // }
 }

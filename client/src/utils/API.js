@@ -23,17 +23,17 @@ export default {
     getRiderStartEnd: function (start_location, end_location) {
         return axios.get(`/api/riders/${start_location}/${end_location}`)
     },
-    // Driver post a trip to driver database
+    // Rider post a trip to rider database
     postRider: function (newRider) {
         return axios.post("/api/riders", newRider);
     },
-    // Updating a trip posted by a driver in driver database
+    // Updating a trip posted by a rider in rider database
     updateRider: function (_id) {
-        return axios.post(`/api/riders/${_id}`);
+        return axios.post(`/api/riders/update/${_id}`);
     },
-    // Deleting a trip posted by a driver in rider database
+    // Deleting a trip posted by a rider in rider database
     deleteRider: function (_id) {
-        return axios.delete(`/api/riders${_id}`);
+        return axios.delete(`/api/riders/${_id}`);
     },
 
     // Routes for Rider pages
@@ -71,7 +71,7 @@ export default {
     },
     // updating a trip
     updateDriver: function (_id) {
-        return axios.get(`/api/drivers/${_id}`)
+        return axios.get(`/api/drivers/update/${_id}`)
     },
     // deleting an existing trip
     deleteDriver: function (_id) {

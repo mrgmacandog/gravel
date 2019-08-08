@@ -1,3 +1,11 @@
+#home-container {
+    height: calc(100vh - 87.38px);
+    /* https://commons.wikimedia.org/wiki/File:Llano_Estacado_Crosby_County_FM651_2009.jpg */
+    background-image: url("/images/home.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
 .driver-background {
     /* https://pxhere.com/en/photo/1525081 */
     background-image: url("/images/driver-cropped.jpg"); 
