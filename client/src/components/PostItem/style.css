@@ -25,3 +25,13 @@
     position: absolute;
     right: 36px;
 }
+
+.fa-trash:hover {
+    cursor: pointer;
+    color: #FF0000;
+}
+
+.fa-edit:hover, .fa-check:hover {
+    cursor: pointer;
+    color: #18BC9C;
+}

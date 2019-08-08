@@ -1,0 +1,12 @@
+.section-header {
+    text-align: center;
+    color: #FFF;
+    background-color: #18BC9C;
+    margin-bottom: 30px;
+    padding-top: 65px;
+    padding-bottom: 75px;
+}
+
+.no-trips-message {
+    text-align: center;
+}
