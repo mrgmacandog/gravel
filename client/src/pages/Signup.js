@@ -11,6 +11,9 @@ class Signup extends Component {
 	constructor() {
 		super()
 		this.state = {
+			firstName: '',
+			lastName: '',
+			email: '',
 			username: '',
 			password: '',
 			confirmPassword: '',
@@ -86,7 +89,47 @@ class Signup extends Component {
 
 							{/* {(this.state.errorMsg ? this.state.errorMsg : null )} */}
 							<br />
-							<label for="name">Username</label>
+
+						<div class="form-group">
+							<label for="firstName">First Name</label>
+							<input
+								type="text"
+								id="firstName"
+								name="firstName"
+								class="form-control"
+								placeholder="Enter First Name"
+								value={this.state.firstName}
+								onChange={this.handleChange}
+							/>
+						</div>
+
+						<div class="form-group">
+							<label for="lastName">Surname</label>
+							<input
+								type="text"
+								id="lastName"
+								name="lastName"
+								class="form-control"
+								placeholder="Enter Last Name"
+								value={this.state.lastName}
+								onChange={this.handleChange}
+							/>
+						</div>
+
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input
+								type="email"
+								id="email"
+								name="email"
+								class="form-control"
+								placeholder="Enter Your Email "
+								value={this.state.email}
+								onChange={this.handleChange}
+							/>
+						</div>
+
+						<label for="name">Username</label>
 							<input
 								type="text"
 								id="name"
