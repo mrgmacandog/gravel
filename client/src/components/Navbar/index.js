@@ -3,7 +3,7 @@ import RequestRideButton from "../RequestRideButton";
 import OfferRideButton from "../OfferRideButton";
 import { Link } from "react-router-dom";
 import { PromiseProvider } from "mongoose";
-import "./style.css"
+import "./style.css";
 
 
 function Navbar(props) {
