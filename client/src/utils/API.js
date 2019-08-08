@@ -44,11 +44,15 @@ export default {
     getDriverPost: function(driver_id){
         return axios.get(`/api/drivers_driverId/${driver_id}`)
     },
+    
 
     getRiderPost: function(rider_id){
         return axios.get(`/api/riders_riderId/${rider_id}`)
     },
-
+    
+    getUserInfo: function(_id){
+        return axios.get(`/api/users/${_id}`)
+    },
     // getDriverPost: function () {
     //     return axios.get("/api/drivers_driverId/5d4100c0e83c0d234cff3652")
     // },

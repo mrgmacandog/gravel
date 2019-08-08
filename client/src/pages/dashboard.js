@@ -135,6 +135,7 @@ class Dashboard extends React.Component {
     }
   }
 
+
   componentDidMount(){
     const {getDriverPost, id, getRiderPost} = this.props
     getDriverPost(id);
@@ -156,6 +157,7 @@ class Dashboard extends React.Component {
         handleInputChange={this.handleInputChange}
         toggleModify={this.toggleModify}
         updateTrip={this.updateTrip}
+        getConnectionRide={this.getConnectionRide}
         state={this.state}
       />
       <PostContainer
@@ -167,6 +169,7 @@ class Dashboard extends React.Component {
         handleInputChange={this.handleInputChange}
         toggleModify={this.toggleModify}
         updateTrip={this.updateTrip}
+        getConnectionRide={this.getConnectionRide}
         state={this.state}
       />
     </React.Fragment>
