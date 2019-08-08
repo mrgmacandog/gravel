@@ -259,27 +259,26 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Navbar
+          path={this.props.history.location}
+          loggedIn={this.state.loggedIn}
+          user={this.state.user}
+          loggedOut={this._logout}
+        >
+        </Navbar>
+        <div id="app-render">
+
+        </div>
+        {/* ***************************************** **/}
+
+        {/* Modal Test */}
+        {/* TODO: Delete button when everything is working */}
+        {/* <button className="btn btn-light" onClick={this.showModal} >Modal</button> */}
         <Router>
           {(this.state.redirectTo ?
             <Redirect to={this.state.redirectTo} />
             : null
           )}
-          <Navbar
-            path={this.props.history.location}
-            loggedIn={this.state.loggedIn}
-            user={this.state.user}
-            loggedOut={this._logout}
-          >
-          </Navbar>
-          <div id="app-render">
-
-          </div>
-          {/* ***************************************** **/}
-
-          {/* Modal Test */}
-          {/* TODO: Delete button when everything is working */}
-          {/* <button className="btn btn-light" onClick={this.showModal} >Modal</button> */}
-
 
           <TripModal
             id="modal"
@@ -296,6 +295,7 @@ class App extends Component {
 
           {/* React router. TODO: May need to place everything above into the respective page. */}
           <div>
+
             <Route exact path="/" render={(props) =>
               <Home
                 {...props}
