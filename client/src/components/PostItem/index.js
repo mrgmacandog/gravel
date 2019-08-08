@@ -35,7 +35,7 @@ class GetConnectionRide extends React.Component {
             <div>
                
                 {this.state && this.state.data &&
-                <p>{this.state.data.username}</p>
+                <p>{this.state.data.firstName} {this.state.data.lastName} - {this.state.data.email}</p>
                 }
             </div>
         )
@@ -78,7 +78,7 @@ function PostItem(props) {
                                     : <span className="badge badge-pill badge-danger">{props.db === "riders" ? "No Luggage" : "No Luggage Space"}</span>}
                             </p>
                             <p className="card-text">{props.trip.comment ? props.trip.comment : "No comment"}</p>
-                            <h5 className="card-text">{props.db === "riders" ? "Driver name" : "Riders name"}</h5>
+                            <h5 className="card-text">{props.db === "riders" ? "Driver" : "Riders"}</h5>
                             {props.db === "riders" &&
                                 <GetConnectionRide
                                     id={props.trip.driver_id}
