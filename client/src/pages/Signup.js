@@ -31,6 +31,9 @@ class Signup extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault()
+		console.log('STATE:')
+		console.log(this.state)
+		console.log('================================================')
 		//TO DO
 		//Add conditional to check if username already exists
 		if (!this.state.password || !this.state.confirmPassword || !this.state.username || !this.state.firstName || !this.state.lastName || !this.state.email) {
@@ -53,11 +56,13 @@ class Signup extends Component {
 				password: this.state.password
 			}).then(response => {
 					if (!response.data.error) {
-						console.log(this.state)
 						console.log('Registration succesful');
 						API.login(this.state.username, this.state.password)
 						.then(response => {
-							console.log(response)
+							
+							console.log("USER")
+							console.log(response.data.user)
+
 							if (response.data.message) {
 								return this.setState({
 									errorMsg: [response.data.message]
