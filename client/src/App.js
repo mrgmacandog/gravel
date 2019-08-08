@@ -348,13 +348,6 @@ class App extends Component {
           <Route exact path="/signup" component={() =>
             <Signup onLogin={this.loginState} />}
           />
-          <h1> {(this.state.loggedIn ?
-
-
-            <button onClick={this._logout}>Logout</button>
-            : null
-          )}
-          </h1>
           <Route exact path="/dashboard" render={(props) =>
             <Dashboard
               {...props}
