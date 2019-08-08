@@ -103,7 +103,7 @@ module.exports = app => {
 
   // Deleting an existing trip
   app.delete("/api/drivers/:_id", function (req, res) {
-    db.Driver.remove({ _id: req.params.id })
+    db.Driver.deleteOne({ _id: req.params._id })
       .then(function (dbDriver) {
         res.json(dbDriver)
       })
