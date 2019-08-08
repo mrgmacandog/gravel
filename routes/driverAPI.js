@@ -16,6 +16,13 @@ module.exports = app => {
       })
   });
 
+  app.get("/api/users/:_id", function (req, res) {
+    db.User.find({ _id: req.params._id })
+      .then(function (dbUser) {
+        res.json(dbUser);
+      })
+  });
+
   // Getting all the trip posted by rider, filter by start_location
   app.get("/api/drivers/:start_location", function (req, res) {
     db.Driver.find({ start_location: req.params.start_location, seats_available: { $gt : 0} })
