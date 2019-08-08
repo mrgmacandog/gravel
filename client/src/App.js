@@ -86,9 +86,6 @@ class App extends Component {
       event.preventDefault();
     }
 
-    alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
-
-
     if (this.state.startLocation === "") {
       API.getRider()
         .then(results => this.setState({ results: results.data }))
@@ -107,9 +104,6 @@ class App extends Component {
           .catch(err => console.log(err));
       }
     }
-
-
-    // this.getResults("riders");
   };
 
   // Get all drivers for Rider component
@@ -117,8 +111,6 @@ class App extends Component {
     if (event !== undefined) {
       event.preventDefault();
     }
-
-    alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
 
     if (this.state.startLocation === "") {
       API.getDriver()
@@ -135,8 +127,6 @@ class App extends Component {
           .catch(err => console.log(err));
       }
     }
-        // this.getResults("drivers");
-
   }
 
   getDriverPost = event => {
