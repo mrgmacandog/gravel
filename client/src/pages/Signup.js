@@ -26,9 +26,6 @@ class Signup extends Component {
 		this.setState({
 			[event.target.name]: event.target.value
 		})
-		console.log(this.state.email)
-		console.log(this.state.firstName)
-		console.log(this.state.lastName)
 	}
 
 
@@ -36,9 +33,9 @@ class Signup extends Component {
 		event.preventDefault()
 		//TO DO
 		//Add conditional to check if username already exists
-		if (!this.state.password || !this.state.confirmPassword || !this.state.username) {
+		if (!this.state.password || !this.state.confirmPassword || !this.state.username || !this.state.firstName || !this.state.lastName || !this.state.email) {
 			return this.setState({
-				errorMsg: ["Please fill out all fields"]
+				errorMsg: ["Please fill out all the required fields"]
 			})
 
 		} else if (this.state.confirmPassword !== this.state.password) {
@@ -49,6 +46,9 @@ class Signup extends Component {
 		} else {
 
 			axios.post('/auth/signup', {
+				firstName: this.state.firstName,
+				lastName: this.state.lastName,
+				email: this.state.email,
 				username: this.state.username,
 				password: this.state.password
 			}).then(response => {
