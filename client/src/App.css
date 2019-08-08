@@ -27,8 +27,9 @@
     margin-bottom: 30px;
 }
 
-.page-title {
+.page-title, .switch-page {
     color: #FFF;
+    text-shadow: 2px 2px 8px #000000;
 }
 
 #app-render {
