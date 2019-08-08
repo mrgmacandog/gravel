@@ -1,16 +1,17 @@
 import React from 'react'
+import './style.css'
 
 function ErrorList(props) {
     const errors = props.errors;
     console.log("ERRORS TYPE BELOW")
     console.log(typeof(errors))
     const listItems = errors.map((error) =>
-      <li>
+      <h3>
         {error}
-      </li>
+      </h3>
     );
     return (
-      <ul>{listItems}</ul>
+      <div>{listItems}</div>
     );
   }
 
