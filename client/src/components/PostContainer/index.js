@@ -13,7 +13,7 @@ function PostContainer(props) {
                 {/* Display each trip from results */}
                 {props.results.length > 0
                     ? props.results.map(trip => <PostItem {...props} key={trip._id} trip={trip} db={props.db} />)
-                    : <div className="col-md-12">{props.results.length === 0 ? <strong>"You haven't posted anything yet"</strong> : "Manage your posts"}</div>}
+                    : <p className="col-md-12">No trips yet!</p>}
             </div>
         </div>
     );

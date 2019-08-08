@@ -379,6 +379,7 @@ class App extends Component {
               handleInputChange={this.handleInputChange}
               getDriverPost={this.getDriverPost}
               getRiderPost={this.getRiderPost}
+              loggedIn={this.state.loggedIn}
             />}
           />
         </div>

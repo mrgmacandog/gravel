@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import PostContainer from "../components/PostContainer";
 import API from "../utils/API";
 import axios from "axios";
@@ -143,7 +144,7 @@ class Dashboard extends React.Component {
   render(){
     // console.log(props);
   return (
-
+    !this.props.loggedIn ? <Redirect to={"/signin"} /> :
     <React.Fragment>
       {/* TODO: Send TripContainer the data from Riders table */}
       <PostContainer
