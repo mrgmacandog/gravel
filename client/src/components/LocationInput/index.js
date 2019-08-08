@@ -8,7 +8,7 @@ function LocationInput(props) {
     return (
         <div className="input-group input-group-lg">
             <input className="form-control" type="text" {...props} />
-            <i id="current-location" class="btn fas fa-location-arrow" onClick={() => props.useCurrentLocation(props.name)}></i>
+            <i id="current-location" className="btn fas fa-location-arrow" onClick={() => props.useCurrentLocation(props.name)}></i>
         </div>
     );
 }
