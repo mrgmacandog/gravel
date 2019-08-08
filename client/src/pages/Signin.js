@@ -66,7 +66,7 @@ class LoginForm extends Component {
 		} else {
 			return (
 
-				<div className="row mt-5">
+				<div className="app-render row">
 					<div className="col-md-6 m-auto">
 						<div className="card card-body">
 							<h1 className="text-center mb-3"><i className="fas fa-sign-in-alt"></i>  Login</h1>

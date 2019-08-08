@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import TripContainer from "../components/TripContainer";
 import LocationInput from "../components/LocationInput";
 
@@ -12,7 +13,7 @@ class Rider extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="app-render">
                 <div className="rider-background">
                     <div className="container">
                         <h1 className="page-title">Rides Offered</h1>
@@ -38,13 +39,15 @@ class Rider extends Component {
                                 </div>
                             </div>
 
+                            <p className="switch-page float-left" style={{ color: "white", fontSize: "20px" }}>Looking for <Link to="/driver">rides requested</Link> instead?</p>
+
                             <button className="btn btn-primary float-right" type="submit" name="action" onClick={this.props.getDrivers}>Search</button>
                         </form>
                     </div>
                 </div>
 
                 <TripContainer page={"Rider"} loggedIn={this.props.state.loggedIn} results={this.props.state.results} showModal={this.props.showModal}/>
-            </React.Fragment>
+            </div>
         );
     }
 }

@@ -272,9 +272,9 @@ class App extends Component {
           loggedOut={this._logout}
         >
         </Navbar>
-        <div id="app-render">
-
-        </div>
+        {/* <div id="app-render">
+        // Commented the line above and below out and moved the id to the div with all the Routes
+        </div> */}
         {/* ***************************************** **/}
 
         {/* Modal Test */}
