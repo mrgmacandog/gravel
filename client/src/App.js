@@ -1,6 +1,6 @@
     
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, withRouter, Redirect } from "react-router-dom";
 import Nav from "./components/Nav";
 import TripModal from "./components/TripModal";
 import axios from "axios";
@@ -22,6 +22,7 @@ import "./App.css";
 class App extends Component {
   state = {
     loggedIn: false,
+    redirectTo: null,
     user: null,
     id: null,
     modalShow: false,
@@ -85,6 +86,9 @@ class App extends Component {
       event.preventDefault();
     }
 
+    alert(`Getting riders going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+
+
     if (this.state.startLocation === "") {
       API.getRider()
         .then(results => this.setState({ results: results.data }))
@@ -114,6 +118,8 @@ class App extends Component {
       event.preventDefault();
     }
 
+    alert(`Getting drivers going from ${this.state.startLocation === "" ? "anywhere" : this.state.startLocation} to ${this.state.endLocation === "" ? "anywhere" : this.state.endLocation}`);
+
     if (this.state.startLocation === "") {
       API.getDriver()
         .then(results => this.setState({ results: results.data }))
@@ -129,6 +135,8 @@ class App extends Component {
           .catch(err => console.log(err));
       }
     }
+        // this.getResults("drivers");
+
   }
 
   getDriverPost = event => {
@@ -239,10 +247,13 @@ class App extends Component {
         this.setState({
           loggedIn: false,
           user: null,
-          id: null
+          id: null,
+          redirectTo: null
+        }, () => {
+          window.location.href = '/'
         })
         console.log(this.state.loggedIn)
-        alert('Logged out!')
+
       }
     })
   }
@@ -251,7 +262,7 @@ class App extends Component {
     loggedIn: true,
     user: user,
     id: id,
-    redirect: '/'
+    redirectTo: '/'
   })
 
   render() {
@@ -261,6 +272,11 @@ class App extends Component {
           path={this.props.history.location}
           loggedIn={this.state.loggedIn}
         />
+        <Router>
+        {(this.state.redirectTo ? 
+        <Redirect to={this.state.redirectTo} />
+        : null
+        )}
         {/* Temporary website navigation               */}
         {/* TODO: Delete after all pages are navigable */}
         {/* ****************************************** */}
@@ -362,8 +378,9 @@ class App extends Component {
           <Route exact path="/signin" component={() =>
           <Signin onLogin={this.loginState} />}
           />
-          <Route exact path="/signup" component={Signup} />
-
+          <Route exact path="/signup" component={() => 
+            <Signup onLogin={this.loginState} />}
+          />
           <h1> {(this.state.loggedIn ?
 
 
@@ -383,6 +400,7 @@ class App extends Component {
             />}
           />
         </div>
+        </Router>
       </div>
 
     );
