@@ -272,9 +272,9 @@ class App extends Component {
           loggedOut={this._logout}
         >
         </Navbar>
-        <div id="app-render">
-
-        </div>
+        {/* <div id="app-render">
+        // Commented the line above and below out and moved the id to the div with all the Routes
+        </div> */}
         {/* ***************************************** **/}
 
         {/* Modal Test */}
@@ -294,7 +294,7 @@ class App extends Component {
         />
 
         {/* React router. TODO: May need to place everything above into the respective page. */}
-        <div>
+        <div id="app-render">
           <Route exact path="/" render={(props) =>
             <Home
               {...props}
