@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from 'axios'
 // import { Redirect } from 'react-router-dom'
 import API from '../utils/API';
+import AlertContainer from "../containers/AlertContainer"
+
 
 
 // Can change to stateful component if need be
@@ -11,7 +13,8 @@ class Signup extends Component {
 		this.state = {
 			username: '',
 			password: '',
-			confirmPassword: ''
+			confirmPassword: '',
+			errorMsg: []
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
@@ -27,24 +30,41 @@ class Signup extends Component {
 		event.preventDefault()
 		//TO DO
 		//Add conditional to check if username already exists
-		if (this.state.confirmPassword !== this.state.password) {
-			return alert("Passwords don't match")
-		} else if (this.state.password === '' || this.state.confirmPassword === '') {
-			return alert("Please fillout both password fields")
+		if (!this.state.password || !this.state.confirmPassword || !this.state.username) {
+			return this.setState({
+				errorMsg: ["Please fill out all fields"]
+			})
+
+		} else if (this.state.confirmPassword !== this.state.password) {
+			return this.setState({
+				errorMsg: ["Passwords do not match"]
+			})
+
 		} else {
-			//loggedIn value won't 
+
 			axios.post('/auth/signup', {
 				username: this.state.username,
 				password: this.state.password
-			})
-				.then(response => {
+			}).then(response => {
 					if (!response.data.error) {
 						console.log(this.state)
 						console.log('Registration succesful');
-						API.login(this.state.username, this.state.password, this.props.onLogin);
+						API.login(this.state.username, this.state.password)
+						.then(response => {
+							console.log(response)
+							if (response.data.message) {
+								return this.setState({
+									errorMsg: [response.data.message]
+								})
+							}
+							this.props.onLogin(response.data.user.local.username, response.data.user._id);
+						})
 					} else {
 						console.log('duplicate')
-						return alert(response.data.error)
+						console.log(response.data.error)
+						this.setState({
+							errorMsg: [response.data.error]
+						})
 					}
 				})
 		}
@@ -55,48 +75,54 @@ class Signup extends Component {
 				<div class="col-md-6 m-auto">
 					<div class="card card-body">
 						<h1 class="text-center mb-3">
-							<i class="fas fa-user-plus"></i> Register 
+						<i class="fas fa-user-plus"></i> Register
 						</h1>
-						<form action="/users/register" method="POST">
-							<div class="form-group">
-								<label for="name">Name</label>
-								<input
-									type="text"
-									id="name"
-									name="username"
-									class="form-control"
-									placeholder="Enter Username"
-									value={this.state.username}
-									onChange={this.handleChange}
-								/>
-							</div>
+						<div class="form-group">
+							{(!this.state.errorMsg.length < 1 ?
+								<AlertContainer errors={this.state.errorMsg} />
+								: null
+							)}
 
-							<div class="form-group">
-								<label for="password">Password</label>
-								<input
-									type="password"
-									id="password"
-									name="password"
-									class="form-control"
-									placeholder="Create Password"
-									value={this.state.password}
-									onChange={this.handleChange}
-								/>
-							</div>
-							<div class="form-group">
-								<label for="password2">Confirm Password</label>
-								<input
-									type="password"
-									id="password2"
-									name="confirmPassword"
-									class="form-control"
-									placeholder="Confirm Password"
-									value={this.state.confirmPassword}
-									onChange={this.handleChange}
-								/>
-							</div>
-							<button onClick={this.handleSubmit}>Sign up</button>
-						</form>
+
+							{/* {(this.state.errorMsg ? this.state.errorMsg : null )} */}
+							<br />
+							<label for="name">Username</label>
+							<input
+								type="text"
+								id="name"
+								name="username"
+								class="form-control"
+								placeholder="Enter Username"
+								value={this.state.username}
+								onChange={this.handleChange}
+							/>
+						</div>
+
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input
+								type="password"
+								id="password"
+								name="password"
+								class="form-control"
+								placeholder="Create Password"
+								value={this.state.password}
+								onChange={this.handleChange}
+							/>
+						</div>
+						<div class="form-group">
+							<label for="password2">Confirm Password</label>
+							<input
+								type="password"
+								id="password2"
+								name="confirmPassword"
+								class="form-control"
+								placeholder="Confirm Password"
+								value={this.state.confirmPassword}
+								onChange={this.handleChange}
+							/>
+						</div>
+						<button onClick={this.handleSubmit}>Sign up</button>
 						<p class="lead mt-4">Have An Account? <a href="/signin">Login</a></p>
 					</div>
 				</div>
