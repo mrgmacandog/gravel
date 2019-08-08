@@ -294,7 +294,7 @@ class App extends Component {
         />
 
         {/* React router. TODO: May need to place everything above into the respective page. */}
-        <div id="app-render">
+        <div>
           <Route exact path="/" render={(props) =>
             <Home
               {...props}

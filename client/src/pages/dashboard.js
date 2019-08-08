@@ -146,7 +146,7 @@ class Dashboard extends React.Component {
     // console.log(props);
   return (
     !this.props.loggedIn ? <Redirect to={"/signin"} /> :
-    <React.Fragment>
+    <div class="app-render">
       {/* TODO: Send TripContainer the data from Riders table */}
       <PostContainer
         page={"Dashboard"}
@@ -172,7 +172,7 @@ class Dashboard extends React.Component {
         getConnectionRide={this.getConnectionRide}
         state={this.state}
       />
-    </React.Fragment>
+    </div>
   );
   }
 }

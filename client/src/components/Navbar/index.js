@@ -8,7 +8,7 @@ import "./style.css";
 
 function Navbar(props) {
     return (
-        <nav className="navbar navbar-fixed">
+        <nav className="navbar navbar-fixed bg-transparent">
             <ul className="navbar-nav">
                 <li className="nav-item">
                     <Link to="/" className="navbar-brand">Gravel</Link>

@@ -13,7 +13,7 @@ class Driver extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="app-render">
                 <div className="driver-background">
                     <div className="container">
                         <h1 className="page-title">Rides Requested</h1>
@@ -47,7 +47,7 @@ class Driver extends Component {
                 </div>
 
                 <TripContainer page={"Driver"} loggedIn={this.props.state.loggedIn} results={this.props.state.results} showModal={this.props.showModal}/>
-            </React.Fragment>
+            </div>
         );
     }
 }

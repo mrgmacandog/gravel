@@ -13,7 +13,7 @@ class Rider extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="app-render">
                 <div className="rider-background">
                     <div className="container">
                         <h1 className="page-title">Rides Offered</h1>
@@ -47,7 +47,7 @@ class Rider extends Component {
                 </div>
 
                 <TripContainer page={"Rider"} loggedIn={this.props.state.loggedIn} results={this.props.state.results} showModal={this.props.showModal}/>
-            </React.Fragment>
+            </div>
         );
     }
 }

@@ -82,7 +82,7 @@ class Signup extends Component {
 	}
 	render() {
 		return (
-			<div className="row mt-5">
+			<div className="app-render row">
 				<div className="col-md-6 m-auto">
 					<div className="card card-body">
 						<h1 className="text-center mb-3">

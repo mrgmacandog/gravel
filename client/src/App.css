@@ -1,10 +1,10 @@
 #home-container {
-    height: calc(100vh - 92px);
+    height: calc(100vh);
     /* https://commons.wikimedia.org/wiki/File:Llano_Estacado_Crosby_County_FM651_2009.jpg */
     background-image: url("/images/home.jpg");
     background-size: cover;
     background-position: center;
-    padding-top: 100px;
+    padding-top: 240px;
 }
 
 .driver-background {
@@ -32,6 +32,6 @@
     text-shadow: 2px 2px 8px #000000;
 }
 
-#app-render {
+.app-render {
     margin-top: 92px;
 }

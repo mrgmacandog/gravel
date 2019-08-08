@@ -4,7 +4,7 @@ import FormContainer from "../containers/FormContainer";
 // Can change to stateful component if need be
 function DriverPost(props) {
   return (
-    <div className="row mt-5">
+    <div className="app-render row">
       <div className="col-md-6 m-auto">
         <h3>New Driver Post</h3>
         <div className="card card-body">
