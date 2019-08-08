@@ -11,7 +11,7 @@
 .driver {
     color: white;
     line-height: 50px; 
-    width:50%; 
+    /* width:50%;  */
     text-align:center; 
     margin:0 auto;
 }
@@ -19,7 +19,7 @@
 .rider {
     color: white;
     line-height: 50px; 
-    width:50%; 
+    /* width:50%;  */
     text-align:center;
     margin:0 auto; 
 }
