@@ -274,20 +274,97 @@ class App extends Component {
           loggedOut={this._logout}
         >
         </Navbar>
+        {/* <div id="app-render">
+        // Commented the line above and below out and moved the id to the div with all the Routes
+        </div> */}
+        {/* ***************************************** **/}
 
-        <div id="app-render">
+        {/* Modal Test */}
+        {/* TODO: Delete button when everything is working */}
+        {/* <button className="btn btn-light" onClick={this.showModal} >Modal</button> */}
+        <TripModal
+          id="modal"
+          show={this.state.modalShow}
+          onHide={this.hideModal}
+          trip={this.state.modalTrip}
+          modalStartCoords={this.state.modalStartCoords}
+          modalEndCoords={this.state.modalEndCoords}
+          connectWithRider={this.connectWithRider}
+          connectWithDriver={this.connectWithDriver}
+          loggedIn={this.state.loggedIn}
+          modalPath={this.state.modalPath}
+        />
 
-          <TripModal
-            id="modal"
-            show={this.state.modalShow}
-            onHide={this.hideModal}
-            trip={this.state.modalTrip}
-            modalStartCoords={this.state.modalStartCoords}
-            modalEndCoords={this.state.modalEndCoords}
-            connectWithRider={this.connectWithRider}
-            connectWithDriver={this.connectWithDriver}
-            loggedIn={this.state.loggedIn}
-            modalPath={this.state.modalPath}
+        {/* React router. TODO: May need to place everything above into the respective page. */}
+        <div>
+          <Route exact path="/" render={(props) =>
+            <Home
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              useCurrentLocation={this.useCurrentLocation}
+            />}
+          />
+          <Route exact path="/home" render={(props) =>
+            <Home
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              useCurrentLocation={this.useCurrentLocation}
+            />}
+          />
+          <Route exact path="/driver" render={(props) =>
+            <Driver
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              getRiders={this.getRiders}
+              showModal={this.showModal}
+              useCurrentLocation={this.useCurrentLocation}
+            />}
+          />
+          <Route exact path="/driver-post" render={(props) =>
+            <DriverPost
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              onLogin={this.loginState}
+            />}
+          />
+          <Route exact path="/rider" render={(props) =>
+            <Rider
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              getDrivers={this.getDrivers}
+              showModal={this.showModal}
+              useCurrentLocation={this.useCurrentLocation}
+            />}
+          />
+          <Route exact path="/rider-post" render={(props) =>
+            <RiderPost
+              {...props}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              onLogin={this.loginState}
+            />}
+          />
+          <Route exact path="/signin" component={() =>
+            <Signin onLogin={this.loginState} />}
+          />
+          <Route exact path="/signup" component={() =>
+            <Signup onLogin={this.loginState} />}
+          />
+          <Route exact path="/dashboard" render={(props) =>
+            <Dashboard
+              {...props}
+              id={this.state.id}
+              state={this.state}
+              handleInputChange={this.handleInputChange}
+              getDriverPost={this.getDriverPost}
+              getRiderPost={this.getRiderPost}
+              loggedIn={this.state.loggedIn}
+            />}
           />
 
           {/* React router. TODO: May need to place everything above into the respective page. */}

@@ -65,9 +65,6 @@ export default function Home(props) {
             </Col>
           </Row>
           <Row>
-            <p>I am a</p>
-          </Row>
-          <Row>
             <Col size="sm-6">
               
               <ChoiceButton
@@ -76,7 +73,7 @@ export default function Home(props) {
                 route="/driver"
               >
               </ChoiceButton>
-              <h4 className="driver">Driver</h4>
+              <h4 className="driver">I am a Driver</h4>
             </Col>
             <Col size="sm-6">
               <ChoiceButton
@@ -85,7 +82,7 @@ export default function Home(props) {
                 route={"/rider"}
               >
               </ChoiceButton>
-              <h4 className="rider">Rider</h4>
+              <h4 className="rider">I am a Rider</h4>
             </Col>
           </Row>
         </Container>

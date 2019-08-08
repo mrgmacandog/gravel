@@ -64,8 +64,11 @@ router.post('/logout', (req, res) => {
 
 //Check username and password with local strategy
 router.post('/signup', (req, res) => {
-	const { username, password } = req.body
-	// ADD VALIDATION
+	
+	const { firstName, lastName, email, username, password } = req.body
+	console.log('=======================================')
+	console.log('USERNAME:')
+	console.log(username)
 	User.findOne({ 'local.username': username }, (err, userMatch) => {
 		if (userMatch) {
 			return res.json({
@@ -73,10 +76,17 @@ router.post('/signup', (req, res) => {
 			})
 		}
 		const newUser = new User({
+			'local.firstName': firstName,
+			'local.lastName': lastName,
+			'local.email': email,
 			'local.username': username,
 			'local.password': password,
 			'local.loggedIn': true
 		})
+		console.log('=======================================')
+		console.log('NEW USER:')
+		console.log(newUser)
+		console.log('=======================================')
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err)
 			return res.json(savedUser)

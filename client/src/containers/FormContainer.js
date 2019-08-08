@@ -141,7 +141,7 @@ class FormContainer extends Component {
         <Input
           inputType={"text"}
           name={"start_location"}
-          title={"Start_location"}
+          title={"Start Location"}
           value={this.state.newPost.start_location}
           placeholder={"Enter your start location"}
           handleChange={this.handleStart_location}
@@ -150,7 +150,7 @@ class FormContainer extends Component {
         <Input
           inputType={"text"}
           name={"end_location"}
-          title={"End_location"}
+          title={"End Location"}
           value={this.state.newPost.end_location}
           placeholder={"Enter your final destination"}
           handleChange={this.handleInput}
@@ -158,7 +158,7 @@ class FormContainer extends Component {
         <Input
           type={"date"}
           name={"leaving_date"}
-          title={"Leaving date"}
+          title={"Leaving Date"}
           value={this.state.newPost.leaving_date}
           placeholder={"Enter your the leaving date"}
           handleChange={this.handleInput}

@@ -66,7 +66,7 @@ class LoginForm extends Component {
 		} else {
 			return (
 
-				<div className="row mt-5">
+				<div className="app-render row">
 					<div className="col-md-6 m-auto">
 						<div className="card card-body">
 							<h1 className="text-center mb-3"><i className="fas fa-sign-in-alt"></i>  Login</h1>
@@ -77,7 +77,7 @@ class LoginForm extends Component {
 								)}
 								{/* <ErrorList errors={this.state.errorMsg} /> */}
 								<br />
-								<label for="username">Username</label>
+								<label htmlFor="username">Username</label>
 								<input
 									type="text"
 									id="username"
@@ -89,7 +89,7 @@ class LoginForm extends Component {
 								/>
 							</div>
 							<div className="form-group">
-								<label for="password">Password</label>
+								<label htmlFor="password">Password</label>
 								<input
 									type="password"
 									id="password"
