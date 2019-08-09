@@ -60,7 +60,7 @@ function PostItem(props) {
                         </h5>
                         <div className="card-body">
                             <p className="card-title">
-                                <strong>{moment(props.trip.leaving_date).format("MMMM Do YYYY")}</strong>
+                                <strong>{moment(props.trip.leaving_date).add(1, "day").format("MMMM Do YYYY")}</strong>
                             </p>
                             <p className="card-text">
                                 {props.trip.flexible_date
