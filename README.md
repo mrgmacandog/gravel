@@ -1,4 +1,19 @@
-# Create React Express App
+# Create React Express App - GRAVEL
+
+##  This app connects riders and drivers looking to carpool.
+
+The Gravel application allows the user to do:
+
+1. Sign up for the app. 
+
+2. Make a post requesting or offering. 
+
+3. See the flexibility of the date, cost, number of seats, whether or not smoking is allowed, and whether or not there is luggage space/necessity a ride.
+
+4. See a map of the intended start and end location will be displayed and they can then connect with the author and inquire about the ride offered or requested.
+
+5. View existing posts in a dashboard page and also the drivers or riders with whom they are connected.
+
 
 ## About This Boilerplate
 
